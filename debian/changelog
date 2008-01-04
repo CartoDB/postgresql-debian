@@ -1,12 +1,67 @@
-postgresql-8.2 (8.2.5-5) UNRELEASED; urgency=low
+postgresql-8.2 (8.2.6-1) UNRELEASED; urgency=low
 
+  * New upstream security/bugfix release:
+    - Prevent functions in indexes from executing with the privileges of
+      the user running "VACUUM", "ANALYZE", etc. "SET ROLE" is now forbidden
+      within a SECURITY DEFINER context. [CVE-2007-6600]
+    - Suitably crafted regular-expression patterns could cause crashes,
+      infinite or near-infinite looping, and/or massive memory
+      consumption, all of which pose denial-of-service hazards for
+      applications that accept regex search patterns from untrustworthy
+      sources. [CVE-2007-4769, CVE-2007-4772, CVE-2007-6067]
+    - Require non-superusers who use "/contrib/dblink" to use only
+      password authentication, as a security measure.
+      The fix that appeared for this in 8.2.5 was incomplete, as it
+      plugged the hole for only some "dblink" functions. [CVE-2007-6601,
+      CVE-2007-3278]
+    - Fix bugs in WAL replay for GIN indexes.
+    - Fix GIN index build to work properly when maintenance_work_mem is
+      4GB or more.
+    - Improve planner's handling of LIKE/regex estimation in non-C
+      locales.
+    - Fix planning-speed problem for deep outer-join nests, as well as
+      possible poor choice of join order.
+    - Fix planner failure in some cases of WHERE false AND var IN (SELECT
+      ...).
+    - Make "CREATE TABLE ... SERIAL" and "ALTER SEQUENCE ... OWNED BY"
+      not change the currval() state of the sequence.
+    - Preserve the tablespace and storage parameters of indexes that are
+      rebuilt by "ALTER TABLE ... ALTER COLUMN TYPE".
+    - Make archive recovery always start a new WAL timeline, rather than
+      only when a recovery stop time was used. This avoids a corner-case risk
+      of trying to overwrite an existing archived copy of the last WAL
+      segment, and seems simpler and cleaner than the original definition.
+    - Make "VACUUM" not use all of maintenance_work_mem when the table is
+      too small for it to be useful.
+    - Fix potential crash in translate() when using a multibyte database
+      encoding.
+    - Make corr() return the correct result for negative correlation
+      values.
+    - Fix overflow in extract(epoch from interval) for intervals
+      exceeding 68 years.
+    - Fix PL/Perl to not fail when a UTF-8 regular expression is used in
+      a trusted function.
+    - Fix PL/Python to work correctly with Python 2.5 on 64-bit machines
+      (Marko Kreen)
+    - Fix PL/Python to not crash on long exception messages.
+    - Fix pg_dump to correctly handle inheritance child tables that have
+      default expressions different from their parent's.
+    - Fix libpq crash when PGPASSFILE refers to a file that is not a
+      plain file.
+    - ecpg parser fixes.
+    - Make "contrib/tablefunc"'s crosstab() handle NULL rowid as a
+      category in its own right, rather than crashing.
+    - Fix tsvector and tsquery output routines to escape backslashes
+      correctly. (LP: #146382)
+    - Fix crash of to_tsvector() on huge input strings.
+  * Drop debian/patches/00upstream-tsearch2-compareWORD.patch, upstream.
   * Ship pg_config in postgresql-server-dev, and ship a copy in /usr/bin in
     libpq-dev, instead of libpq-dev shipping it in
     /usr/lib/postgresql/<version>/bin. This makes it possible to use a
     libpq-dev from a different major version (like 8.3 from experimental).
     (Closes: #455509)
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 11 Dec 2007 10:17:30 +0100
+ -- Martin Pitt <mpitt@debian.org>  Fri, 04 Jan 2008 15:02:55 +0100
 
 postgresql-8.2 (8.2.5-4) unstable; urgency=medium
 
