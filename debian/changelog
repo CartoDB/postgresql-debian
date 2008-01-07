@@ -1,4 +1,4 @@
-postgresql-8.2 (8.2.6-1) UNRELEASED; urgency=low
+postgresql-8.2 (8.2.6-1) unstable; urgency=medium
 
   * New upstream security/bugfix release:
     - Prevent functions in indexes from executing with the privileges of
