@@ -1,4 +1,4 @@
-postgresql-8.2 (8.2.6-2) UNRELEASED; urgency=low
+postgresql-8.2 (8.2.6-2) unstable; urgency=low
 
   * debian/control: Do not build the versionless metapackages any more, they
     are now built by postgresql-8.3 (which also becomes the default now).
