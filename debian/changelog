@@ -1,3 +1,9 @@
+postgresql-8.2 (8.2.6-3) UNRELEASED; urgency=low
+
+  * debian/watch: Update for currently working mirror. (Closes: #462823)
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 01 Feb 2008 18:44:20 +0100
+
 postgresql-8.2 (8.2.6-2) unstable; urgency=low
 
   * debian/control: Do not build the versionless metapackages any more, they
