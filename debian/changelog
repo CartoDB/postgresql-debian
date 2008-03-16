@@ -1,8 +1,42 @@
-postgresql-8.2 (8.2.6-3) UNRELEASED; urgency=low
+postgresql-8.2 (8.2.7-1) UNRELEASED; urgency=low
 
+  * New upstream bug fix release:
+    - Repair potential deadlock between concurrent "VACUUM FULL"
+      operations on different system catalogs.
+    - Fix longstanding "LISTEN"/"NOTIFY" race condition.
+    - Disallow "LISTEN" and "UNLISTEN" within a prepared transaction.
+      This was formerly allowed but trying to do it had various
+      unpleasant consequences, notably that the originating backend could
+      not exit as long as an "UNLISTEN" remained uncommitted.
+    - Disallow dropping a temporary table within a prepared transaction
+      This was correctly disallowed by 8.1, but the check was
+      inadvertently broken in 8.2.
+    - Fix rare crash when an error occurs during a query using a hash
+      index.
+    - Fix memory leaks in certain usages of set-returning functions.
+    - Fix input of datetime values for February 29 in years BC.
+    - Fix "unrecognized node type" error in some variants of "ALTER
+      OWNER".
+    - Ensure pg_stat_activity.waiting flag is cleared when a lock wait is
+      aborted.
+    - Fix pg_ctl to correctly extract the postmaster's port number from
+      command-line options.(See #358546)
+    - Use "-fwrapv" to defend against possible misoptimization in recent
+      gcc versions.
+    - Correctly enforce statement_timeout values longer than INT_MAX
+      microseconds (about 35 minutes).
+    - Fix "unexpected PARAM_SUBLINK ID" planner error when
+      constant-folding simplifies a sub-select.
+    - Fix logical errors in constraint-exclusion handling of IS NULL and
+      NOT expressions.
+    - Fix another cause of "failed to build any N-way joins" planner
+      errors.
+    - Fix incorrect constant propagation in outer-join planning.
+    - Fix display of constant expressions in ORDER BY and GROUP BY.
+    - Fix libpq to handle NOTICE messages correctly during COPY OUT.
   * debian/watch: Update for currently working mirror. (Closes: #462823)
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 01 Feb 2008 18:44:20 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sun, 16 Mar 2008 11:57:26 +0100
 
 postgresql-8.2 (8.2.6-2) unstable; urgency=low
 
