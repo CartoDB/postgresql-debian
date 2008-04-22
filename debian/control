@@ -4,7 +4,11 @@ Priority: optional
 Maintainer: Martin Pitt <mpitt@debian.org>
 Standards-Version: 3.7.3
 XS-Python-Version: current
-Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8), libperl-dev, tcl8.4-dev, libreadline5-dev (>= 4.2), libssl-dev, zlib1g-dev | libz-dev, libpam0g-dev | libpam-dev, libxml2-dev, libkrb5-dev, libxslt1-dev, python-dev, python-central (>= 0.5), gettext, bzip2, libpq-dev
+Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8), 
+ libperl-dev, tcl8.4-dev, libreadline5-dev (>= 4.2), libssl-dev,
+ zlib1g-dev | libz-dev, libpam0g-dev | libpam-dev, libxml2-dev,
+ libkrb5-dev, libxslt1-dev, python-dev, python-central (>= 0.5),
+ gettext, bzip2, libpq-dev (>= 8.2~beta1-1)
 
 Package: postgresql-8.2
 Architecture: any

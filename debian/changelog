@@ -1,3 +1,10 @@
+postgresql-8.2 (8.2.7-2) UNRELEASED; urgency=low
+
+  * Bump build dependency libpq-dev to a version which depends on libpq5, to
+    unbreak backports. Thanks to Gerfried Fuchs! (Closes: #474363)
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 22 Apr 2008 14:11:57 +0200
+
 postgresql-8.2 (8.2.7-1) unstable; urgency=low
 
   * New upstream bug fix release:
