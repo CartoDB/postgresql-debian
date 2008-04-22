@@ -1,4 +1,4 @@
-postgresql-8.2 (8.2.7-1) UNRELEASED; urgency=low
+postgresql-8.2 (8.2.7-1) unstable; urgency=low
 
   * New upstream bug fix release:
     - Repair potential deadlock between concurrent "VACUUM FULL"
