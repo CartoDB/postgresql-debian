@@ -1,4 +1,4 @@
-postgresql-8.3 (8.3.7-2) UNRELEASED; urgency=low
+postgresql-8.3 (8.3.7-2) unstable; urgency=low
 
   * debian/control: Fix section to be "databases", according to existing
     archive overrides.
@@ -7,7 +7,7 @@ postgresql-8.3 (8.3.7-2) UNRELEASED; urgency=low
   * debian/control: Drop the versionless metapackages, they are now built by
     -8.4.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 20 Mar 2009 12:00:13 +0100
+ -- Martin Pitt <mpitt@debian.org>  Wed, 01 Jul 2009 17:44:16 +0200
 
 postgresql-8.3 (8.3.7-1) unstable; urgency=low
 
