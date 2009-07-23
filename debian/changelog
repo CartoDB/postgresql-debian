@@ -1,3 +1,9 @@
+postgresql-8.3 (8.3.7-3) UNRELEASED; urgency=low
+
+  * Drop library packages, they are built by postgresql-8.4 now.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 23 Jul 2009 11:50:02 +0200
+
 postgresql-8.3 (8.3.7-2) unstable; urgency=low
 
   * debian/control: Fix section to be "databases", according to existing
