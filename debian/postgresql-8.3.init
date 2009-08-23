@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 ### BEGIN INIT INFO
-# Provides:		postgresql postgresql-8.3
+# Provides:		postgresql-8.3
 # Required-Start:	$local_fs $remote_fs $network $time
 # Required-Stop:	$local_fs $remote_fs $network $time
 # Should-Start:		$syslog

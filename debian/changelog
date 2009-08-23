@@ -2,6 +2,10 @@ postgresql-8.3 (8.3.7-4) UNRELEASED; urgency=low
 
   * debian/control: Add missing libpq-dev build dependency to fix FTBFS, since
     we don't build libpq5 ourselves any more. (Closes: #538316)
+  * debian/postgresql-8.3.init: Drop "postgresql" from LSB "Provides" header,
+    since insserv falls over if multiple packages provide a service. Just
+    provide "postgresql-8.3" and let the default version (8.4) provide
+    "postgresql". (Closes: #535442)
 
  -- Martin Pitt <mpitt@debian.org>  Sun, 23 Aug 2009 19:17:24 +0200
 
