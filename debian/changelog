@@ -1,3 +1,10 @@
+postgresql-8.3 (8.3.7-4) UNRELEASED; urgency=low
+
+  * debian/control: Add missing libpq-dev build dependency to fix FTBFS, since
+    we don't build libpq5 ourselves any more. (Closes: #538316)
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 23 Aug 2009 19:17:24 +0200
+
 postgresql-8.3 (8.3.7-3) unstable; urgency=low
 
   * Drop library packages, they are built by postgresql-8.4 now.
