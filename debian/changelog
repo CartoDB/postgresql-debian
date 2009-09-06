@@ -55,6 +55,7 @@ postgresql-8.3 (8.3.8-1) UNRELEASED; urgency=low
       number of parameters (twenty).
     - Improve robustness of libpq's code to recover from errors during
       "COPY FROM STDIN".
+  * Bump Standards-Version to 3.8.3 (no changes necessary).
 
  -- Martin Pitt <mpitt@debian.org>  Sun, 06 Sep 2009 13:29:21 +0200
 
