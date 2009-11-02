@@ -1,6 +1,6 @@
 postgresql-8.3 (8.3.8-2) UNRELEASED; urgency=low
 
-  * debian/control: libreadline5-dev → libreadline-dev.
+  * debian/control: libreadline5-dev → libreadline-dev. (Closes: #553828)
 
  -- Martin Pitt <mpitt@debian.org>  Mon, 14 Sep 2009 09:18:21 +0200
 
