@@ -1,4 +1,6 @@
-postgresql-8.3 (8.3.9-1) UNRELEASED; urgency=low
+postgresql-8.3 (8.3.9-1) unstable; urgency=medium
+
+  Urgency medium due to security fixes.
 
   * New upstream security/bug fix release:
     - Protect against indirect security threats caused by index functions
@@ -56,7 +58,7 @@ postgresql-8.3 (8.3.9-1) UNRELEASED; urgency=low
       libpq versions.
   * debian/control: libreadline5-dev → libreadline-dev. (Closes: #553828)
 
- -- Martin Pitt <mpitt@debian.org>  Mon, 14 Sep 2009 09:18:21 +0200
+ -- Martin Pitt <mpitt@debian.org>  Mon, 14 Dec 2009 23:00:56 +0100
 
 postgresql-8.3 (8.3.8-1) unstable; urgency=medium
 
