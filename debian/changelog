@@ -1,5 +1,59 @@
-postgresql-8.3 (8.3.8-2) UNRELEASED; urgency=low
+postgresql-8.3 (8.3.9-1) UNRELEASED; urgency=low
 
+  * New upstream security/bug fix release:
+    - Protect against indirect security threats caused by index functions
+      changing session-local state. This change prevents allegedly-immutable
+      index functions from possibly subverting a superuser's session
+      (CVE-2009-4136).
+    - Reject SSL certificates containing an embedded null byte in the
+      common name (CN) field. This prevents unintended matching of a
+      certificate to a server or client name during SSL validation
+      (CVE-2009-4034).
+    - Fix possible crash during backend-startup-time cache initialization.
+    - Avoid crash on empty thesaurus dictionary.
+    - Prevent signals from interrupting VACUUM at unsafe times.
+    - Fix possible crash due to integer overflow in hash table size
+      calculation.
+    - Fix very rare crash in inet/cidr comparisons.
+    - Ensure that shared tuple-level locks held by prepared transactions
+      are not ignored.
+    - Fix premature drop of temporary files used for a cursor that is
+      accessed within a subtransaction.
+    - Fix memory leak in syslogger process when rotating to a new CSV
+      logfile.
+    - Fix incorrect logic for GiST index page splits, when the split
+      depends on a non-first column of the index.
+    - Don't error out if recycling or removing an old WAL file fails at
+      the end of checkpoint. It's better to treat the problem as non-fatal and
+      allow the checkpoint to complete. Future checkpoints will retry the
+      removal.  Such problems are not expected in normal operation, but have
+      been seen to be caused by misdesigned Windows anti-virus and backup
+      software.
+    - Fix PAM password processing to be more robust.
+    - Raise the maximum authentication token (Kerberos ticket) size in
+      GSSAPI and SSPI authentication methods. While the old 2000-byte limit
+      was more than enough for Unix Kerberos implementations, tickets issued
+      by Windows Domain Controllers can be much larger.
+    - Re-enable collection of access statistics for sequences. This used to
+      work but was broken in 8.3.
+    - Fix processing of ownership dependencies during CREATE OR REPLACE
+      FUNCTION.
+    - Fix incorrect handling of WHERE "x"="x" conditions.
+      In some cases these could get ignored as redundant, but they aren't
+      -- they're equivalent to "x" IS NOT NULL.
+    - Make text search parser accept underscores in XML attributes.
+    - Fix encoding handling in xml binary input. If the XML header doesn't
+      specify an encoding, we now assume UTF-8 by default; the previous
+      handling was inconsistent.
+    - Fix bug with calling plperl from plperlu or vice versa.
+    - Fix session-lifespan memory leak when a PL/Perl function is
+      redefined.
+    - Ensure that Perl arrays are properly converted to PostgreSQL arrays
+      when returned by a set-returning PL/Perl function.
+    - Fix rare crash in exception processing in PL/Python.
+    - Make the postmaster ignore any application_name parameter in
+      connection request packets, to improve compatibility with future
+      libpq versions.
   * debian/control: libreadline5-dev → libreadline-dev. (Closes: #553828)
 
  -- Martin Pitt <mpitt@debian.org>  Mon, 14 Sep 2009 09:18:21 +0200
