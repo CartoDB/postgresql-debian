@@ -1,3 +1,82 @@
+postgresql-8.4 (8.4.4-1) UNRELEASED; urgency=low
+
+  * New upstream security/bug fix release:
+    - Enforce restrictions in plperl using an opmask applied to the whole
+      interpreter, instead of using "Safe.pm".
+      Recent developments have convinced us that "Safe.pm" is too
+      insecure to rely on for making plperl trustable. This change
+      removes use of "Safe.pm" altogether, in favor of using a separate
+      interpreter with an opcode mask that is always applied. Pleasant
+      side effects of the change include that it is now possible to use
+      Perl's strict pragma in a natural way in plperl, and that Perl's $a
+      and $b variables work as expected in sort routines, and that
+      function compilation is significantly faster. (CVE-2010-1169)
+    - Prevent PL/Tcl from executing untrustworthy code from pltcl_modules.
+      PL/Tcl's feature for autoloading Tcl code from a database table
+      could be exploited for trojan-horse attacks, because there was no
+      restriction on who could create or insert into that table. This
+      change disables the feature unless pltcl_modules is owned by a
+      superuser. (However, the permissions on the table are not checked,
+      so installations that really need a less-than-secure modules table
+      can still grant suitable privileges to trusted non-superusers.)
+      Also, prevent loading code into the unrestricted "normal" Tcl
+      interpreter unless we are really going to execute a pltclu
+      function. (CVE-2010-1170)
+    - Fix data corruption during WAL replay of ALTER ... SET TABLESPACE.
+      When archive_mode is on, ALTER ... SET TABLESPACE generates a WAL
+      record whose replay logic was incorrect. It could write the data to
+      the wrong place, leading to possibly-unrecoverable data corruption.
+      Data corruption would be observed on standby slaves, and could
+      occur on the master as well if a database crash and recovery
+      occurred after committing the ALTER and before the next checkpoint.
+    - Fix possible crash if a cache reset message is received during
+      rebuild of a relcache entry.
+      This error was introduced in 8.4.3 while fixing a related failure.
+    - Apply per-function GUC settings while running the language
+      validator for the function. This avoids failures if the function's code
+      is invalid without the setting; an example is that SQL functions may not
+      parse if the search_path is not correct.
+    - Do constraint exclusion for inherited "UPDATE" and "DELETE" target
+      tables when constraint_exclusion = partition.
+      Due to an oversight, this setting previously only caused constraint
+      exclusion to be checked in "SELECT" commands.
+    - Do not allow an unprivileged user to reset superuser-only parameter
+      settings.
+      Previously, if an unprivileged user ran ALTER USER ... RESET ALL
+      for himself, or ALTER DATABASE ... RESET ALL for a database he
+      owns, this would remove all special parameter settings for the user
+      or database, even ones that are only supposed to be changeable by a
+      superuser. Now, the "ALTER" will only remove the parameters that
+      the user has permission to change.
+    - Avoid possible crash during backend shutdown if shutdown occurs
+      when a CONTEXT addition would be made to log entries.
+      In some cases the context-printing function would fail because the
+      current transaction had already been rolled back when it came time
+      to print a log message.
+    - Fix erroneous handling of %r parameter in recovery_end_command.
+      The value always came out zero.
+    - Ensure the archiver process responds to changes in archive_command
+      as soon as possible.
+    - Fix pl/pgsql's CASE statement to not fail when the case expression
+      is a query that returns no rows.
+    - Update pl/perl's "ppport.h" for modern Perl versions.
+    - Fix assorted memory leaks in pl/python.
+    - Handle empty-string connect parameters properly in ecpg.
+    - Prevent infinite recursion in psql when expanding a variable that
+      refers to itself.
+    - Fix psql's \copy to not add spaces around a dot within \copy
+      (select ...).
+      Addition of spaces around the decimal point in a numeric literal
+      would result in a syntax error.
+    - Avoid formatting failure in psql when running in a locale context
+      that doesn't match the client_encoding.
+    - Fix unnecessary "GIN indexes do not support whole-index scans"
+      errors for unsatisfiable queries using "contrib/intarray" operators.
+    - Ensure that "contrib/pgstattuple" functions respond to cancel
+      interrupts promptly.
+
+ -- Martin Pitt <mpitt@debian.org>  Sat, 15 May 2010 12:39:33 +0200
+
 postgresql-8.4 (8.4.3-1) unstable; urgency=low
 
   * New upstream bug fix release:
