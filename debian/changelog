@@ -1,5 +1,6 @@
-postgresql-8.4 (8.4.4-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.4-1) unstable; urgency=medium
 
+  * Urgency medium due to security fixes.
   * New upstream security/bug fix release:
     - Enforce restrictions in plperl using an opmask applied to the whole
       interpreter, instead of using "Safe.pm".
@@ -75,7 +76,7 @@ postgresql-8.4 (8.4.4-1) UNRELEASED; urgency=low
     - Ensure that "contrib/pgstattuple" functions respond to cancel
       interrupts promptly.
 
- -- Martin Pitt <mpitt@debian.org>  Sat, 15 May 2010 12:39:33 +0200
+ -- Martin Pitt <mpitt@debian.org>  Sat, 15 May 2010 13:31:46 +0200
 
 postgresql-8.4 (8.4.3-1) unstable; urgency=low
 
