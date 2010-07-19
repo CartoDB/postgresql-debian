@@ -57,7 +57,6 @@ DEB_DH_MAKESHLIBS_ARGS := -Xusr/lib/postgresql/$(MAJOR_VER)
 # disabled for CVS builds
 #DEB_DH_INSTALLCHANGELOGS_ARGS := HISTORY
 DEB_COMPRESS_EXCLUDE := .source .c
-DEB_DH_INSTALLINIT_ARGS := -u'defaults 19 21'
 
 # build documentation tarball if not present
 common-configure-indep:: doc/postgres.tar.gz doc/man.tar.gz

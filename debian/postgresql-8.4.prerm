@@ -4,8 +4,13 @@ VERSION=8.4
 
 #DEBHELPER#
 
+. /usr/share/postgresql-common/maintscripts-functions
+
+if [ "$1" = upgrade ]; then
+    stop_version $VERSION
+fi
+
 if [ "$1" = remove ]; then
-    . /usr/share/postgresql-common/maintscripts-functions
     remove_version $VERSION
 fi
 
