@@ -6,9 +6,7 @@ VERSION=8.4
 
 . /usr/share/postgresql-common/maintscripts-functions
 
-if [ "$1" = upgrade ]; then
-    stop_version $VERSION
-fi
+stop_version $VERSION
 
 if [ "$1" = remove ]; then
     remove_version $VERSION
