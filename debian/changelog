@@ -1,3 +1,10 @@
+postgresql-8.4 (8.4.4-3) UNRELEASED; urgency=low
+
+  * debian/control: Stop building the versionless metapackages, they are built
+    by postgresql-9.0 now.
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 17 Sep 2010 10:50:36 +0200
+
 postgresql-8.4 (8.4.4-2) unstable; urgency=low
 
   * Migrate to a common init script for all server versions, to avoid
