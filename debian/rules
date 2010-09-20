@@ -76,16 +76,6 @@ doc/man.tar.gz:
 clean::
 	rm -f doc/postgres.tar.gz doc/man.tar.gz
 
-common-binary-predeb-arch::
-	# verify that all files are installed; ignore manpages, since
-	# they are handled by dh_installman
-	missing=`dh_install --sourcedir=debian/tmp --list-missing --no-act 2>&1 | grep -v man/man`; \
-	if [ -n "$$missing" ]; then \
-	    echo "Not all files are installed:"; \
-	    echo "$$missing"; \
-	    exit 1; \
-	fi
-
 common-post-build-arch::
 	# generate POT files for translators
 	find -name nls.mk -exec sh -c "make -C \$$(dirname {}) init-po" \;

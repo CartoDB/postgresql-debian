@@ -3,6 +3,8 @@ postgresql-8.4 (8.4.4-3) UNRELEASED; urgency=low
   * debian/control: Stop building the versionless metapackages and client-side
     libraries, they are built by postgresql-9.0 now. Add libpq-dev build
     dependency.
+  * debian/rules: Drop check for uninstalled files, since it'd now break the
+    build due to the uninstalled libraries.
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 17 Sep 2010 10:50:36 +0200
 
