@@ -1,5 +1,147 @@
-postgresql-8.4 (8.4.4-3) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.5-1) UNRELEASED; urgency=low
 
+  * New upstream security/bug fix update:
+    - Use a separate interpreter for each calling SQL userid in PL/Perl
+      and PL/Tcl.
+      This change prevents security problems that can be caused by
+      subverting Perl or Tcl code that will be executed later in the same
+      session under another SQL user identity (for example, within a
+      SECURITY DEFINER function). Most scripting languages offer numerous
+      ways that that might be done, such as redefining standard functions
+      or operators called by the target function. Without this change,
+      any SQL user with Perl or Tcl language usage rights can do
+      essentially anything with the SQL privileges of the target
+      function's owner.
+      The cost of this change is that intentional communication among
+      Perl and Tcl functions becomes more difficult. To provide an escape
+      hatch, PL/PerlU and PL/TclU functions continue to use only one
+      interpreter per session. This is not considered a security issue
+      since all such functions execute at the trust level of a database
+      superuser already.
+      It is likely that third-party procedural languages that claim to
+      offer trusted execution have similar security issues. We advise
+      contacting the authors of any PL you are depending on for
+      security-critical purposes.
+      Our thanks to Tim Bunce for pointing out this issue
+      (CVE-2010-3433).
+    - Prevent possible crashes in pg_get_expr() by disallowing it from
+      being called with an argument that is not one of the system catalog
+      columns it's intended to be used with.
+    - Fix incorrect placement of placeholder evaluation.
+      This bug could result in query outputs being non-null when they
+      should be null, in cases where the inner side of an outer join is a
+      sub-select with non-strict expressions in its output list.
+    - Fix possible duplicate scans of UNION ALL member relations.
+    - Fix "cannot handle unplanned sub-select" error.
+      This occurred when a sub-select contains a join alias reference
+      that expands into an expression containing another sub-select.
+    - Fix mishandling of whole-row Vars that reference a view or
+      sub-select and appear within a nested sub-select.
+    - Fix mishandling of cross-type IN comparisons.
+      This could result in failures if the planner tried to implement an
+      IN join with a sort-then-unique-then-plain-join plan.
+    - Fix computation of "ANALYZE" statistics for tsvector columns.
+      The original coding could produce incorrect statistics, leading to
+      poor plan choices later.
+    - Improve planner's estimate of memory used by array_agg(),
+      string_agg(), and similar aggregate functions.
+      The previous drastic underestimate could lead to out-of-memory
+      failures due to inappropriate choice of a hash-aggregation plan.
+    - Fix failure to mark cached plans as transient.
+      If a plan is prepared while "CREATE INDEX CONCURRENTLY" is in
+      progress for one of the referenced tables, it is supposed to be
+      re-planned once the index is ready for use. This was not happening
+      reliably.
+    - Reduce PANIC to ERROR in some occasionally-reported btree failure
+      cases, and provide additional detail in the resulting error
+      messages.
+      This should improve the system's robustness with corrupted indexes.
+    - Fix incorrect search logic for partial-match queries with GIN
+      indexes.
+      Cases involving AND/OR combination of several GIN index conditions
+      didn't always give the right answer, and were sometimes much slower
+      than necessary.
+    - Prevent show_session_authorization() from crashing within
+      autovacuum processes.
+    - Defend against functions returning setof record where not all the
+      returned rows are actually of the same rowtype.
+    - Fix possible corruption of pending trigger event lists during
+      subtransaction rollback.
+      This could lead to a crash or incorrect firing of triggers.
+    - Fix possible failure when hashing a pass-by-reference function
+      result.
+    - Improve merge join's handling of NULLs in the join columns.
+      A merge join can now stop entirely upon reaching the first NULL, if
+      the sort order is such that NULLs sort high.
+    - Take care to fsync the contents of lockfiles (both "postmaster.pid"
+      and the socket lockfile) while writing them.
+      This omission could result in corrupted lockfile contents if the
+      machine crashes shortly after postmaster start. That could in turn
+      prevent subsequent attempts to start the postmaster from
+      succeeding, until the lockfile is manually removed.
+    - Avoid recursion while assigning XIDs to heavily-nested
+      subtransactions.
+      The original coding could result in a crash if there was limited
+      stack space.
+    - Avoid holding open old WAL segments in the walwriter process.
+      The previous coding would prevent removal of no-longer-needed
+      segments.
+    - Fix log_line_prefix's %i escape, which could produce junk early in
+      backend startup.
+    - Prevent misinterpretation of partially-specified relation options
+      for TOAST tables.
+      In particular, fillfactor would be read as zero if any other
+      reloption had been set for the table, leading to serious bloat.
+    - Fix inheritance count tracking in "ALTER TABLE ... ADD CONSTRAINT"
+    - Fix possible data corruption in "ALTER TABLE ... SET TABLESPACE"
+      when archiving is enabled.
+    - Allow "CREATE DATABASE" and "ALTER DATABASE ... SET TABLESPACE" to
+      be interrupted by query-cancel.
+    - Improve "CREATE INDEX"'s checking of whether proposed index
+      expressions are immutable.
+    - Fix "REASSIGN OWNED" to handle operator classes and families.
+    - Fix possible core dump when comparing two empty tsquery values.
+    - Fix LIKE's handling of patterns containing % followed by _.
+      We've fixed this before, but there were still some
+      incorrectly-handled cases.
+    - Re-allow input of Julian dates prior to 0001-01-01 AD.
+      Input such as 'J100000'::date worked before 8.4, but was
+      unintentionally broken by added error-checking.
+    - Fix PL/pgSQL to throw an error, not crash, if a cursor is closed
+      within a FOR loop that is iterating over that cursor.
+    - In PL/Python, defend against null pointer results from
+      PyCObject_AsVoidPtr and PyCObject_FromVoidPtr.
+    - In libpq, fix full SSL certificate verification for the case where
+      both host and hostaddr are specified.
+    - Make psql recognize "DISCARD ALL" as a command that should not be
+      encased in a transaction block in autocommit-off mode.
+    - Fix some issues in pg_dump's handling of SQL/MED objects.
+      Notably, pg_dump would always fail if run by a non-superuser, which
+      was not intended.
+    - Improve pg_dump and pg_restore's handling of non-seekable archive
+      files.
+      This is important for proper functioning of parallel restore.
+    - Improve parallel pg_restore's ability to cope with selective
+      restore (-L option).
+      The original code tended to fail if the -L file commanded a
+      non-default restore ordering.
+    - Fix ecpg to process data from RETURNING clauses correctly.
+    - Fix some memory leaks in ecpg.
+    - Improve "contrib/dblink"'s handling of tables containing dropped
+      columns.
+    - Fix connection leak after "duplicate connection name" errors in
+      "contrib/dblink".
+    - Fix "contrib/dblink" to handle connection names longer than 62
+      bytes correctly.
+    - Add hstore(text, text) function to "contrib/hstore".
+      This function is the recommended substitute for the now-deprecated
+      => operator. It was back-patched so that future-proofed code can be
+      used with older server versions. Note that the patch will be
+      effective only after "contrib/hstore" is installed or reinstalled
+      in a particular database. Users might prefer to execute the "CREATE
+      FUNCTION" command by hand, instead.
+    - Update build infrastructure and documentation to reflect the source
+      code repository's move from CVS to Git.
   * debian/postgresql-8.4.preinst: Add missing debhelper token.
   * debian/control: Bump Standards-Version to 3.9.1 (no changes necessary).
 
