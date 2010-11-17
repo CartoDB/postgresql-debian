@@ -1,10 +1,10 @@
-postgresql-8.4 (8.4.5-2) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.5-2) unstable; urgency=low
 
   * debian/control: Build against libedit instead of libreadline. We can't
     simultaneously link against readline (GPL) and libssl (incompatible with
     GPL). (Closes: #603598)
 
- -- Martin Pitt <mpitt@debian.org>  Wed, 17 Nov 2010 17:29:38 +0100
+ -- Martin Pitt <mpitt@debian.org>  Wed, 17 Nov 2010 18:02:46 +0100
 
 postgresql-8.4 (8.4.5-1) unstable; urgency=medium
 
