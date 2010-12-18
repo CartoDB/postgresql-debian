@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.6-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.6-1) unstable; urgency=low
 
   * New upstream bug fix release:
     - Force the default wal_sync_method to be fdatasync on Linux.
@@ -81,7 +81,7 @@ postgresql-8.4 (8.4.6-1) UNRELEASED; urgency=low
     - Fix potential coredump on missing public key in "contrib/pgcrypto".
     - Fix memory leak in "contrib/xml2"'s XPath query functions.
 
- -- Martin Pitt <mpitt@debian.org>  Sat, 18 Dec 2010 22:26:32 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sat, 18 Dec 2010 23:04:15 +0100
 
 postgresql-8.4 (8.4.5-2) unstable; urgency=low
 
