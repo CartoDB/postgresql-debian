@@ -1,3 +1,47 @@
+postgresql-8.4 (8.4.7-1) UNRELEASED; urgency=low
+
+  * New upstream security/bug fix release:
+    - Fix buffer overrun in "contrib/intarray"'s input function for the
+      query_int type.
+      This bug is a security risk since the function's return address
+      could be overwritten. Thanks to Apple Inc's security team for
+      reporting this issue and supplying the fix. (CVE-2010-4015)
+    - Avoid failures when "EXPLAIN" tries to display a simple-form CASE
+      expression.
+      If the CASE's test expression was a constant, the planner could
+      simplify the CASE into a form that confused the expression-display
+      code, resulting in "unexpected CASE WHEN clause" errors.
+    - Fix assignment to an array slice that is before the existing range
+      of subscripts.
+      If there was a gap between the newly added subscripts and the first
+      pre-existing subscript, the code miscalculated how many entries
+      needed to be copied from the old array's null bitmap, potentially
+      leading to data corruption or crash.
+    - Avoid unexpected conversion overflow in planner for very distant
+      date values.
+      The date type supports a wider range of dates than can be
+      represented by the timestamp types, but the planner assumed it
+      could always convert a date to timestamp with impunity.
+    - Fix pg_restore's text output for large objects (BLOBs) when
+      standard_conforming_strings is on.
+      Although restoring directly to a database worked correctly, string
+      escaping was incorrect if pg_restore was asked for SQL text output
+      and standard_conforming_strings had been enabled in the source
+      database.
+    - Fix erroneous parsing of tsquery values containing ... &
+      !(subexpression) | ... .
+      Queries containing this combination of operators were not executed
+      correctly. The same error existed in "contrib/intarray"'s query_int
+      type and "contrib/ltree"'s ltxtquery type.
+    - Fix bug in "contrib/seg"'s GiST picksplit algorithm.
+      This could result in considerable inefficiency, though not actually
+      incorrect answers, in a GiST index on a seg column. If you have
+      such an index, consider "REINDEX"ing it after installing this
+      update. (This is identical to the bug that was fixed in
+      "contrib/cube" in the previous update.)
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 01 Feb 2011 16:51:30 +0100
+
 postgresql-8.4 (8.4.6-1) unstable; urgency=low
 
   * New upstream bug fix release:
