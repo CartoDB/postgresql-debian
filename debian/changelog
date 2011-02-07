@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.7-1) unstable; urgency=low
+postgresql-8.4 (8.4.7-0squeeze1) testing-security; urgency=low
 
   * New upstream security/bug fix release:
     - Fix buffer overrun in "contrib/intarray"'s input function for the
