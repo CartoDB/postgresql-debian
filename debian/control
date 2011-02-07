@@ -7,86 +7,12 @@ XS-Python-Version: current
 Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8),
  libperl-dev, tcl8.5-dev, libedit-dev, libssl-dev, 
  zlib1g-dev | libz-dev, libpam0g-dev | libpam-dev, libxml2-dev, libkrb5-dev,
- libldap2-dev, libxslt1-dev, libossp-uuid-dev, python-dev,
+ libldap2-dev, libpq-dev (>= 8.4~), libxslt1-dev, libossp-uuid-dev, python-dev,
  python-central (>= 0.5), gettext, hardening-wrapper,
  bison, flex, docbook-utils, openjade, docbook
 Homepage: http://www.postgresql.org/
 Vcs-Browser: http://bazaar.launchpad.net/~pitti/postgresql/debian-8.4
 Vcs-Bzr: https://code.launchpad.net/~pitti/postgresql/debian-8.4
-
-Package: libpq-dev
-Architecture: any
-Section: libdevel
-Depends: ${misc:Depends}, ${shlibs:Depends}, libpq5 (= ${binary:Version}), libssl-dev, libkrb5-dev, comerr-dev
-Conflicts: postgresql-dev (<< 7.5)
-Replaces: postgresql-dev
-Suggests: postgresql-doc-8.4
-Description: header files for libpq5 (PostgreSQL library)
- Header files and static library for compiling C programs to link
- with the libpq library in order to communicate with a PostgreSQL
- database backend.
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: libpq5
-Architecture: any
-Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: PostgreSQL C client library
- libpq is a C library that enables user programs to communicate with
- the PostgreSQL database server.  The server can be on another machine
- and accessed through TCP/IP.  This version of libpq is compatible
- with servers from PostgreSQL 8.2 or later.
- .
- This package contains the run-time library, needed by packages using
- libpq.
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: libecpg6
-Architecture: any
-Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: run-time library for ECPG programs
- The libecpg shared library is used by programs built with ECPG
- (Embedded PostgreSQL for C).
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: libecpg-dev
-Architecture: any
-Section: libdevel
-Depends: ${misc:Depends}, ${shlibs:Depends}, libpq-dev, libecpg6 (= ${binary:Version}), libecpg-compat3 (= ${binary:Version}), libpgtypes3 (= ${binary:Version})
-Conflicts: postgresql-dev, libecpg3-dev
-Description: development files for ECPG (Embedded PostgreSQL for C)
- This package contains the necessary files to build ECPG (Embedded
- PostgreSQL for C) programs.  It includes the development libraries
- and the preprocessor program ecpg.
- .
- PostgreSQL is an object-relational SQL database management system.
- .
- Install this package if you want to write C programs with SQL statements
- embedded in them (rather than run by an external process).
-
-Package: libecpg-compat3
-Architecture: any
-Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: older version of run-time library for ECPG programs
- The libecpg_compat shared library is used by programs built with ecpg.
- (Embedded PostgreSQL for C).
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: libpgtypes3
-Architecture: any
-Section: libs
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: shared library libpgtypes for PostgreSQL 8.4
- The libpgtypes shared library is used by programs built with ecpg.
- (Embedded PostgreSQL for C).
- .
- PostgreSQL is an object-relational SQL database management system.
 
 Package: postgresql-8.4
 Architecture: any
@@ -236,60 +162,5 @@ Description: PL/Tcl procedural language for PostgreSQL 8.4
  PL/Tcl enables an SQL developer to write procedural language functions
  for PostgreSQL 8.4 in Tcl.  You need this package if you have any
  PostgreSQL 8.4 functions that use the languages pltcl or pltclu.
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: postgresql
-Architecture: all
-Depends: postgresql-8.4, ${misc:Depends}
-Description: object-relational SQL database (supported version)
- PostgreSQL is a fully featured object-relational database management
- system.  It supports a large part of the SQL standard and is designed
- to be extensible by users in many aspects.  Some of the features are:
- ACID transactions, foreign keys, views, sequences, subqueries,
- triggers, user-defined types and functions, outer joins, multiversion
- concurrency control.  Graphical user interfaces and bindings for many
- programming languages are available as well.
- .
- This package always depends on the currently supported PostgreSQL
- database server version.
-
-Package: postgresql-client
-Architecture: all
-Depends: postgresql-client-8.4, ${misc:Depends}
-Description: front-end programs for PostgreSQL (supported version)
- This package contains client and administrative programs for
- PostgreSQL: these are the interactive terminal client psql and
- programs for creating and removing users and databases.
- .
- This package always depends on the currently supported database
- client package for PostgreSQL. If you install PostgreSQL on a
- standalone machine, you need the server package postgresql, too. On a
- network, you can install this package on many client machines, while
- the server package may be installed on only one machine.
- .  
- PostgreSQL is an object-relational SQL database management system.
-
-Package: postgresql-doc
-Architecture: all
-Section: doc
-Depends: postgresql-doc-8.4, ${misc:Depends}
-Description: documentation for the PostgreSQL database management system
- This package contains all README files, user manual, and examples for
- the currently supported PostgreSQL version. The manual is in HTML
- format.
- .
- PostgreSQL is an object-relational SQL database management system.
-
-Package: postgresql-contrib
-Architecture: all
-Depends: postgresql-contrib-8.4, ${misc:Depends}
-Description: additional facilities for PostgreSQL (supported version)
- The PostgreSQL contrib package provides several additional features
- for the PostgreSQL database. contrib often serves as a testbed for
- features before they are adopted into PostgreSQL proper.
- .
- This package always depends on the currently supported contrib
- package for PostgreSQL.
  .
  PostgreSQL is an object-relational SQL database management system.
