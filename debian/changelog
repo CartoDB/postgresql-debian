@@ -1,4 +1,6 @@
-postgresql-8.4 (8.4.8-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.8-1) unstable; urgency=medium
+
+  Priority medium due to data-loss pg_upgrade bug.
 
   [ Martin Pitt ]
   * New upstream bug fix release:
@@ -43,7 +45,7 @@ postgresql-8.4 (8.4.8-1) UNRELEASED; urgency=low
   * Add 15-bool-altivec.patch: Fix definition of bool on __APPLE_ALTIVEC__
     architecture (ppc64).
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 17 Sep 2010 10:50:36 +0200
+ -- Martin Pitt <mpitt@debian.org>  Wed, 20 Apr 2011 15:25:02 +0200
 
 postgresql-8.4 (8.4.7-1) unstable; urgency=low
 
