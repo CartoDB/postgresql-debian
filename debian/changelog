@@ -1,5 +1,6 @@
 postgresql-8.4 (8.4.8-1) UNRELEASED; urgency=low
 
+  [ Martin Pitt ]
   * New upstream bug fix release:
     - If your installation was upgraded from a previous major release by
       running pg_upgrade, you should take action to prevent possible data loss
@@ -37,6 +38,10 @@ postgresql-8.4 (8.4.8-1) UNRELEASED; urgency=low
     dependency.
   * debian/rules: Drop check for uninstalled files, since it'd now break the
     build due to the uninstalled libraries.
+  
+  [ Matthias Klose ]
+  * Add 15-bool-altivec.patch: Fix definition of bool on __APPLE_ALTIVEC__
+    architecture (ppc64).
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 17 Sep 2010 10:50:36 +0200
 

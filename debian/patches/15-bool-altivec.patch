@@ -1,0 +1,22 @@
+--- postgresql-8.4-8.4.7.orig/src/include/c.h
++++ postgresql-8.4-8.4.7/src/include/c.h
+@@ -177,7 +177,7 @@
+ 
+ #ifndef __cplusplus
+ 
+-#ifndef bool
++#if !defined(bool) || defined(__APPLE_ALTIVEC__)
+ typedef char bool;
+ #endif
+ 
+--- postgresql-8.4-8.4.7.orig/src/test/thread/thread_test.c
++++ postgresql-8.4-8.4.7/src/test/thread/thread_test.c
+@@ -24,7 +24,7 @@
+ #include "postgres.h"
+ #else
+ /* From src/include/c.h" */
+-#ifndef bool
++#if !defined(bool) || defined(__APPLE_ALTIVEC__)
+ typedef char bool;
+ #endif
+ 
