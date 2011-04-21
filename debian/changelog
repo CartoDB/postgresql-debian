@@ -1,3 +1,9 @@
+postgresql-8.4 (8.4.8-2) UNRELEASED; urgency=low
+
+  * debian/postgresql-8.4.postrm: Clean up pg_ctl.conf on purge.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 21 Apr 2011 12:29:56 +0200
+
 postgresql-8.4 (8.4.8-1) unstable; urgency=medium
 
   Priority medium due to data-loss pg_upgrade bug.
