@@ -4,6 +4,9 @@ postgresql-8.4 (8.4.8-2) UNRELEASED; urgency=low
   * debian/control, debian/rules: Drop usage of pycentral. We don't ship any
     Python extension/module, so we don't need a python helper at all.
     (Closes: #616948)
+  * Add 16-cmsgcred-size.patch: Fix size of struct cmsgcred to fix ident
+    authentication on kFreeBSD 64 bit. Thanks to Petr Salinger for the patch!
+    (Closes: #612888)
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 21 Apr 2011 12:29:56 +0200
 
