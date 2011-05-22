@@ -1,3 +1,40 @@
+postgresql-8.4 (8.4.8-0squeeze1) UNRELEASED; urgency=low
+
+  * New upstream bug fix release: (Closes: #626559)
+    - If your installation was upgraded from a previous major release by
+      running pg_upgrade, you should take action to prevent possible data loss
+      due to a now-fixed bug in pg_upgrade. The recommended solution is to run
+      "VACUUM FREEZE" on all TOAST tables.  More information is available at
+      http://wiki.postgresql.org/wiki/20110408pg_upgrade_fix.
+    - Fix pg_upgrade's handling of TOAST tables.
+      This error poses a significant risk of data loss for installations
+      that have been upgraded with pg_upgrade. This patch corrects the
+      problem for future uses of pg_upgrade, but does not in itself cure
+      the issue in installations that have been processed with a buggy
+      version of pg_upgrade.
+    - Suppress incorrect "PD_ALL_VISIBLE flag was incorrectly set"
+      warning.
+    - Disallow including a composite type in itself.
+    - Avoid potential deadlock during catalog cache initialization.
+    - Fix dangling-pointer problem in BEFORE ROW UPDATE trigger handling
+      when there was a concurrent update to the target tuple.
+    - Disallow "DROP TABLE" when there are pending deferred trigger
+      events for the table.
+      Formerly the "DROP" would go through, leading to "could not open
+      relation with OID nnn" errors when the triggers were eventually
+      fired.
+    - Prevent crash triggered by constant-false WHERE conditions during
+      GEQO optimization.
+    - Improve planner's handling of semi-join and anti-join cases.
+    - Fix selectivity estimation for text search to account for NULLs.
+    - Improve PL/pgSQL's ability to handle row types with dropped columns.
+    - Fix PL/Python memory leak involving array slices.
+    - Fix pg_restore to cope with long lines (over 1KB) in TOC files.
+    - Put in more safeguards against crashing due to division-by-zero
+      with overly enthusiastic compiler optimization. (Closes: #616180)
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 22 May 2011 15:11:08 +0200
+
 postgresql-8.4 (8.4.7-0squeeze2) stable-security; urgency=low
 
   * New upstream security/bug fix release:
