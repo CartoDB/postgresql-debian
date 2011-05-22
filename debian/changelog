@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.8-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.8-0squeeze1) stable; urgency=low
 
   * New upstream bug fix release: (Closes: #626559)
     - If your installation was upgraded from a previous major release by
@@ -33,7 +33,7 @@ postgresql-8.4 (8.4.8-0squeeze1) UNRELEASED; urgency=low
     - Put in more safeguards against crashing due to division-by-zero
       with overly enthusiastic compiler optimization. (Closes: #616180)
 
- -- Martin Pitt <mpitt@debian.org>  Sun, 22 May 2011 15:11:08 +0200
+ -- Martin Pitt <mpitt@debian.org>  Sun, 22 May 2011 15:12:47 +0200
 
 postgresql-8.4 (8.4.7-0squeeze2) stable-security; urgency=low
 
