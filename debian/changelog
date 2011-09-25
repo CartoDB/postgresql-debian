@@ -1,3 +1,121 @@
+postgresql-8.4 (8.4.9-1) UNRELEASED; urgency=low
+
+  * New upstream bug fix release:
+     - Fix bugs in indexing of in-doubt HOT-updated tuples.
+       These bugs could result in index corruption after reindexing a
+       system catalog. They are not believed to affect user indexes.
+     - Fix multiple bugs in GiST index page split processing.
+       The probability of occurrence was low, but these could lead to
+       index corruption.
+     - Fix possible buffer overrun in tsvector_concat().
+       The function could underestimate the amount of memory needed for
+       its result, leading to server crashes.
+     - Fix crash in xml_recv when processing a "standalone" parameter.
+     - Make pg_options_to_table return NULL for an option with no value.
+       Previously such cases would result in a server crash.
+     - Avoid possibly accessing off the end of memory in "ANALYZE" and in
+       SJIS-2004 encoding conversion.
+       This fixes some very-low-probability server crash scenarios.
+     - Prevent intermittent hang in interactions of startup process with
+       bgwriter process.
+       This affected recovery in non-hot-standby cases.
+     - Fix race condition in relcache init file invalidation.
+       There was a window wherein a new backend process could read a stale
+       init file but miss the inval messages that would tell it the data
+       is stale. The result would be bizarre failures in catalog accesses,
+       typically "could not read block 0 in file ..." later during
+       startup.
+     - Fix memory leak at end of a GiST index scan.
+       Commands that perform many separate GiST index scans, such as
+       verification of a new GiST-based exclusion constraint on a table
+       already containing many rows, could transiently require large
+       amounts of memory due to this leak.
+     - Fix incorrect memory accounting (leading to possible memory bloat)
+       in tuplestores supporting holdable cursors and plpgsql's RETURN
+       NEXT command.
+     - Fix performance problem when constructing a large, lossy bitmap.
+     - Fix join selectivity estimation for unique columns.
+       This fixes an erroneous planner heuristic that could lead to poor
+       estimates of the result size of a join.
+     - Fix nested PlaceHolderVar expressions that appear only in
+       sub-select target lists. This mistake could result in outputs of an
+       outer join incorrectly appearing as NULL.
+     - Allow nested EXISTS queries to be optimized properly.
+     - Fix array- and path-creating functions to ensure padding bytes are
+       zeroes.  This avoids some situations where the planner will think that
+       semantically-equal constants are not equal, resulting in poor
+       optimization.
+     - Fix "EXPLAIN" to handle gating Result nodes within inner-indexscan
+       subplans.  The usual symptom of this oversight was "bogus varno" errors.
+     - Work around gcc 4.6.0 bug that breaks WAL replay.  This could lead to
+       loss of committed transactions after a server crash.
+     - Fix dump bug for VALUES in a view.
+     - Disallow SELECT FOR UPDATE/SHARE on sequences.
+       This operation doesn't work as expected and can lead to failures.
+     - Fix "VACUUM" so that it always updates pg_class.reltuples/relpages.
+       This fixes some scenarios where autovacuum could make increasingly
+       poor decisions about when to vacuum tables.
+     - Defend against integer overflow when computing size of a hash table.
+     - Fix cases where "CLUSTER" might attempt to access already-removed
+       TOAST data.
+     - Fix portability bugs in use of credentials control messages for
+       "peer" authentication.
+     - Fix SSPI login when multiple roundtrips are required.
+       The typical symptom of this problem was "The function requested is
+       not supported" errors during SSPI login.
+     - Throw an error if "pg_hba.conf" contains hostssl but SSL is
+       disabled.  This was concluded to be more user-friendly than the
+       previous behavior of silently ignoring such lines.
+     - Fix typo in pg_srand48 seed initialization.
+       This led to failure to use all bits of the provided seed. This
+       function is not used on most platforms (only those without
+       srandom), and the potential security exposure from a
+       less-random-than-expected seed seems minimal in any case.
+     - Avoid integer overflow when the sum of LIMIT and OFFSET values
+       exceeds 2^63.
+     - Add overflow checks to int4 and int8 versions of generate_series().
+     - Fix trailing-zero removal in to_char().  In a format with FM and no
+       digit positions after the decimal point, zeroes to the left of the
+       decimal point could be removed incorrectly.
+     - Fix pg_size_pretty() to avoid overflow for inputs close to 2^63.
+     - Weaken plpgsql's check for typmod matching in record values.
+       An overly enthusiastic check could lead to discarding length
+       modifiers that should have been kept.
+     - Fix pg_upgrade to preserve toast tables' relfrozenxids during an
+       upgrade from 8.3. Failure to do this could lead to "pg_clog" files
+       being removed too soon after the upgrade.
+     - Fix psql's counting of script file line numbers during COPY from a
+       different file.
+     - Fix pg_restore's direct-to-database mode for
+       standard_conforming_strings.  pg_restore could emit incorrect commands
+       when restoring directly to a database server from an archive file that
+       had been made with standard_conforming_strings set to on.
+     - Be more user-friendly about unsupported cases for parallel
+       pg_restore.  This change ensures that such cases are detected and
+       reported before any restore actions have been taken.
+     - Fix write-past-buffer-end and memory leak in libpq's LDAP service
+       lookup code.
+     - In libpq, avoid failures when using nonblocking I/O and an SSL
+       connection.
+     - Improve libpq's handling of failures during connection startup.
+       In particular, the response to a server report of fork() failure
+       during SSL connection startup is now saner.
+     - Improve libpq's error reporting for SSL failures.
+     - Fix PQsetvalue() to avoid possible crash when adding a new tuple to
+       a PGresult originally obtained from a server query.
+     - Make ecpglib write double values with 15 digits precision.
+     - In ecpglib, be sure LC_NUMERIC setting is restored after an error.
+     - Apply upstream fix for blowfish signed-character bug
+       (CVE-2011-2483) (Closes: #631285)
+       "contrib/pg_crypto"'s blowfish encryption code could give wrong
+       results on platforms where char is signed (which is most), leading
+       to encrypted passwords being weaker than they should be.
+     - Fix memory leak in "contrib/seg".
+     - Fix pgstatindex() to give consistent results for empty indexes.
+     - Allow building with perl 5.14. (Closes: #628503)
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 25 Sep 2011 13:53:23 +0200
+
 postgresql-8.4 (8.4.8-2) unstable; urgency=low
 
   * debian/postgresql-8.4.postrm: Clean up pg_ctl.conf on purge.
