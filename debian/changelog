@@ -113,6 +113,7 @@ postgresql-8.4 (8.4.9-1) UNRELEASED; urgency=low
      - Fix memory leak in "contrib/seg".
      - Fix pgstatindex() to give consistent results for empty indexes.
      - Allow building with perl 5.14. (Closes: #628503)
+  * Drop 16-cmsgcred-size.patch, fixed upstream in a different way.
 
  -- Martin Pitt <mpitt@debian.org>  Sun, 25 Sep 2011 13:53:23 +0200
 
