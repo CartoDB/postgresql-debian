@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.9-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.9-1) unstable; urgency=low
 
   * New upstream bug fix release:
      - Fix bugs in indexing of in-doubt HOT-updated tuples.
@@ -115,7 +115,7 @@ postgresql-8.4 (8.4.9-1) UNRELEASED; urgency=low
      - Allow building with perl 5.14. (Closes: #628503)
   * Drop 16-cmsgcred-size.patch, fixed upstream in a different way.
 
- -- Martin Pitt <mpitt@debian.org>  Sun, 25 Sep 2011 13:53:23 +0200
+ -- Martin Pitt <mpitt@debian.org>  Sun, 25 Sep 2011 14:23:57 +0200
 
 postgresql-8.4 (8.4.8-2) unstable; urgency=low
 
