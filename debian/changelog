@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.9-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.9-0squeeze1) stable-security; urgency=low
 
   * New upstream bug fix/security release:
      - Fix bugs in indexing of in-doubt HOT-updated tuples.
@@ -115,7 +115,7 @@ postgresql-8.4 (8.4.9-0squeeze1) UNRELEASED; urgency=low
      - Allow building with perl 5.14. (Closes: #628503)
   * 15-revert-typmod-check.patch: Update for new upstream release.
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 04 Oct 2011 11:13:18 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 04 Oct 2011 11:32:12 +0200
 
 postgresql-8.4 (8.4.8-0squeeze2) stable; urgency=low
 
