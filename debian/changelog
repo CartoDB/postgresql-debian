@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.10-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.10-0squeeze1) stable; urgency=low
 
   * New upstream bug fix release:
     - Fix bugs in information_schema.referential_constraints view.
@@ -79,7 +79,7 @@ postgresql-8.4 (8.4.10-0squeeze1) UNRELEASED; urgency=low
       containing the error message call, but VPATH builds formerly
       reported an absolute path name.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 02 Dec 2011 14:41:54 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sat, 03 Dec 2011 16:56:34 +0100
 
 postgresql-8.4 (8.4.9-0squeeze1) stable-security; urgency=low
 
