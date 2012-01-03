@@ -1,3 +1,11 @@
+postgresql-8.4 (8.4.10-2) UNRELEASED; urgency=low
+
+  * Add 00git_inet_cidr_unpack.patch: Revert the behavior of inet/cidr
+    functions to not unpack the arguments. This fixes the memory leak when
+    sorting inet values. Patch taken from upstream git HEAD.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 03 Jan 2012 15:54:37 +0100
+
 postgresql-8.4 (8.4.10-1) unstable; urgency=low
 
   * New upstream bug fix release:
