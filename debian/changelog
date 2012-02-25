@@ -1,5 +1,6 @@
-postgresql-8.4 (8.4.11-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.11-1) unstable; urgency=medium
 
+  * Urgency medium due to security fixes.
   * New upstream bug fix/security release:
     - Require execute permission on the trigger function for "CREATE
       TRIGGER".
@@ -134,7 +135,7 @@ postgresql-8.4 (8.4.11-1) UNRELEASED; urgency=low
       check.
   * Drop 04-armel-tas.patch, applied upstream.
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 03 Jan 2012 15:54:37 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sat, 25 Feb 2012 11:17:15 +0100
 
 postgresql-8.4 (8.4.10-1) unstable; urgency=low
 
