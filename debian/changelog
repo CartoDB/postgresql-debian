@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.11-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.11-0squeeze1) stable-security; urgency=high
 
   * New upstream bug fix/security release:
     - Require execute permission on the trigger function for "CREATE
@@ -134,7 +134,7 @@ postgresql-8.4 (8.4.11-0squeeze1) UNRELEASED; urgency=low
       check.
   * Drop 04-armel-tas.patch, applied upstream.
 
- -- Martin Pitt <mpitt@debian.org>  Sat, 25 Feb 2012 11:39:20 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sat, 25 Feb 2012 11:52:09 +0100
 
 postgresql-8.4 (8.4.10-0squeeze1) stable; urgency=low
 
