@@ -168,6 +168,7 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
     - Allow use of threaded Python on FreeBSD
       Our configure script previously believed that this combination wouldn't
       work; but FreeBSD fixed the problem, so remove that error check.
+  * Set myself as maintainer.
 
   * Changes merged from 9.1 branch:
   * debian/control: Add missing docbook-dsssl build dependency to fix

@@ -1,8 +1,7 @@
 Source: postgresql-9.0
 Section: database
 Priority: optional
-Maintainer: Martin Pitt <mpitt@debian.org>
-Uploaders: Peter Eisentraut <petere@debian.org>
+Maintainer: Christoph Berg <myon@debian.org>
 Standards-Version: 3.9.3
 Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8),
  libperl-dev, tcl8.5-dev, libedit-dev, libssl-dev, libpq-dev (>= 9.0~),
