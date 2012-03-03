@@ -7,10 +7,12 @@ Standards-Version: 3.9.1
 Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8),
  libperl-dev, tcl8.5-dev, libedit-dev, libssl-dev, libpq-dev (>= 9.0~),
  zlib1g-dev | libz-dev, libpam0g-dev | libpam-dev, libxml2-dev, libkrb5-dev,
- libldap2-dev, libxslt1-dev, libossp-uuid-dev, python-dev, jade,
+ libldap2-dev, libxslt1-dev, libossp-uuid-dev, python-dev,
  gettext, hardening-wrapper,
  bison,
- flex
+ flex,
+ openjade,
+ docbook-dsssl
 Homepage: http://www.postgresql.org/
 Vcs-Browser: http://bazaar.launchpad.net/~pitti/postgresql/debian-9.0
 Vcs-Bzr: https://code.launchpad.net/~pitti/postgresql/debian-9.0
