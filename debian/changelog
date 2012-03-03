@@ -178,6 +178,7 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
   * debian/control: Re-add bison and flex build dependencies, so that the
     generated and shipped Makefile.global gets non-empty BISON and FLEX
     values. (See: #647135)
+  * Add docbook-xsl, opensp and xsltproc build dependencies.
 
  -- Christoph Berg <myon@debian.org>  Sat, 03 Mar 2012 16:36:26 +0100
 

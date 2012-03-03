@@ -12,7 +12,10 @@ Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8),
  bison,
  flex,
  openjade,
- docbook-dsssl
+ docbook-dsssl,
+ docbook-xsl,
+ opensp,
+ xsltproc
 Homepage: http://www.postgresql.org/
 Vcs-Browser: http://bazaar.launchpad.net/~pitti/postgresql/debian-9.0
 Vcs-Bzr: https://code.launchpad.net/~pitti/postgresql/debian-9.0
