@@ -184,6 +184,8 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
   * debian/control, debian/rules: Support and prefer dpkg-buildflags when
     building with dpkg-dev >= 1.16.1~. Fall back to hardening-wrapper
     otherwise, to keep supporting backports.
+  * debian/rules: Build with "-z now" for some extra hardening. We can't use
+    the full "hardening=+all", as PIE causes build failures.
 
  -- Christoph Berg <myon@debian.org>  Sat, 03 Mar 2012 16:36:26 +0100
 
