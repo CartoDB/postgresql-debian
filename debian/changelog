@@ -168,7 +168,6 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
     - Allow use of threaded Python on FreeBSD
       Our configure script previously believed that this combination wouldn't
       work; but FreeBSD fixed the problem, so remove that error check.
-  * Update watch file.
 
   * Changes merged from 9.1 branch:
   * debian/control: Add missing docbook-dsssl build dependency to fix
@@ -179,6 +178,8 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
     generated and shipped Makefile.global gets non-empty BISON and FLEX
     values. (See: #647135)
   * Add docbook-xsl, opensp and xsltproc build dependencies.
+  * debian/watch: Use ftp for checking, thanks Peter Eisentraut.
+    (See: #656129)
 
  -- Christoph Berg <myon@debian.org>  Sat, 03 Mar 2012 16:36:26 +0100
 
