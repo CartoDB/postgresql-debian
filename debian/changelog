@@ -181,6 +181,9 @@ postgresql-9.0 (9.0.7-1) unstable; urgency=low
   * debian/watch: Use ftp for checking, thanks Peter Eisentraut.
     (See: #656129)
   * debian/control: Bump Standards-Version to 3.9.3. No changes necessary.
+  * debian/control, debian/rules: Support and prefer dpkg-buildflags when
+    building with dpkg-dev >= 1.16.1~. Fall back to hardening-wrapper
+    otherwise, to keep supporting backports.
 
  -- Christoph Berg <myon@debian.org>  Sat, 03 Mar 2012 16:36:26 +0100
 
