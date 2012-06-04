@@ -148,6 +148,8 @@ postgresql-9.1 (9.1.4-1) UNRELEASED; urgency=low
       new -l (limit) option.
   * debian/control: Bump debhelper build dependency to >= 8, as it does not
     build with earlier versions.
+  * debian/control: Move bzr branches to alioth, so that other members of
+    pkg-postgresql can commit. Update Vcs-* tags.
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 22 Mar 2012 07:40:55 +0100
 
