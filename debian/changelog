@@ -1,5 +1,89 @@
-postgresql-8.4 (8.4.11-0squeeze2) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.12-0squeeze1) UNRELEASED; urgency=low
 
+  * New upstream security/bug fix release:
+    - Fix incorrect password transformation in "contrib/pgcrypto"'s DES
+      crypt() function.
+      If a password string contained the byte value 0x80, the remainder
+      of the password was ignored, causing the password to be much weaker
+      than it appeared. With this fix, the rest of the string is properly
+      included in the DES hash. Any stored password values that are
+      affected by this bug will thus no longer match, so the stored
+      values may need to be updated. (CVE-2012-2143)
+    - Ignore SECURITY DEFINER and SET attributes for a procedural
+      language's call handler.
+      Applying such attributes to a call handler could crash the server.
+      (CVE-2012-2655)
+    - Allow numeric timezone offsets in timestamp input to be up to 16
+      hours away from UTC.
+      Some historical time zones have offsets larger than 15 hours, the
+      previous limit. This could result in dumped data values being
+      rejected during reload.
+    - Fix timestamp conversion to cope when the given time is exactly the
+      last DST transition time for the current timezone.
+      This oversight has been there a long time, but was not noticed
+      previously because most DST-using zones are presumed to have an
+      indefinite sequence of future DST transitions.
+    - Fix text to name and char to name casts to perform string
+      truncation correctly in multibyte encodings.
+    - Fix memory copying bug in to_tsquery().
+    - Fix planner's handling of outer PlaceHolderVars within subqueries.
+      This bug concerns sub-SELECTs that reference variables coming from
+      the nullable side of an outer join of the surrounding query. In
+      9.1, queries affected by this bug would fail with "ERROR:
+      Upper-level PlaceHolderVar found where not expected". But in 9.0
+      and 8.4, you'd silently get possibly-wrong answers, since the value
+      transmitted into the subquery wouldn't go to null when it should.
+    - Fix slow session startup when pg_attribute is very large.
+      If pg_attribute exceeds one-fourth of shared_buffers, cache
+      rebuilding code that is sometimes needed during session start would
+      trigger the synchronized-scan logic, causing it to take many times
+      longer than normal. The problem was particularly acute if many new
+      sessions were starting at once.
+    - Ensure sequential scans check for query cancel reasonably often.
+      A scan encountering many consecutive pages that contain no live
+      tuples would not respond to interrupts meanwhile.
+    - Ensure the Windows implementation of PGSemaphoreLock() clears
+      ImmediateInterruptOK before returning.
+      This oversight meant that a query-cancel interrupt received later
+      in the same query could be accepted at an unsafe time, with
+      unpredictable but not good consequences.
+    - Show whole-row variables safely when printing views or rules.
+      Corner cases involving ambiguous names (that is, the name could be
+      either a table or column name of the query) were printed in an
+      ambiguous way, risking that the view or rule would be interpreted
+      differently after dump and reload. Avoid the ambiguous case by
+      attaching a no-op cast.
+    - Fix "COPY FROM" to properly handle null marker strings that
+      correspond to invalid encoding.
+      A null marker string such as E'\\0' should work, and did work in
+      the past, but the case got broken in 8.4.
+    - Ensure autovacuum worker processes perform stack depth checking
+      properly.
+      Previously, infinite recursion in a function invoked by
+      auto-"ANALYZE" could crash worker processes.
+    - Fix logging collector to not lose log coherency under high load.
+      The collector previously could fail to reassemble large messages if
+      it got too busy.
+    - Fix logging collector to ensure it will restart file rotation after
+      receiving SIGHUP.
+    - Fix WAL replay logic for GIN indexes to not fail if the index was
+      subsequently dropped>
+    - Fix memory leak in PL/pgSQL's "RETURN NEXT" command.
+    - Fix PL/pgSQL's "GET DIAGNOSTICS" command when the target is the
+      function's first variable.
+    - Fix potential access off the end of memory in psql's expanded
+      display ("\x") mode.
+    - Fix several performance problems in pg_dump when the database
+      contains many objects.
+      pg_dump could get very slow if the database contained many schemas,
+      or if many objects are in dependency loops, or if there are many
+      owned sequences.
+    - Fix "contrib/dblink"'s dblink_exec() to not leak temporary database
+      connections upon error.
+    - Fix "contrib/dblink" to report the correct connection name in error
+      messages.
+  * debian/patches/15-revert-typmod-check.patch: Unfuzz to apply to new
+    version.
   * debian/control: Move bzr branches to alioth, so that other members of
     pkg-postgresql can commit. Update Vcs-* tags.
 
