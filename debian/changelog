@@ -1,3 +1,10 @@
+postgresql-8.4 (8.4.11-0squeeze2) UNRELEASED; urgency=low
+
+  * debian/control: Move bzr branches to alioth, so that other members of
+    pkg-postgresql can commit. Update Vcs-* tags.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 04 Jun 2012 09:32:53 +0200
+
 postgresql-8.4 (8.4.11-0squeeze1) stable-security; urgency=high
 
   * New upstream bug fix/security release:
