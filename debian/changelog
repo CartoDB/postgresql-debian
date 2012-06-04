@@ -1,5 +1,151 @@
-postgresql-9.1 (9.1.3-3) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.4-1) UNRELEASED; urgency=low
 
+  * New upstream bug fix/security release:
+    - Fix incorrect password transformation in "contrib/pgcrypto"'s DES
+      crypt() function.
+      If a password string contained the byte value 0x80, the remainder
+      of the password was ignored, causing the password to be much weaker
+      than it appeared. With this fix, the rest of the string is properly
+      included in the DES hash. Any stored password values that are
+      affected by this bug will thus no longer match, so the stored
+      values may need to be updated. (CVE-2012-2143)
+    - Ignore SECURITY DEFINER and SET attributes for a procedural
+      language's call handler. Applying such attributes to a call handler
+      could crash the server. (CVE-2012-2655)
+    - Make "contrib/citext"'s upgrade script fix collations of citext
+      arrays and domains over citext.
+      Release 9.1.2 provided a fix for collations of citext columns and
+      indexes in databases upgraded or reloaded from pre-9.1
+      installations, but that fix was incomplete: it neglected to handle
+      arrays and domains over citext. This release extends the module's
+      upgrade script to handle these cases. As before, if you have
+      already run the upgrade script, you'll need to run the collation
+      update commands by hand instead. See the 9.1.2 release notes for
+      more information about doing this.
+    - Allow numeric timezone offsets in timestamp input to be up to 16
+      hours away from UTC. Some historical time zones have offsets larger than
+      15 hours, the previous limit. This could result in dumped data values
+      being rejected during reload.
+    - Fix timestamp conversion to cope when the given time is exactly the
+      last DST transition time for the current timezone.
+      This oversight has been there a long time, but was not noticed
+      previously because most DST-using zones are presumed to have an
+      indefinite sequence of future DST transitions.
+    - Fix text to name and char to name casts to perform string
+      truncation correctly in multibyte encodings.
+    - Fix memory copying bug in to_tsquery().
+    - Ensure txid_current() reports the correct epoch when executed in
+      hot standby.
+    - Fix planner's handling of outer PlaceHolderVars within subqueries.
+      This bug concerns sub-SELECTs that reference variables coming from
+      the nullable side of an outer join of the surrounding query. In
+      9.1, queries affected by this bug would fail with "ERROR:
+      Upper-level PlaceHolderVar found where not expected". But in 9.0
+      and 8.4, you'd silently get possibly-wrong answers, since the value
+      transmitted into the subquery wouldn't go to null when it should.
+    - Fix planning of UNION ALL subqueries with output columns that are
+      not simple variables.
+      Planning of such cases got noticeably worse in 9.1 as a result of a
+      misguided fix for "MergeAppend child's targetlist doesn't match
+      MergeAppend" errors. Revert that fix and do it another way.
+    - Fix slow session startup when pg_attribute is very large.
+      If pg_attribute exceeds one-fourth of shared_buffers, cache
+      rebuilding code that is sometimes needed during session start would
+      trigger the synchronized-scan logic, causing it to take many times
+      longer than normal. The problem was particularly acute if many new
+      sessions were starting at once.
+    - Ensure sequential scans check for query cancel reasonably often.
+      A scan encountering many consecutive pages that contain no live
+      tuples would not respond to interrupts meanwhile.
+    - Ensure the Windows implementation of PGSemaphoreLock() clears
+      ImmediateInterruptOK before returning.
+      This oversight meant that a query-cancel interrupt received later
+      in the same query could be accepted at an unsafe time, with
+      unpredictable but not good consequences.
+    - Show whole-row variables safely when printing views or rules.
+      Corner cases involving ambiguous names (that is, the name could be
+      either a table or column name of the query) were printed in an
+      ambiguous way, risking that the view or rule would be interpreted
+      differently after dump and reload. Avoid the ambiguous case by
+      attaching a no-op cast.
+    - Fix "COPY FROM" to properly handle null marker strings that
+      correspond to invalid encoding.
+      A null marker string such as E'\\0' should work, and did work in
+      the past, but the case got broken in 8.4.
+    - Fix "EXPLAIN VERBOSE" for writable CTEs containing RETURNING
+      clauses.
+    - Fix "PREPARE TRANSACTION" to work correctly in the presence of
+      advisory locks.
+      Historically, "PREPARE TRANSACTION" has simply ignored any
+      session-level advisory locks the session holds, but this case was
+      accidentally broken in 9.1.
+    - Fix truncation of unlogged tables.
+    - Ignore missing schemas during non-interactive assignments of
+      search_path.
+      This re-aligns 9.1's behavior with that of older branches.
+      Previously 9.1 would throw an error for nonexistent schemas
+      mentioned in search_path settings obtained from places such as
+      "ALTER DATABASE SET".
+    - Fix bugs with temporary or transient tables used in extension
+      scripts.
+      This includes cases such as a rewriting "ALTER TABLE" within an
+      extension update script, since that uses a transient table behind
+      the scenes.
+    - Ensure autovacuum worker processes perform stack depth checking
+      properly.
+      Previously, infinite recursion in a function invoked by
+      auto-"ANALYZE" could crash worker processes.
+    - Fix logging collector to not lose log coherency under high load.
+      The collector previously could fail to reassemble large messages if
+      it got too busy.
+    - Fix logging collector to ensure it will restart file rotation after
+      receiving SIGHUP.
+    - Fix "too many LWLocks taken" failure in GiST indexes.
+    - Fix WAL replay logic for GIN indexes to not fail if the index was
+      subsequently dropped.
+    - Correctly detect SSI conflicts of prepared transactions after a
+      crash.
+    - Avoid synchronous replication delay when committing a transaction
+      that only modified temporary tables.
+      In such a case the transaction's commit record need not be flushed
+      to standby servers, but some of the code didn't know that and
+      waited for it to happen anyway.
+    - Fix error handling in pg_basebackup.
+    - Fix walsender to not go into a busy loop if connection is
+      terminated.
+    - Fix memory leak in PL/pgSQL's "RETURN NEXT" command.
+    - Fix PL/pgSQL's "GET DIAGNOSTICS" command when the target is the
+      function's first variable.
+    - Ensure that PL/Perl package-qualifies the _TD variable.
+      This bug caused trigger invocations to fail when they are nested
+      within a function invocation that changes the current package.
+    - Fix PL/Python functions returning composite types to accept a
+      string for their result value.
+      This case was accidentally broken by the 9.1 additions to allow a
+      composite result value to be supplied in other formats, such as
+      dictionaries.
+    - Fix potential access off the end of memory in psql's expanded
+      display ("\x") mode.
+    - Fix several performance problems in pg_dump when the database
+      contains many objects.
+      pg_dump could get very slow if the database contained many schemas,
+      or if many objects are in dependency loops, or if there are many
+      owned sequences.
+    - Fix memory and file descriptor leaks in pg_restore when reading a
+      directory-format archive.
+    - Fix pg_upgrade for the case that a database stored in a non-default
+      tablespace contains a table in the cluster's default tablespace.
+    - In ecpg, fix rare memory leaks and possible overwrite of one byte
+      after the sqlca_t structure.
+    - Fix "contrib/dblink"'s dblink_exec() to not leak temporary database
+      connections upon error.
+    - Fix "contrib/dblink" to report the correct connection name in error
+      messages.
+    - Fix "contrib/vacuumlo" to use multiple transactions when dropping
+      many large objects.
+      This change avoids exceeding max_locks_per_transaction when many
+      objects need to be dropped. The behavior can be adjusted with the
+      new -l (limit) option.
   * debian/control: Bump debhelper build dependency to >= 8, as it does not
     build with earlier versions.
 
