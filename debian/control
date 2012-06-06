@@ -34,7 +34,7 @@ Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-9.0/sid-pgapt/
 
 Package: libpq-dev
 Architecture: any
-Section: libdevel
+Section: 9.0/libdevel
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  libpq5 (= ${binary:Version}),
@@ -53,7 +53,7 @@ Description: header files for libpq5 (PostgreSQL library)
 
 Package: libpq5
 Architecture: any
-Section: libs
+Section: 9.0/libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: PostgreSQL C client library
  libpq is a C library that enables user programs to communicate with
@@ -68,7 +68,7 @@ Description: PostgreSQL C client library
 
 Package: libecpg6
 Architecture: any
-Section: libs
+Section: 9.0/libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: run-time library for ECPG programs
  The libecpg shared library is used by programs built with ECPG
@@ -78,7 +78,7 @@ Description: run-time library for ECPG programs
 
 Package: libecpg-dev
 Architecture: any
-Section: libdevel
+Section: 9.0/libdevel
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  libpq-dev,
@@ -98,7 +98,7 @@ Description: development files for ECPG (Embedded PostgreSQL for C)
 
 Package: libecpg-compat3
 Architecture: any
-Section: libs
+Section: 9.0/libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: older version of run-time library for ECPG programs
  The libecpg_compat shared library is used by programs built with ecpg.
@@ -108,7 +108,7 @@ Description: older version of run-time library for ECPG programs
 
 Package: libpgtypes3
 Architecture: any
-Section: libs
+Section: 9.0/libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: shared library libpgtypes for PostgreSQL 9.0
  The libpgtypes shared library is used by programs built with ecpg.
