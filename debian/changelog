@@ -1,9 +1,152 @@
-postgresql-9.0 (9.0.7-2) UNRELEASED; urgency=low
+postgresql-9.0 (9.0.8-1) UNRELEASED; urgency=low
 
   * Merge from postgresql-9.1/trunk:
   * debian/copyright: Fix syntax for copyright format 1.0.
   * Port debian/rules from 9.1, dropping cdbs.
   * Re-add lib* packages.
+  * New upstream bug fix release.
+
+    - Fix incorrect password transformation in contrib/pgcrypto's DES crypt()
+      function (Solar Designer)
+
+      If a password string contained the byte value 0x80, the remainder of the
+      password was ignored, causing the password to be much weaker than it
+      appeared. With this fix, the rest of the string is properly included in
+      the DES hash. Any stored password values that are affected by this bug
+      will thus no longer match, so the stored values may need to be updated.
+      (CVE-2012-2143)
+
+    - Ignore SECURITY DEFINER and SET attributes for a procedural language's
+      call handler (Tom Lane)
+
+      Applying such attributes to a call handler could crash the server.
+      (CVE-2012-2655)
+
+    - Allow numeric timezone offsets in timestamp input to be up to 16 hours
+      away from UTC (Tom Lane)
+
+      Some historical time zones have offsets larger than 15 hours, the
+      previous limit. This could result in dumped data values being rejected
+      during reload.
+
+    - Fix timestamp conversion to cope when the given time is exactly the last
+      DST transition time for the current timezone (Tom Lane)
+
+      This oversight has been there a long time, but was not noticed
+      previously because most DST-using zones are presumed to have an
+      indefinite sequence of future DST transitions.
+
+    - Fix text to name and char to name casts to perform string truncation
+      correctly in multibyte encodings (Karl Schnaitter)
+
+    - Fix memory copying bug in to_tsquery() (Heikki Linnakangas)
+
+    - Ensure txid_current() reports the correct epoch when executed in hot
+      standby (Simon Riggs)
+
+    - Fix planner's handling of outer PlaceHolderVars within subqueries (Tom
+      Lane)
+
+      This bug concerns sub-SELECTs that reference variables coming from the
+      nullable side of an outer join of the surrounding query. In 9.1, queries
+      affected by this bug would fail with "ERROR: Upper-level PlaceHolderVar
+      found where not expected". But in 9.0 and 8.4, you'd silently get
+      possibly-wrong answers, since the value transmitted into the subquery
+      wouldn't go to null when it should.
+
+    - Fix slow session startup when pg_attribute is very large (Tom Lane)
+
+      If pg_attribute exceeds one-fourth of shared_buffers, cache rebuilding
+      code that is sometimes needed during session start would trigger the
+      synchronized-scan logic, causing it to take many times longer than
+      normal. The problem was particularly acute if many new sessions were
+      starting at once.
+
+    - Ensure sequential scans check for query cancel reasonably often (Merlin
+      Moncure)
+
+      A scan encountering many consecutive pages that contain no live tuples
+      would not respond to interrupts meanwhile.
+
+    - Ensure the Windows implementation of PGSemaphoreLock() clears
+      ImmediateInterruptOK before returning (Tom Lane)
+
+      This oversight meant that a query-cancel interrupt received later in the
+      same query could be accepted at an unsafe time, with unpredictable but
+      not good consequences.
+
+    - Show whole-row variables safely when printing views or rules (Abbas
+      Butt, Tom Lane)
+
+      Corner cases involving ambiguous names (that is, the name could be
+      either a table or column name of the query) were printed in an ambiguous
+      way, risking that the view or rule would be interpreted differently
+      after dump and reload. Avoid the ambiguous case by attaching a no-op
+      cast.
+
+    - Fix COPY FROM to properly handle null marker strings that correspond to
+      invalid encoding (Tom Lane)
+
+      A null marker string such as E'\\0' should work, and did work in the
+      past, but the case got broken in 8.4.
+
+    - Ensure autovacuum worker processes perform stack depth checking properly
+      (Heikki Linnakangas)
+
+      Previously, infinite recursion in a function invoked by auto-ANALYZE
+      could crash worker processes.
+
+    - Fix logging collector to not lose log coherency under high load (Andrew
+      Dunstan)
+
+      The collector previously could fail to reassemble large messages if it
+      got too busy.
+
+    - Fix logging collector to ensure it will restart file rotation after
+      receiving SIGHUP (Tom Lane)
+
+    - Fix WAL replay logic for GIN indexes to not fail if the index was
+      subsequently dropped (Tom Lane)
+
+    - Fix memory leak in PL/pgSQL's RETURN NEXT command (Joe Conway)
+
+    - Fix PL/pgSQL's GET DIAGNOSTICS command when the target is the function's
+      first variable (Tom Lane)
+
+    - Fix potential access off the end of memory in psql's expanded display
+      (\x) mode (Peter Eisentraut)
+
+    - Fix several performance problems in pg_dump when the database contains
+      many objects (Jeff Janes, Tom Lane)
+
+      pg_dump could get very slow if the database contained many schemas, or
+      if many objects are in dependency loops, or if there are many owned
+      sequences.
+
+    - Fix pg_upgrade for the case that a database stored in a non-default
+      tablespace contains a table in the cluster's default tablespace (Bruce
+      Momjian)
+
+    - In ecpg, fix rare memory leaks and possible overwrite of one byte after
+      the sqlca_t structure (Peter Eisentraut)
+
+    - Fix contrib/dblink's dblink_exec() to not leak temporary database
+      connections upon error (Tom Lane)
+
+    - Fix contrib/dblink to report the correct connection name in error
+      messages (Kyotaro Horiguchi)
+
+    - Fix contrib/vacuumlo to use multiple transactions when dropping many
+      large objects (Tim Lewis, Robert Haas, Tom Lane)
+
+      This change avoids exceeding max_locks_per_transaction when many objects
+      need to be dropped. The behavior can be adjusted with the new -l (limit)
+      option.
+
+    - Update time zone data files to tzdata release 2012c for DST law changes
+      in Antarctica, Armenia, Chile, Cuba, Falkland Islands, Gaza, Haiti,
+      Hebron, Morocco, Syria, and Tokelau Islands; also historical corrections
+      for Canada.
 
  -- Christoph Berg <myon@debian.org>  Tue, 05 Jun 2012 21:21:00 +0200
 
