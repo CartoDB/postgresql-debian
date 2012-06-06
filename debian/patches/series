@@ -4,3 +4,7 @@
 52-tutorial-README.patch
 53-pg_service.conf_directory_doc.patch
 54-debian-alternatives-for-external-tools.patch
+
+# dynamically applied by debian/rules at build time, only listed here for maintenance using quilt
+#disable-root-check.patch
+#pg_regress-in-tmp.patch

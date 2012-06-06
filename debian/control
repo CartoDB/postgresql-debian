@@ -1,29 +1,131 @@
 Source: postgresql-9.0
 Section: database
 Priority: optional
-Maintainer: Christoph Berg <myon@debian.org>
+Maintainer: Debian PostgreSQL Maintainers <pkg-postgresql-public@lists.alioth.debian.org>
+Uploaders: Christoph Berg <myon@debian.org>
 Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 5.0.37.2), cdbs (>= 0.4.43), perl (>= 5.8),
- libperl-dev, tcl8.5-dev, libedit-dev, libssl-dev, libpq-dev (>= 9.0~),
- zlib1g-dev | libz-dev, libpam0g-dev | libpam-dev, libxml2-dev, libkrb5-dev,
- libldap2-dev, libxslt1-dev, libossp-uuid-dev, python-dev,
- gettext,
+Build-Depends: debhelper (>= 8~),
  dpkg-dev (>= 1.16.1~) | hardening-wrapper,
+ perl (>= 5.8),
+ libperl-dev,
+ tcl8.5-dev,
+ libedit-dev,
+ libssl-dev,
+# libpq-dev (>= 9.0~),
+ zlib1g-dev | libz-dev,
+ libpam0g-dev | libpam-dev,
+ libxml2-dev,
+ libkrb5-dev,
+ libldap2-dev,
+ libxslt1-dev,
+ libossp-uuid-dev,
+ python-dev,
  bison,
  flex,
  openjade,
  docbook-dsssl,
  docbook-xsl,
  opensp,
- xsltproc
+ xsltproc,
+ gettext
 Homepage: http://www.postgresql.org/
-Vcs-Browser: http://bazaar.launchpad.net/~pitti/postgresql/debian-9.0
-Vcs-Bzr: https://code.launchpad.net/~pitti/postgresql/debian-9.0
+Vcs-Browser: http://anonscm.debian.org/loggerhead/pkg-postgresql/postgresql-9.0/sid-pgapt
+Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-9.0/sid-pgapt/
+
+Package: libpq-dev
+Architecture: any
+Section: libdevel
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libpq5 (= ${binary:Version}),
+ libssl-dev,
+ libkrb5-dev,
+ comerr-dev
+Conflicts: postgresql-dev (<< 7.5)
+Replaces: postgresql-dev
+Suggests: postgresql-doc-9.0
+Description: header files for libpq5 (PostgreSQL library)
+ Header files and static library for compiling C programs to link
+ with the libpq library in order to communicate with a PostgreSQL
+ database backend.
+ .
+ PostgreSQL is an object-relational SQL database management system.
+
+Package: libpq5
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: PostgreSQL C client library
+ libpq is a C library that enables user programs to communicate with
+ the PostgreSQL database server.  The server can be on another machine
+ and accessed through TCP/IP.  This version of libpq is compatible
+ with servers from PostgreSQL 8.2 or later.
+ .
+ This package contains the run-time library, needed by packages using
+ libpq.
+ .
+ PostgreSQL is an object-relational SQL database management system.
+
+Package: libecpg6
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: run-time library for ECPG programs
+ The libecpg shared library is used by programs built with ECPG
+ (Embedded PostgreSQL for C).
+ .
+ PostgreSQL is an object-relational SQL database management system.
+
+Package: libecpg-dev
+Architecture: any
+Section: libdevel
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libpq-dev,
+ libecpg6 (= ${binary:Version}),
+ libecpg-compat3 (= ${binary:Version}),
+ libpgtypes3 (= ${binary:Version})
+Conflicts: postgresql-dev, libecpg3-dev
+Description: development files for ECPG (Embedded PostgreSQL for C)
+ This package contains the necessary files to build ECPG (Embedded
+ PostgreSQL for C) programs.  It includes the development libraries
+ and the preprocessor program ecpg.
+ .
+ PostgreSQL is an object-relational SQL database management system.
+ .
+ Install this package if you want to write C programs with SQL statements
+ embedded in them (rather than run by an external process).
+
+Package: libecpg-compat3
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: older version of run-time library for ECPG programs
+ The libecpg_compat shared library is used by programs built with ecpg.
+ (Embedded PostgreSQL for C).
+ .
+ PostgreSQL is an object-relational SQL database management system.
+
+Package: libpgtypes3
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: shared library libpgtypes for PostgreSQL 9.0
+ The libpgtypes shared library is used by programs built with ecpg.
+ (Embedded PostgreSQL for C).
+ .
+ PostgreSQL is an object-relational SQL database management system.
 
 Package: postgresql-9.0
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-client-9.0, postgresql-common (>= 109~), tzdata, ssl-cert, locales
-Suggests: oidentd | ident-server
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-client-9.0,
+ postgresql-common (>= 115~),
+ tzdata,
+ ssl-cert,
+ locales
+Suggests: oidentd | ident-server, locales-all
 Conflicts: postgresql (<< 7.5)
 Description: object-relational SQL database, version 9.0 server
  PostgreSQL is a fully featured object-relational database management
@@ -44,7 +146,7 @@ Package: postgresql-9.0-dbg
 Section: debug
 Priority: extra
 Architecture: any
-Depends: postgresql-9.0 (= ${binary:Version})
+Depends: ${misc:Depends}, postgresql-9.0 (= ${binary:Version})
 Description: debug symbols for postgresql-9.0
  PostgreSQL is a fully featured object-relational database management
  system.  It supports a large part of the SQL standard and is designed
@@ -58,10 +160,14 @@ Description: debug symbols for postgresql-9.0
 
 Package: postgresql-client-9.0
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-client-common (>= 107~)
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-client-common (>= 115~)
 Conflicts: postgresql (<< 7.5)
 Suggests: postgresql-9.0, postgresql-doc-9.0
 Provides: postgresql-client
+Breaks: postgresql-9.0 (<< ${binary:Version})
+Replaces: postgresql-9.0 (<< ${binary:Version})
 Description: front-end programs for PostgreSQL 9.0
  This package contains client and administrative programs for
  PostgreSQL: these are the interactive terminal client psql and
@@ -72,18 +178,21 @@ Description: front-end programs for PostgreSQL 9.0
  postgresql-9.0, too. On a network, you can install this package on
  many client machines, while the server package may be installed on
  only one machine.
- .  
+ .
  PostgreSQL is an object-relational SQL database management system.
 
 Package: postgresql-server-dev-9.0
 Architecture: any
 Section: libdevel
-Depends: ${misc:Depends}, ${shlibs:Depends}, libpq-dev (>= 9.0~)
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libpq-dev (>= 9.0~),
+ postgresql-common (>= 117~)
 Description: development files for PostgreSQL 9.0 server-side programming
  Header files for compiling SSI code to link into PostgreSQL's backend; for
  example, for C functions to be called from SQL.
  .
- This package also contains the Makefiles necessary for building add-on 
+ This package also contains the Makefiles necessary for building add-on
  modules of PostgreSQL, which would otherwise have to be built in the
  PostgreSQL source-code tree.
  .
@@ -102,7 +211,10 @@ Description: documentation for the PostgreSQL database management system
 
 Package: postgresql-contrib-9.0
 Architecture: any
-Depends: postgresql-9.0, ${misc:Depends}, ${shlibs:Depends}, postgresql-common (>= 109~)
+Depends: postgresql-9.0 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-common (>= 115~)
 Suggests: libdbd-pg-perl
 Conflicts: postgresql-contrib (<< 7.5)
 Description: additional facilities for PostgreSQL
@@ -159,7 +271,12 @@ Description: additional facilities for PostgreSQL
 
 Package: postgresql-plperl-9.0
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-9.0, perl
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-9.0 (= ${binary:Version}),
+ perl
+Replaces: postgresql-contrib-9.0 (<< 9.0~beta1-3~)
+Provides: postgresql-plperl
 Description: PL/Perl procedural language for PostgreSQL 9.0
  PL/Perl enables an SQL developer to write procedural language functions
  for PostgreSQL 9.0 in Perl.  You need this package if you have any
@@ -169,7 +286,11 @@ Description: PL/Perl procedural language for PostgreSQL 9.0
 
 Package: postgresql-plpython-9.0
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-9.0
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-9.0 (= ${binary:Version})
+Replaces: postgresql-contrib-9.0 (<< 9.0~beta1-3~)
+Provides: postgresql-plpython
 Description: PL/Python procedural language for PostgreSQL 9.0
  PL/Python enables an SQL developer to write procedural language functions
  for PostgreSQL 9.0 in Python.  You need this package if you have any
@@ -177,9 +298,28 @@ Description: PL/Python procedural language for PostgreSQL 9.0
  .
  PostgreSQL is an object-relational SQL database management system.
 
+Package: postgresql-plpython3-9.0
+Architecture: any
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-9.0 (= ${binary:Version})
+Replaces: postgresql-plpython-9.0 (<< ${binary:Version})
+Breaks: postgresql-plpython-9.0 (<< ${binary:Version})
+Provides: postgresql-plpython3
+Description: PL/Python 3 procedural language for PostgreSQL 9.0
+ PL/Python 3 enables an SQL developer to write procedural language functions
+ for PostgreSQL 9.0 in Python 3.  You need this package if you have any
+ PostgreSQL 9.0 functions that use the languages plpython3 or plpython3u.
+ .
+ PostgreSQL is an object-relational SQL database management system.
+
 Package: postgresql-pltcl-9.0
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-9.0
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ postgresql-9.0 (= ${binary:Version})
+Replaces: postgresql-contrib-9.0 (<< 9.0~beta1-3~)
+Provides: postgresql-pltcl
 Description: PL/Tcl procedural language for PostgreSQL 9.0
  PL/Tcl enables an SQL developer to write procedural language functions
  for PostgreSQL 9.0 in Tcl.  You need this package if you have any
