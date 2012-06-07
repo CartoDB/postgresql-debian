@@ -1,10 +1,11 @@
-postgresql-9.0 (9.0.8-1) unstable; urgency=low
+postgresql-9.0 (9.0.8-1pgapt1) sid-pgapt; urgency=low
 
   * Merge from postgresql-9.1/trunk:
   * debian/copyright: Fix syntax for copyright format 1.0.
   * Add debian/source/options: Ignore test suite .sql files, to fix building
     twice in a row.
   * Port debian/rules from 9.1, dropping cdbs.
+  * Disable plpython3 build for now, it is broken.
   * Re-add lib* packages.
   * Move lib* packages to component "9.0" so they don't conflict with newer
     versions in "main".
@@ -152,7 +153,7 @@ postgresql-9.0 (9.0.8-1) unstable; urgency=low
       Hebron, Morocco, Syria, and Tokelau Islands; also historical corrections
       for Canada.
 
- -- Christoph Berg <myon@debian.org>  Wed, 06 Jun 2012 18:59:11 +0200
+ -- Christoph Berg <myon@debian.org>  Thu, 07 Jun 2012 17:54:57 +0200
 
 postgresql-9.0 (9.0.7-1) unstable; urgency=low
 
