@@ -1,3 +1,15 @@
+postgresql-8.4 (8.4.12-2) UNRELEASED; urgency=low
+
+  * Drop all binary packages except for postgresql-plperl-8.4.  Version 8.4 is
+    obsolete and not supported in Wheezy any more, and there are no remaining
+    reverse dependencies any more. However, postgresql-plperl-8.4 from Squeeze
+    is not installable in Wheezy any more due to the different Perl version,
+    so we need a postgresql-plperl-8.4 built against libperl5.14 so that you
+    can upgrade your existing 8.4 clusters to 9.1. Drop unnecessary build
+    dependencies and disable the optional features to speed up the build.
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 20 Jun 2012 06:21:57 +0200
+
 postgresql-8.4 (8.4.12-1) unstable; urgency=medium
 
   * Urgency medium due to security fixes.
