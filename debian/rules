@@ -12,7 +12,7 @@ CFLAGS+= -fPIC
 # When protecting the postmaster with oom_adj=-17, allow the OOM killer to slay
 # the backends (http://archives.postgresql.org/pgsql-hackers/2010-01/msg00170.php)
 ifeq ($(shell uname -s),Linux)
-CFLAGS+= -DLINUX_OOM_ADJ=0
+CPPFLAGS+= -DLINUX_OOM_ADJ=0
 endif
 
 ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
@@ -43,6 +43,7 @@ COMMON_CONFIGURE_FLAGS= \
   --with-pgport=5432 \
   --with-system-tzdata=/usr/share/zoneinfo \
   CFLAGS='$(CFLAGS)' \
+  CPPFLAGS='$(CPPFLAGS)' \
   LDFLAGS='$(LDFLAGS)'
 
 # build should fail on test suite failures on all arches

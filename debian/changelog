@@ -12,6 +12,8 @@ postgresql-9.2 (9.1.4-2) UNRELEASED; urgency=low
     necessary to drop pg_basebackup.1.gz from the server alternatives group,
     so that it can go into the client group.
   * debian/postgresql-9.1.preinst: Drop obsolete transition code.
+  * debian/rules: Set -DLINUX_OOM_ADJ in CPPFLAGS, not in CFLAGS. Thanks Peter
+    Eisentraut. (Closes: #668300)
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 21 Jun 2012 21:19:08 +0200
 
