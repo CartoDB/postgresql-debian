@@ -1,4 +1,4 @@
-postgresql-9.2 (9.1.4-2) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.4-2) unstable; urgency=low
 
   [ Christoph Berg ]
   * Some cosmetic changes to control and rules file.
@@ -15,7 +15,7 @@ postgresql-9.2 (9.1.4-2) UNRELEASED; urgency=low
   * debian/rules: Set -DLINUX_OOM_ADJ in CPPFLAGS, not in CFLAGS. Thanks Peter
     Eisentraut. (Closes: #668300)
 
- -- Martin Pitt <mpitt@debian.org>  Thu, 21 Jun 2012 21:19:08 +0200
+ -- Martin Pitt <mpitt@debian.org>  Fri, 22 Jun 2012 10:35:38 +0200
 
 postgresql-9.1 (9.1.4-1) unstable; urgency=medium
 
