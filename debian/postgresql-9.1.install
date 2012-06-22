@@ -14,7 +14,6 @@ usr/lib/postgresql/9.1/lib/dict_snowball.so
 usr/lib/postgresql/9.1/lib/pg_upgrade_support.so
 usr/lib/postgresql/9.1/lib/tsearch2.so
 usr/share/locale/*/LC_MESSAGES/initdb-9.1.mo
-usr/share/locale/*/LC_MESSAGES/pg_basebackup-9.1.mo
 usr/share/locale/*/LC_MESSAGES/pg_controldata-9.1.mo
 usr/share/locale/*/LC_MESSAGES/pg_ctl-9.1.mo
 usr/share/locale/*/LC_MESSAGES/pg_resetxlog-9.1.mo
@@ -23,7 +22,6 @@ usr/share/locale/*/LC_MESSAGES/plpgsql-9.1.mo
 usr/share/locale/*/*/plpython-*.mo
 usr/share/postgresql/9.1/extension/plpgsql*
 usr/share/postgresql/9.1/man/man1/initdb.1.gz
-usr/share/postgresql/9.1/man/man1/pg_basebackup.1.gz
 usr/share/postgresql/9.1/man/man1/pg_controldata.1.gz
 usr/share/postgresql/9.1/man/man1/pg_ctl.1.gz
 usr/share/postgresql/9.1/man/man1/pg_resetxlog.1.gz

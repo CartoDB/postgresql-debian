@@ -1,39 +1,11 @@
 #!/bin/sh
 set -e
 
-#DEBHELPER#
-
-rm_conffile() {
-    PKGNAME="postgresql-9.1"
-    CONFFILE="$1"
-
-    if [ -e "$CONFFILE" ]; then
-	md5sum="`md5sum \"$CONFFILE\" | sed -e \"s/ .*//\"`"
-	old_md5sum="`dpkg-query -W -f='${Conffiles}' $PKGNAME | sed -n -e \"\\\\' $CONFFILE'{s/ obsolete$//;s/.* //p}\"`"
-	if [ "$md5sum" != "$old_md5sum" ]; then
-	    echo "Obsolete conffile $CONFFILE has been modified by you."
-	    echo "Saving as $CONFFILE.dpkg-bak ..."
-	    mv -f "$CONFFILE" "$CONFFILE".dpkg-bak
-	else
-	    echo "Removing obsolete conffile $CONFFILE ..."
-	    rm -f "$CONFFILE"
-	fi
-    fi
-}
-
-# earlier releases used per-version init scripts, now replaced with common one 
+# 9.1.4-2 moved pg_basebackup manpage from server to client; we need to rebuild
+# the alternatives for postmaster to drop pg_basebackup.1.gz from the group
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
-	dpkg --compare-versions "$2" le-nl "9.1~beta3-2"; then
-    rm_conffile /etc/init.d/postgresql-9.1
-fi
-
-# DB format changed between beta 1 and 2
-if [ "$1" = "upgrade" ] || [ "$1" = "install" ] && \
-	dpkg --compare-versions "$2" lt-nl "9.1~beta2"; then
-    if pg_lsclusters -h | grep -q '^9.1'; then
-	echo "ERROR: The database format changed between beta 1 and 2. Please dump your 9.1 clusters first and remove them, before attempting to upgrade the package." >&2
-	exit 1
-    fi
+	dpkg --compare-versions "$2" lt-nl "9.1.4-2~"; then
+    update-alternatives --remove postmaster.1.gz /usr/share/postgresql/9.1/man/man1/postmaster.1.gz
 fi
 
 #DEBHELPER#

@@ -25,8 +25,10 @@ usr/share/postgresql/9.1/man/man1/dropdb.1.gz
 usr/share/postgresql/9.1/man/man1/droplang.1.gz
 usr/share/postgresql/9.1/man/man1/dropuser.1.gz
 usr/share/postgresql/9.1/man/man1/reindexdb.1.gz
+usr/share/postgresql/9.1/man/man1/pg_basebackup.1.gz
 usr/share/postgresql/9.1/man/man7/
 usr/share/postgresql/9.1/psqlrc.sample
 usr/share/locale/*/LC_MESSAGES/pg_dump-9.1.mo
 usr/share/locale/*/LC_MESSAGES/psql-9.1.mo
 usr/share/locale/*/LC_MESSAGES/pgscripts-9.1.mo
+usr/share/locale/*/LC_MESSAGES/pg_basebackup-9.1.mo
