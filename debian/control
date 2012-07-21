@@ -16,11 +16,11 @@ Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-8.4/trunk/
 
 Package: postgresql-plperl-8.4
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-8.4, perl
+Depends: ${misc:Depends}, ${shlibs:Depends}, perl
 Description: PL/Perl procedural language for PostgreSQL 8.4
  PL/Perl enables an SQL developer to write procedural language functions
  for PostgreSQL 8.4 in Perl.  You need this package if you have any
  PostgreSQL 8.4 functions that use the languages plperl or plperlu.
  .
  PostgreSQL 8.4 is obsolete. This package is only provided for upgrades from
- 8.4 from Debian 6.0 ("Squeeze") and cannot be installed otherwise.
+ 8.4 from Debian 6.0 ("Squeeze") and should not be installed otherwise.
