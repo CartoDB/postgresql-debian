@@ -1,8 +1,14 @@
 postgresql-9.1 (9.1.4-3) UNRELEASED; urgency=low
 
+  [ Christoph Berg ]
   * debian/source/options: Ignore test suite .sql files, to fix building
     twice in a row; ignore .bzr-builddeb/default.conf so bzr checkouts can be
     built using dpkg-buildpackage.
+
+  [ Martin Pitt ]
+  * debian/postgresql-9.1.postrm: Do not remove the directories
+    /var/{lib,log}/postgresql/, they are owned by the postgresql-common
+    package. (Closes: #681966)
 
  -- Christoph Berg <myon@debian.org>  Sun, 08 Jul 2012 00:13:24 +0200
 

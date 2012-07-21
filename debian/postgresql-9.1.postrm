@@ -58,7 +58,5 @@ if [ "$1" = purge ]; then
     clean_dir /etc/postgresql/$VERSION
     clean_dir /etc/postgresql
     clean_dir /var/lib/postgresql/$VERSION
-    clean_dir /var/lib/postgresql
     clean_dir /var/log/postgresql/$VERSION
-    clean_dir /var/log/postgresql
 fi
