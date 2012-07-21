@@ -1,11 +1,13 @@
-postgresql-8.4 (8.4.12-3) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.12-3) unstable; urgency=medium
 
+  * Urgency medium; the current version in testing (with the full server)
+    is unsupportable in a stable release.
   * debian/control: Drop dependency to postgresql-8.4. While it is technically
     correct (it needs Squeeze's postgresql-8.4 package) it makes britney
     refuse to get this into testing, as the package is uninstallable in
     Wheezy.
 
- -- Martin Pitt <mpitt@debian.org>  Sat, 21 Jul 2012 16:31:58 +0200
+ -- Martin Pitt <mpitt@debian.org>  Sat, 21 Jul 2012 16:32:58 +0200
 
 postgresql-8.4 (8.4.12-2) unstable; urgency=low
 
