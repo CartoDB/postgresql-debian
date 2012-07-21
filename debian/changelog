@@ -1,4 +1,6 @@
-postgresql-9.1 (9.1.4-3) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.4-3) unstable; urgency=medium
+
+  Urgency medium: Trivial changes, and fixes RC bug.
 
   [ Christoph Berg ]
   * debian/source/options: Ignore test suite .sql files, to fix building
@@ -10,7 +12,7 @@ postgresql-9.1 (9.1.4-3) UNRELEASED; urgency=low
     /var/{lib,log}/postgresql/, they are owned by the postgresql-common
     package. (Closes: #681966)
 
- -- Christoph Berg <myon@debian.org>  Sun, 08 Jul 2012 00:13:24 +0200
+ -- Martin Pitt <mpitt@debian.org>  Sat, 21 Jul 2012 16:53:55 +0200
 
 postgresql-9.1 (9.1.4-2) unstable; urgency=low
 
