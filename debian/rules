@@ -1,7 +1,7 @@
 #!/usr/bin/make	-f 
 TCL_VER := 8.5
 MAJOR_VER := 8.3
-DEB_TAR_SRCDIR:=postgresql-8.3.9
+DEB_TAR_SRCDIR:=postgresql-8.3.17
 
 include /usr/share/cdbs/1/rules/tarball.mk
 include /usr/share/cdbs/1/rules/simple-patchsys.mk
@@ -17,7 +17,10 @@ ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
     CFLAGS+=-O1
 endif
 
+# do not yet enable hardening for Lenny, too close to release
+ifeq ($(shell lsb_release -is 2>/dev/null), Ubuntu)
 export DEB_BUILD_HARDENING=1
+endif
 
 # build should fail on test suite failures on all arches
 TESTSUITE_FAIL_CMD=exit 1
@@ -59,6 +62,16 @@ DEB_DH_MAKESHLIBS_ARGS := -Xusr/lib/postgresql/$(MAJOR_VER)
 DEB_DH_INSTALLCHANGELOGS_ARGS := build-tree/postgresql-*/HISTORY
 DEB_COMPRESS_EXCLUDE := .source .c
 DEB_DH_INSTALLINIT_ARGS := -u'defaults 19 21'
+
+common-binary-predeb-arch::
+	# verify that all files are installed; ignore manpages, since
+	# they are handled by dh_installman
+	missing=`dh_install --sourcedir=debian/tmp --list-missing --no-act 2>&1 | grep -v man/man`; \
+	if [ -n "$$missing" ]; then \
+	    echo "Not all files are installed:"; \
+	    echo "$$missing"; \
+	    exit 1; \
+	fi
 
 common-post-build-arch::
 	# generate POT files for translators
