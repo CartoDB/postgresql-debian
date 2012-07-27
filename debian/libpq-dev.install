@@ -13,5 +13,5 @@ usr/lib/libpgport.a
 usr/lib/libpq.a
 usr/lib/libpq.so
 usr/lib/postgresql/8.3/bin/pg_config usr/bin
-usr/share/postgresql/8.3/man/man1/pg_config.1
+usr/share/postgresql/8.3/man/man1/pg_config.1.gz
 usr/share/locale/*/LC_MESSAGES/pg_config-8.3.mo

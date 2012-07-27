@@ -1,11 +1,16 @@
-#!/bin/sh -e
+#!/bin/sh
+
+set -e
 
 VERSION=8.3
 
 #DEBHELPER#
 
+. /usr/share/postgresql-common/maintscripts-functions
+
+stop_version $VERSION
+
 if [ "$1" = remove ]; then
-    . /usr/share/postgresql-common/maintscripts-functions
     remove_version $VERSION
 fi
 

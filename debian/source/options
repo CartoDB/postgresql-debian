@@ -1,0 +1,3 @@
+extend-diff-ignore = src/test/regress/sql/.+\.sql
+extend-diff-ignore = src/interfaces/libpq/libpq.rc
+extend-diff-ignore = \.bzr-builddeb/default\.conf

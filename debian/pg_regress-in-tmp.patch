@@ -1,0 +1,7 @@
+As a consequence of 51-default-sockets-in-var.patch we now need to explicitly
+specify the pg_regress socket dir as /tmp, since it runs the server as the
+invoking user.
+--- /dev/null
++++ b/.pg_regress-in-tmp.patch
+@@ -0,0 +1 @@
++dummy

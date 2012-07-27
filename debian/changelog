@@ -1,3 +1,10 @@
+postgresql-8.3 (8.3.19-0.pgapt+1) sid-pgapt; urgency=low
+
+  * New upstream bug fix release.
+  * Import debian/ dir from 9.2 branch.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 27 Jul 2012 13:58:43 +0200
+
 postgresql-8.3 (8.3.17-0lenny1) oldstable; urgency=low
 
   * New upstream bug fix release:
