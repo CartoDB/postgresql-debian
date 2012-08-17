@@ -1,5 +1,7 @@
-postgresql-9.1 (9.1.5-1) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.5-1) unstable; urgency=medium
 
+  * Urgency medium due to security fixes and bug fixes which should reach
+    Wheezy quickly.
   * New upstream bug fix/security release:
     - Prevent access to external files/URLs via XML entity references.
       xml_parse() would attempt to fetch external files or URLs as needed
@@ -24,7 +26,7 @@ postgresql-9.1 (9.1.5-1) UNRELEASED; urgency=low
       on trying to fix it, we're just going to summarily remove it.
     - Lots of other bug fixes, see HISTORY/changelog.gz.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 17 Aug 2012 14:36:48 +0200
+ -- Martin Pitt <mpitt@debian.org>  Fri, 17 Aug 2012 14:41:52 +0200
 
 postgresql-9.1 (9.1.4-3) unstable; urgency=medium
 
