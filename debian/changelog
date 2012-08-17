@@ -1,3 +1,31 @@
+postgresql-9.1 (9.1.5-1) UNRELEASED; urgency=low
+
+  * New upstream bug fix/security release:
+    - Prevent access to external files/URLs via XML entity references.
+      xml_parse() would attempt to fetch external files or URLs as needed
+      to resolve DTD and entity references in an XML value, thus allowing
+      unprivileged database users to attempt to fetch data with the
+      privileges of the database server. While the external data wouldn't
+      get returned directly to the user, portions of it could be exposed
+      in error messages if the data didn't parse as valid XML; and in any
+      case the mere ability to check existence of a file might be useful
+      to an attacker. (CVE-2012-3489)
+    - Prevent access to external files/URLs via "contrib/xml2"'s
+      xslt_process().
+      libxslt offers the ability to read and write both files and URLs
+      through stylesheet commands, thus allowing unprivileged database
+      users to both read and write data with the privileges of the
+      database server. Disable that through proper use of libxslt's
+      security options. (CVE-2012-3488)
+      Also, remove xslt_process()'s ability to fetch documents and
+      stylesheets from external files/URLs. While this was a documented
+      "feature", it was long regarded as a bad idea. The fix for
+      CVE-2012-3489 broke that capability, and rather than expend effort
+      on trying to fix it, we're just going to summarily remove it.
+    - Lots of other bug fixes, see HISTORY/changelog.gz.
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 17 Aug 2012 14:36:48 +0200
+
 postgresql-9.1 (9.1.4-3) unstable; urgency=medium
 
   Urgency medium: Trivial changes, and fixes RC bug.
