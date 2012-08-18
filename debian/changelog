@@ -1,3 +1,9 @@
+postgresql-9.0 (9.0.9-1~pgapt+1) sid-pgapt; urgency=low
+
+  * New upstream bug fix release.
+
+ -- Christoph Berg <myon@debian.org>  Sat, 18 Aug 2012 22:35:55 +0200
+
 postgresql-9.0 (9.0.8-1pgapt1) sid-pgapt; urgency=low
 
   * Merge from postgresql-9.1/trunk:
