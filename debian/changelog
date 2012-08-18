@@ -1,6 +1,112 @@
 postgresql-9.0 (9.0.9-1~pgapt+1) sid-pgapt; urgency=low
 
   * New upstream bug fix release.
+     * Prevent access to external files/URLs via XML entity references
+       (Noah Misch, Tom Lane)
+       xml_parse() would attempt to fetch external files or URLs as needed
+       to resolve DTD and entity references in an XML value, thus allowing
+       unprivileged database users to attempt to fetch data with the
+       privileges of the database server. While the external data wouldn't
+       get returned directly to the user, portions of it could be exposed
+       in error messages if the data didn't parse as valid XML; and in any
+       case the mere ability to check existence of a file might be useful
+       to an attacker. (CVE-2012-3489)
+     * Prevent access to external files/URLs via "contrib/xml2"'s
+       xslt_process() (Peter Eisentraut)
+       libxslt offers the ability to read and write both files and URLs
+       through stylesheet commands, thus allowing unprivileged database
+       users to both read and write data with the privileges of the
+       database server. Disable that through proper use of libxslt's
+       security options. (CVE-2012-3488)
+       Also, remove xslt_process()'s ability to fetch documents and
+       stylesheets from external files/URLs. While this was a documented
+       "feature", it was long regarded as a bad idea. The fix for
+       CVE-2012-3489 broke that capability, and rather than expend effort
+       on trying to fix it, we're just going to summarily remove it.
+     * Prevent too-early recycling of btree index pages (Noah Misch)
+       When we allowed read-only transactions to skip assigning XIDs, we
+       introduced the possibility that a deleted btree page could be
+       recycled while a read-only transaction was still in flight to it.
+       This would result in incorrect index search results. The
+       probability of such an error occurring in the field seems very low
+       because of the timing requirements, but nonetheless it should be
+       fixed.
+     * Fix crash-safety bug with newly-created-or-reset sequences (Tom
+       Lane)
+       If "ALTER SEQUENCE" was executed on a freshly created or reset
+       sequence, and then precisely one nextval() call was made on it, and
+       then the server crashed, WAL replay would restore the sequence to a
+       state in which it appeared that no nextval() had been done, thus
+       allowing the first sequence value to be returned again by the next
+       nextval() call. In particular this could manifest for serial
+       columns, since creation of a serial column's sequence includes an
+       "ALTER SEQUENCE OWNED BY" step.
+     * Fix txid_current() to report the correct epoch when not in hot
+       standby (Heikki Linnakangas)
+       This fixes a regression introduced in the previous minor release.
+     * Fix bug in startup of Hot Standby when a master transaction has
+       many subtransactions (Andres Freund)
+       This mistake led to failures reported as "out-of-order XID
+       insertion in KnownAssignedXids".
+     * Ensure the "backup_label" file is fsync'd after pg_start_backup()
+       (Dave Kerr)
+     * Fix timeout handling in walsender processes (Tom Lane)
+       WAL sender background processes neglected to establish a SIGALRM
+       handler, meaning they would wait forever in some corner cases where
+       a timeout ought to happen.
+     * Back-patch 9.1 improvement to compress the fsync request queue
+       (Robert Haas)
+       This improves performance during checkpoints. The 9.1 change has
+       now seen enough field testing to seem safe to back-patch.
+     * Fix LISTEN/NOTIFY to cope better with I/O problems, such as out of
+       disk space (Tom Lane)
+       After a write failure, all subsequent attempts to send more NOTIFY
+       messages would fail with messages like "Could not read from file
+       "pg_notify/nnnn" at offset nnnnn: Success".
+     * Only allow autovacuum to be auto-canceled by a directly blocked
+       process (Tom Lane)
+       The original coding could allow inconsistent behavior in some
+       cases; in particular, an autovacuum could get canceled after less
+       than deadlock_timeout grace period.
+     * Improve logging of autovacuum cancels (Robert Haas)
+     * Fix log collector so that log_truncate_on_rotation works during the
+       very first log rotation after server start (Tom Lane)
+     * Fix WITH attached to a nested set operation
+       (UNION/INTERSECT/EXCEPT) (Tom Lane)
+     * Ensure that a whole-row reference to a subquery doesn't include any
+       extra GROUP BY or ORDER BY columns (Tom Lane)
+     * Disallow copying whole-row references in CHECK constraints and
+       index definitions during "CREATE TABLE" (Tom Lane)
+       This situation can arise in "CREATE TABLE" with LIKE or INHERITS.
+       The copied whole-row variable was incorrectly labeled with the row
+       type of the original table not the new one. Rejecting the case
+       seems reasonable for LIKE, since the row types might well diverge
+       later. For INHERITS we should ideally allow it, with an implicit
+       coercion to the parent table's row type; but that will require more
+       work than seems safe to back-patch.
+     * Fix memory leak in ARRAY(SELECT ...) subqueries (Heikki
+       Linnakangas, Tom Lane)
+     * Fix extraction of common prefixes from regular expressions (Tom
+       Lane)
+       The code could get confused by quantified parenthesized
+       subexpressions, such as ^(foo)?bar. This would lead to incorrect
+       index optimization of searches for such patterns.
+     * Fix bugs with parsing signed "hh":"mm" and "hh":"mm":"ss" fields in
+       interval constants (Amit Kapila, Tom Lane)
+     * Use Postgres' encoding conversion functions, not Python's, when
+       converting a Python Unicode string to the server encoding in
+       PL/Python (Jan Urbanski)
+       This avoids some corner-case problems, notably that Python doesn't
+       support all the encodings Postgres does. A notable functional
+       change is that if the server encoding is SQL_ASCII, you will get
+       the UTF-8 representation of the string; formerly, any non-ASCII
+       characters in the string would result in an error.
+     * Fix mapping of PostgreSQL encodings to Python encodings in
+       PL/Python (Jan Urbanski)
+     * Report errors properly in "contrib/xml2"'s xslt_process() (Tom
+       Lane)
+     * Update time zone data files to tzdata release 2012e for DST law
+       changes in Morocco and Tokelau
 
  -- Christoph Berg <myon@debian.org>  Sat, 18 Aug 2012 22:35:55 +0200
 
