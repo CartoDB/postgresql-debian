@@ -1,6 +1,158 @@
+postgresql-8.3 (8.3.20-1.pgapt+1) sid-pgapt; urgency=low
+
+  * New upstream bug fix release.
+     * Prevent access to external files/URLs via XML entity references
+       (Noah Misch, Tom Lane)
+       xml_parse() would attempt to fetch external files or URLs as needed
+       to resolve DTD and entity references in an XML value, thus allowing
+       unprivileged database users to attempt to fetch data with the
+       privileges of the database server. While the external data wouldn't
+       get returned directly to the user, portions of it could be exposed
+       in error messages if the data didn't parse as valid XML; and in any
+       case the mere ability to check existence of a file might be useful
+       to an attacker. (CVE-2012-3489)
+     * Prevent access to external files/URLs via "contrib/xml2"'s
+       xslt_process() (Peter Eisentraut)
+       libxslt offers the ability to read and write both files and URLs
+       through stylesheet commands, thus allowing unprivileged database
+       users to both read and write data with the privileges of the
+       database server. Disable that through proper use of libxslt's
+       security options. (CVE-2012-3488)
+       Also, remove xslt_process()'s ability to fetch documents and
+       stylesheets from external files/URLs. While this was a documented
+       "feature", it was long regarded as a bad idea. The fix for
+       CVE-2012-3489 broke that capability, and rather than expend effort
+       on trying to fix it, we're just going to summarily remove it.
+     * Prevent too-early recycling of btree index pages (Noah Misch)
+       When we allowed read-only transactions to skip assigning XIDs, we
+       introduced the possibility that a deleted btree page could be
+       recycled while a read-only transaction was still in flight to it.
+       This would result in incorrect index search results. The
+       probability of such an error occurring in the field seems very low
+       because of the timing requirements, but nonetheless it should be
+       fixed.
+     * Fix crash-safety bug with newly-created-or-reset sequences (Tom
+       Lane)
+       If "ALTER SEQUENCE" was executed on a freshly created or reset
+       sequence, and then precisely one nextval() call was made on it, and
+       then the server crashed, WAL replay would restore the sequence to a
+       state in which it appeared that no nextval() had been done, thus
+       allowing the first sequence value to be returned again by the next
+       nextval() call. In particular this could manifest for serial
+       columns, since creation of a serial column's sequence includes an
+       "ALTER SEQUENCE OWNED BY" step.
+     * Ensure the "backup_label" file is fsync'd after pg_start_backup()
+       (Dave Kerr)
+     * Back-patch 9.1 improvement to compress the fsync request queue
+       (Robert Haas)
+       This improves performance during checkpoints. The 9.1 change has
+       now seen enough field testing to seem safe to back-patch.
+     * Only allow autovacuum to be auto-canceled by a directly blocked
+       process (Tom Lane)
+       The original coding could allow inconsistent behavior in some
+       cases; in particular, an autovacuum could get canceled after less
+       than deadlock_timeout grace period.
+     * Improve logging of autovacuum cancels (Robert Haas)
+     * Fix log collector so that log_truncate_on_rotation works during the
+       very first log rotation after server start (Tom Lane)
+     * Ensure that a whole-row reference to a subquery doesn't include any
+       extra GROUP BY or ORDER BY columns (Tom Lane)
+     * Disallow copying whole-row references in CHECK constraints and
+       index definitions during "CREATE TABLE" (Tom Lane)
+       This situation can arise in "CREATE TABLE" with LIKE or INHERITS.
+       The copied whole-row variable was incorrectly labeled with the row
+       type of the original table not the new one. Rejecting the case
+       seems reasonable for LIKE, since the row types might well diverge
+       later. For INHERITS we should ideally allow it, with an implicit
+       coercion to the parent table's row type; but that will require more
+       work than seems safe to back-patch.
+     * Fix memory leak in ARRAY(SELECT ...) subqueries (Heikki
+       Linnakangas, Tom Lane)
+     * Fix extraction of common prefixes from regular expressions (Tom
+       Lane)
+       The code could get confused by quantified parenthesized
+       subexpressions, such as ^(foo)?bar. This would lead to incorrect
+       index optimization of searches for such patterns.
+     * Report errors properly in "contrib/xml2"'s xslt_process() (Tom
+       Lane)
+     * Update time zone data files to tzdata release 2012e for DST law
+       changes in Morocco and Tokelau
+
+ -- Christoph Berg <myon@debian.org>  Tue, 21 Aug 2012 14:59:43 +0200
+
 postgresql-8.3 (8.3.19-0.pgapt+1) sid-pgapt; urgency=low
 
   * New upstream bug fix release.
+     * Fix incorrect password transformation in "contrib/pgcrypto"'s DES
+       crypt() function (Solar Designer)
+       If a password string contained the byte value 0x80, the remainder
+       of the password was ignored, causing the password to be much weaker
+       than it appeared. With this fix, the rest of the string is properly
+       included in the DES hash. Any stored password values that are
+       affected by this bug will thus no longer match, so the stored
+       values may need to be updated. (CVE-2012-2143)
+     * Ignore SECURITY DEFINER and SET attributes for a procedural
+       language's call handler (Tom Lane)
+       Applying such attributes to a call handler could crash the server.
+       (CVE-2012-2655)
+     * Allow numeric timezone offsets in timestamp input to be up to 16
+       hours away from UTC (Tom Lane)
+       Some historical time zones have offsets larger than 15 hours, the
+       previous limit. This could result in dumped data values being
+       rejected during reload.
+     * Fix timestamp conversion to cope when the given time is exactly the
+       last DST transition time for the current timezone (Tom Lane)
+       This oversight has been there a long time, but was not noticed
+       previously because most DST-using zones are presumed to have an
+       indefinite sequence of future DST transitions.
+     * Fix text to name and char to name casts to perform string
+       truncation correctly in multibyte encodings (Karl Schnaitter)
+     * Fix memory copying bug in to_tsquery() (Heikki Linnakangas)
+     * Fix slow session startup when pg_attribute is very large (Tom Lane)
+       If pg_attribute exceeds one-fourth of shared_buffers, cache
+       rebuilding code that is sometimes needed during session start would
+       trigger the synchronized-scan logic, causing it to take many times
+       longer than normal. The problem was particularly acute if many new
+       sessions were starting at once.
+     * Ensure sequential scans check for query cancel reasonably often
+       (Merlin Moncure)
+       A scan encountering many consecutive pages that contain no live
+       tuples would not respond to interrupts meanwhile.
+     * Ensure the Windows implementation of PGSemaphoreLock() clears
+       ImmediateInterruptOK before returning (Tom Lane)
+       This oversight meant that a query-cancel interrupt received later
+       in the same query could be accepted at an unsafe time, with
+       unpredictable but not good consequences.
+     * Show whole-row variables safely when printing views or rules (Abbas
+       Butt, Tom Lane)
+       Corner cases involving ambiguous names (that is, the name could be
+       either a table or column name of the query) were printed in an
+       ambiguous way, risking that the view or rule would be interpreted
+       differently after dump and reload. Avoid the ambiguous case by
+       attaching a no-op cast.
+     * Ensure autovacuum worker processes perform stack depth checking
+       properly (Heikki Linnakangas)
+       Previously, infinite recursion in a function invoked by
+       auto-"ANALYZE" could crash worker processes.
+     * Fix logging collector to not lose log coherency under high load
+       (Andrew Dunstan)
+       The collector previously could fail to reassemble large messages if
+       it got too busy.
+     * Fix logging collector to ensure it will restart file rotation after
+       receiving SIGHUP (Tom Lane)
+     * Fix PL/pgSQL's "GET DIAGNOSTICS" command when the target is the
+       function's first variable (Tom Lane)
+     * Fix several performance problems in pg_dump when the database
+       contains many objects (Jeff Janes, Tom Lane)
+       pg_dump could get very slow if the database contained many schemas,
+       or if many objects are in dependency loops, or if there are many
+       owned sequences.
+     * Fix "contrib/dblink"'s dblink_exec() to not leak temporary database
+       connections upon error (Tom Lane)
+     * Update time zone data files to tzdata release 2012c for DST law
+       changes in Antarctica, Armenia, Chile, Cuba, Falkland Islands,
+       Gaza, Haiti, Hebron, Morocco, Syria, and Tokelau Islands; also
+       historical corrections for Canada.
   * Import debian/ dir from 9.2 branch.
 
  -- Christoph Berg <myon@debian.org>  Fri, 27 Jul 2012 13:58:43 +0200
