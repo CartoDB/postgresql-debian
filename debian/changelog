@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.12-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.12-0squeeze1) stable-security; urgency=low
 
   * New upstream security/bug fix release:
     - Fix incorrect password transformation in "contrib/pgcrypto"'s DES
@@ -87,7 +87,7 @@ postgresql-8.4 (8.4.12-0squeeze1) UNRELEASED; urgency=low
   * debian/control: Move bzr branches to alioth, so that other members of
     pkg-postgresql can commit. Update Vcs-* tags.
 
- -- Martin Pitt <mpitt@debian.org>  Mon, 04 Jun 2012 09:32:53 +0200
+ -- Martin Pitt <mpitt@debian.org>  Mon, 04 Jun 2012 09:53:26 +0200
 
 postgresql-8.4 (8.4.11-0squeeze1) stable-security; urgency=high
 
