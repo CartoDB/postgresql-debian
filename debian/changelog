@@ -1,3 +1,80 @@
+postgresql-8.4 (8.4.13-0squeeze1) UNRELEASED; urgency=low
+
+  * New upstream security/bug fix release:
+    - Prevent access to external files/URLs via XML entity references.
+      xml_parse() would attempt to fetch external files or URLs as needed
+      to resolve DTD and entity references in an XML value, thus allowing
+      unprivileged database users to attempt to fetch data with the
+      privileges of the database server. While the external data wouldn't
+      get returned directly to the user, portions of it could be exposed
+      in error messages if the data didn't parse as valid XML; and in any
+      case the mere ability to check existence of a file might be useful
+      to an attacker. (CVE-2012-3489)
+    - Prevent access to external files/URLs via "contrib/xml2"'s
+      xslt_process().
+      libxslt offers the ability to read and write both files and URLs
+      through stylesheet commands, thus allowing unprivileged database
+      users to both read and write data with the privileges of the
+      database server. Disable that through proper use of libxslt's
+      security options. (CVE-2012-3488)
+      Also, remove xslt_process()'s ability to fetch documents and
+      stylesheets from external files/URLs. While this was a documented
+      "feature", it was long regarded as a bad idea. The fix for
+      CVE-2012-3489 broke that capability, and rather than expend effort
+      on trying to fix it, we're just going to summarily remove it.
+    - Prevent too-early recycling of btree index pages.
+      When we allowed read-only transactions to skip assigning XIDs, we
+      introduced the possibility that a deleted btree page could be
+      recycled while a read-only transaction was still in flight to it.
+      This would result in incorrect index search results. The
+      probability of such an error occurring in the field seems very low
+      because of the timing requirements, but nonetheless it should be
+      fixed.
+    - Fix crash-safety bug with newly-created-or-reset sequences.
+      If "ALTER SEQUENCE" was executed on a freshly created or reset
+      sequence, and then precisely one nextval() call was made on it, and
+      then the server crashed, WAL replay would restore the sequence to a
+      state in which it appeared that no nextval() had been done, thus
+      allowing the first sequence value to be returned again by the next
+      nextval() call. In particular this could manifest for serial
+      columns, since creation of a serial column's sequence includes an
+      "ALTER SEQUENCE OWNED BY" step.
+    - Ensure the "backup_label" file is fsync'd after pg_start_backup().
+    - Back-patch 9.1 improvement to compress the fsync request queue.
+      This improves performance during checkpoints. The 9.1 change has
+      now seen enough field testing to seem safe to back-patch.
+    - Only allow autovacuum to be auto-canceled by a directly blocked
+      process.
+      The original coding could allow inconsistent behavior in some
+      cases; in particular, an autovacuum could get canceled after less
+      than deadlock_timeout grace period.
+    - Improve logging of autovacuum cancels.
+    - Fix log collector so that log_truncate_on_rotation works during the
+      very first log rotation after server start.
+    - Fix WITH attached to a nested set operation
+      (UNION/INTERSECT/EXCEPT).
+    - Ensure that a whole-row reference to a subquery doesn't include any
+      extra GROUP BY or ORDER BY columns.
+    - Disallow copying whole-row references in CHECK constraints and
+      index definitions during "CREATE TABLE".
+      This situation can arise in "CREATE TABLE" with LIKE or INHERITS.
+      The copied whole-row variable was incorrectly labeled with the row
+      type of the original table not the new one. Rejecting the case
+      seems reasonable for LIKE, since the row types might well diverge
+      later. For INHERITS we should ideally allow it, with an implicit
+      coercion to the parent table's row type; but that will require more
+      work than seems safe to back-patch.
+    - Fix memory leak in ARRAY(SELECT ...) subqueries.
+    - Fix extraction of common prefixes from regular expressions.
+      The code could get confused by quantified parenthesized
+      subexpressions, such as ^(foo)?bar. This would lead to incorrect
+      index optimization of searches for such patterns.
+    - Fix bugs with parsing signed "hh":"mm" and "hh":"mm":"ss" fields in
+      interval constants.
+    - Report errors properly in "contrib/xml2"'s xslt_process().
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 24 Aug 2012 08:21:48 +0200
+
 postgresql-8.4 (8.4.12-0squeeze1) stable-security; urgency=low
 
   * New upstream security/bug fix release:
