@@ -5,6 +5,14 @@ postgresql-9.1 (9.1.5-2) UNRELEASED; urgency=low
     "pie" (as that's not compatible with -fPIC) and add -pie to CFLAGS
     explicitly. Also drop the explicit "-Wl,-z,now" linker option, as this is
     now implied with "all". (LP: #1039618)
+  * Fix upgrades from older 9.1 releases in stable Ubuntu -updates/-security
+    releasese. The strict "<< 9.1.4-2~" check for moving pg_basebackup.1.gz is
+    not sufficient, as Ubuntu stables have newer upstream releases by now.
+    - debian/control: Move Breaks/Replaces: from static version to
+      ${binary:Version}.
+    - debian/postgresql-9.1.preinst: Also fix the alternatives when upgrading
+      from a -0something version.
+    - (LP: #1043449)
 
  -- Martin Pitt <mpitt@debian.org>  Wed, 22 Aug 2012 16:01:05 +0200
 
