@@ -1,4 +1,4 @@
-postgresql-9.1 (9.1.5-2) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.5-2) unstable; urgency=low
 
   * debian/rules: Re-enable hardening functions (regression from 9.1.3-2 when
     hardening-wrapper is not installed). Use "hardening=all", but disable
@@ -14,7 +14,7 @@ postgresql-9.1 (9.1.5-2) UNRELEASED; urgency=low
       from a -0something version.
     - (LP: #1043449)
 
- -- Martin Pitt <mpitt@debian.org>  Wed, 22 Aug 2012 16:01:05 +0200
+ -- Martin Pitt <mpitt@debian.org>  Fri, 31 Aug 2012 09:54:27 +0200
 
 postgresql-9.1 (9.1.5-1) unstable; urgency=medium
 
