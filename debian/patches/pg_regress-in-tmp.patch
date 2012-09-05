@@ -1,0 +1,43 @@
+As a consequence of 51-default-sockets-in-var.patch we now need to explicitly
+specify the pg_regress socket dir as /tmp, since it runs the server as the
+invoking user.
+--- a/src/test/regress/pg_regress.c
++++ b/src/test/regress/pg_regress.c
+@@ -892,7 +892,7 @@ psql_command(const char *database, const
+ 
+ 	/* And now we can build and execute the shell command */
+ 	snprintf(psql_cmd, sizeof(psql_cmd),
+-			 SYSTEMQUOTE "\"%s%spsql\" -X -c \"%s\" \"%s\"" SYSTEMQUOTE,
++			 SYSTEMQUOTE "\"%s%spsql\" -h /tmp -X -c \"%s\" \"%s\"" SYSTEMQUOTE,
+ 			 psqldir ? psqldir : "",
+ 			 psqldir ? "/" : "",
+ 			 query_escaped,
+@@ -2140,7 +2140,7 @@ regression_main(int argc, char *argv[],
+ 		 * Check if there is a postmaster running already.
+ 		 */
+ 		snprintf(buf2, sizeof(buf2),
+-				 SYSTEMQUOTE "\"%s/psql\" -X postgres <%s 2>%s" SYSTEMQUOTE,
++				 SYSTEMQUOTE "\"%s/psql\" -h /tmp -X postgres <%s 2>%s" SYSTEMQUOTE,
+ 				 bindir, DEVNULL, DEVNULL);
+ 
+ 		for (i = 0; i < 16; i++)
+@@ -2172,7 +2172,7 @@ regression_main(int argc, char *argv[],
+ 		 */
+ 		header(_("starting postmaster"));
+ 		snprintf(buf, sizeof(buf),
+-				 SYSTEMQUOTE "\"%s/postgres\" -D \"%s/data\" -F%s -c \"listen_addresses=%s\" > \"%s/log/postmaster.log\" 2>&1" SYSTEMQUOTE,
++				 SYSTEMQUOTE "\"%s/postgres\" -D \"%s/data\" -k /tmp -F%s -c \"listen_addresses=%s\" > \"%s/log/postmaster.log\" 2>&1" SYSTEMQUOTE,
+ 				 bindir, temp_install,
+ 				 debug ? " -d 5" : "",
+ 				 hostname ? hostname : "",
+--- a/src/test/regress/pg_regress_main.c
++++ b/src/test/regress/pg_regress_main.c
+@@ -59,7 +59,7 @@ psql_start_test(const char *testname,
+ 	add_stringlist_item(expectfiles, expectfile);
+ 
+ 	snprintf(psql_cmd, sizeof(psql_cmd),
+-			 SYSTEMQUOTE "\"%s%spsql\" -X -a -q -d \"%s\" < \"%s\" > \"%s\" 2>&1" SYSTEMQUOTE,
++			 SYSTEMQUOTE "\"%s%spsql\" -h /tmp -X -a -q -d \"%s\" < \"%s\" > \"%s\" 2>&1" SYSTEMQUOTE,
+ 			 psqldir ? psqldir : "",
+ 			 psqldir ? "/" : "",
+ 			 dblist->str,

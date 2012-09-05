@@ -1,2 +1,4 @@
 version=3
-http://www.postgresql.org/ftp/source/ /ftp/source/v(8\.4.*)/
+opts=uversionmangle=s/alpha/~alpha/;s/beta/~beta/;s/rc/~rc/ \
+ftp://ftp.postgresql.org/pub/source/v(8\.4.*)/postgresql-(8\.4.*).tar.bz2
+

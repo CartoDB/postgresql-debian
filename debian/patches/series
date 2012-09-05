@@ -1,0 +1,15 @@
+01-build-contrib.patch
+02-pager.patch
+03-sh-architecture.patch
+06-libpq-defaultsocketdir.patch
+07-relax-sslkey-permscheck.patch
+08-pkglibdir.patch
+09-server-includedir.patch
+10-tutorial-README.patch
+11-pg_regress-socketpath.patch
+12-psql-sensible-editor.patch
+13-pg_service.conf_directory_doc.patch
+14-pg_config-paths.patch
+15-bool-altivec.patch
+disable-root-check.patch
+pg_regress-in-tmp.patch

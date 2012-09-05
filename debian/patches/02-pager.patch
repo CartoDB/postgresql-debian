@@ -1,8 +1,7 @@
-diff -Nur postgresql-8.2/build-tree/postgresql-8.2beta1/src/bin/psql/print.h postgresql-8.2.new/build-tree/postgresql-8.2beta1/src/bin/psql/print.h
---- postgresql-8.2beta1/src/bin/psql/print.h	2006-08-30 00:25:07.000000000 +0200
-+++ postgresql-8.2beta1/src/bin/psql/print.h	2006-09-25 19:18:54.000000000 +0200
-@@ -89,7 +89,7 @@
- void		setDecimalLocale(void);
+--- a/src/bin/psql/print.h
++++ b/src/bin/psql/print.h
+@@ -122,7 +122,7 @@ extern void printQuery(const PGresult *r
+ extern void setDecimalLocale(void);
  
  #ifndef __CYGWIN__
 -#define DEFAULT_PAGER "more"
