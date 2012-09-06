@@ -235,7 +235,6 @@ Description: additional facilities for PostgreSQL
   ltree          - Tree-like data structures
   oid2name       - Maps OIDs to table names
   pageinspect    - Inspection of database pages
-  passwordcheck  - Simple password strength checker
   pg_buffercache - Real time queries on the shared buffer cache
   pg_freespacemap- Displays the contents of the free space map (FSM)
   pg_trgm        - Determine the similarity of text based on trigram matching
