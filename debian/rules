@@ -4,10 +4,11 @@ MAJOR_VER := 8.4
 
 # support both hardening-wrapper (for backports) and dpkg-buildflags
 export DEB_BUILD_HARDENING = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
 DPKG_EXPORT_BUILDFLAGS = 1
 -include /usr/share/dpkg/buildflags.mk
-LDFLAGS+= -Wl,--as-needed -Wl,-z,now
-CFLAGS+= -fPIC
+LDFLAGS+= -Wl,--as-needed
+CFLAGS+= -fPIC -pie
 
 # When protecting the postmaster with oom_adj=-17, allow the OOM killer to slay
 # the backends (http://archives.postgresql.org/pgsql-hackers/2010-01/msg00170.php)
@@ -52,7 +53,7 @@ TESTSUITE_FAIL_CMD=exit 1
 %:
 	dh $@
 
-override_dh_auto_configure: stamp/configure-build stamp/configure-build-py3
+override_dh_auto_configure: stamp/configure-build #stamp/configure-build-py3
 
 stamp/configure-build:
 	mkdir -p stamp build
@@ -82,7 +83,7 @@ stamp/configure-build-py3:
            $(COMMON_CONFIGURE_FLAGS)
 	touch "$@"
 
-override_dh_auto_build: stamp/build stamp/build-py3
+override_dh_auto_build: stamp/build #stamp/build-py3
 
 stamp/build: stamp/configure-build
 	cd build && $(MAKE)
@@ -100,7 +101,7 @@ stamp/build-py3: stamp/configure-build-py3
 	touch "$@"
 
 override_dh_auto_install:
-	make -C build-py3 install DESTDIR=$(CURDIR)/debian/tmp
+	#make -C build-py3 install DESTDIR=$(CURDIR)/debian/tmp
 	make -C build install DESTDIR=$(CURDIR)/debian/tmp
 	# compress manpages
 	gzip -9n $(CURDIR)/debian/tmp/usr/share/postgresql/*/man/man*/*.[137]
