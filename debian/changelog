@@ -1,7 +1,19 @@
-postgresql-8.4 (8.4.13-2) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.14-1) UNRELEASED; urgency=low
 
   * debian/watch: Update so that this actually works again. Adjusted from
     current -9.2 watch file.
+  * New upstream bug fix release:
+    - Fix handling of SIGFPE when PL/Perl is in use.
+      Perl resets the process's SIGFPE handler to SIG_IGN, which could
+      result in crashes later on. Restore the normal Postgres signal
+      handler after initializing PL/Perl.
+    - Prevent PL/Perl from crashing if a recursive PL/Perl function is
+      redefined while being executed.
+    - Work around possible misoptimization in PL/Perl.
+      Some Linux distributions contain an incorrect version of
+      "pthread.h" that results in incorrect compiled code in PL/Perl,
+      leading to crashes if a PL/Perl function calls another one that
+      throws an error.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:50:00 +0200
 
