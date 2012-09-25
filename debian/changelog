@@ -1,3 +1,10 @@
+postgresql-8.4 (8.4.13-2) UNRELEASED; urgency=low
+
+  * debian/watch: Update so that this actually works again. Adjusted from
+    current -9.2 watch file.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:50:00 +0200
+
 postgresql-8.4 (8.4.13-1) unstable; urgency=low
 
   * New upstream release. There are no effective changes for PL/Perl, but we
