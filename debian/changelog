@@ -26,6 +26,8 @@ postgresql-9.1 (9.1.6-1) UNRELEASED; urgency=low
       reduce the performance impact of vacuuming, while causing it to
       take longer to finish.
     - See HISTORY/changelog.gz for the other bug fixes.
+  * debian/rules: Compress all binaries with xz. Thanks Cyril Brulebois!
+    (Closes: #688678)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:32:46 +0200
 
