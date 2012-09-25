@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.14-1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.14-1) unstable; urgency=low
 
   * debian/watch: Update so that this actually works again. Adjusted from
     current -9.2 watch file.
@@ -15,7 +15,7 @@ postgresql-8.4 (8.4.14-1) UNRELEASED; urgency=low
       leading to crashes if a PL/Perl function calls another one that
       throws an error.
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:50:00 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:59:32 +0200
 
 postgresql-8.4 (8.4.13-1) unstable; urgency=low
 
