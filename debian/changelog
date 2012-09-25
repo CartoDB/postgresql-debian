@@ -1,5 +1,6 @@
-postgresql-9.1 (9.1.6-1) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.6-1) unstable; urgency=medium
 
+  * Urgency medium because of data loss bug fix.
   * New upstream bug fix release:
     - Fix persistence marking of shared buffers during WAL replay.
       This mistake can result in buffers not being written out during
@@ -29,7 +30,7 @@ postgresql-9.1 (9.1.6-1) UNRELEASED; urgency=low
   * debian/rules: Compress all binaries with xz. Thanks Cyril Brulebois!
     (Closes: #688678)
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:32:46 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 05:40:23 +0200
 
 postgresql-9.1 (9.1.5-2) unstable; urgency=low
 
