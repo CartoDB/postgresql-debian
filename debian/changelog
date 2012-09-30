@@ -1,3 +1,44 @@
+postgresql-9.0 (9.0.10-1.pgdgl+1) sid-pgdg; urgency=low
+
+  * New upstream bug fix release.
+     * Fix planner's assignment of executor parameters, and fix executor's
+       rescan logic for CTE plan nodes (Tom Lane)
+       These errors could result in wrong answers from queries that scan
+       the same WITH subquery multiple times.
+     * Improve page-splitting decisions in GiST indexes (Alexander
+       Korotkov, Robert Haas, Tom Lane)
+       Multi-column GiST indexes might suffer unexpected bloat due to this
+       error.
+     * Fix cascading privilege revoke to stop if privileges are still held
+       (Tom Lane)
+       If we revoke a grant option from some role "X", but "X" still holds
+       that option via a grant from someone else, we should not
+       recursively revoke the corresponding privilege from role(s) "Y"
+       that "X" had granted it to.
+     * Improve error messages for Hot Standby misconfiguration errors
+       (Gurjeet Singh)
+     * Fix handling of SIGFPE when PL/Perl is in use (Andres Freund)
+       Perl resets the process's SIGFPE handler to SIG_IGN, which could
+       result in crashes later on. Restore the normal Postgres signal
+       handler after initializing PL/Perl.
+     * Prevent PL/Perl from crashing if a recursive PL/Perl function is
+       redefined while being executed (Tom Lane)
+     * Work around possible misoptimization in PL/Perl (Tom Lane)
+       Some Linux distributions contain an incorrect version of
+       "pthread.h" that results in incorrect compiled code in PL/Perl,
+       leading to crashes if a PL/Perl function calls another one that
+       throws an error.
+     * Fix pg_upgrade's handling of line endings on Windows (Andrew
+       Dunstan)
+       Previously, pg_upgrade might add or remove carriage returns in
+       places such as function bodies.
+     * On Windows, make pg_upgrade use backslash path separators in the
+       scripts it emits (Andrew Dunstan)
+     * Update time zone data files to tzdata release 2012f for DST law
+       changes in Fiji
+
+ -- Christoph Berg <myon@debian.org>  Sun, 30 Sep 2012 12:58:28 +0200
+
 postgresql-9.0 (9.0.9-1~pgapt+1) sid-pgapt; urgency=low
 
   * New upstream bug fix release.
