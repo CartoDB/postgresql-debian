@@ -1,3 +1,32 @@
+postgresql-8.3 (8.3.21-1.pgapt+1) sid-pgdg; urgency=low
+
+  * New upstream bug fix release.
+     * Improve page-splitting decisions in GiST indexes (Alexander
+       Korotkov, Robert Haas, Tom Lane)
+       Multi-column GiST indexes might suffer unexpected bloat due to this
+       error.
+     * Fix cascading privilege revoke to stop if privileges are still held
+       (Tom Lane)
+       If we revoke a grant option from some role "X", but "X" still holds
+       that option via a grant from someone else, we should not
+       recursively revoke the corresponding privilege from role(s) "Y"
+       that "X" had granted it to.
+     * Fix handling of SIGFPE when PL/Perl is in use (Andres Freund)
+       Perl resets the process's SIGFPE handler to SIG_IGN, which could
+       result in crashes later on. Restore the normal Postgres signal
+       handler after initializing PL/Perl.
+     * Prevent PL/Perl from crashing if a recursive PL/Perl function is
+       redefined while being executed (Tom Lane)
+     * Work around possible misoptimization in PL/Perl (Tom Lane)
+       Some Linux distributions contain an incorrect version of
+       "pthread.h" that results in incorrect compiled code in PL/Perl,
+       leading to crashes if a PL/Perl function calls another one that
+       throws an error.
+     * Update time zone data files to tzdata release 2012f for DST law
+       changes in Fiji
+
+ -- Christoph Berg <myon@debian.org>  Mon, 01 Oct 2012 15:49:30 +0200
+
 postgresql-8.3 (8.3.20-1.pgapt+1) sid-pgapt; urgency=low
 
   * New upstream bug fix release.
