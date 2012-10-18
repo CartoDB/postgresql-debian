@@ -1,3 +1,4 @@
+00git_ecpg_array_bounds.patch
 02-relax-sslkey-permscheck.patch
 50-per-version-dirs.patch
 51-default-sockets-in-var.patch
