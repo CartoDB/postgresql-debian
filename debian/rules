@@ -1,8 +1,24 @@
-#!/usr/bin/make	-f 
+#!/usr/bin/make -f
 TCL_VER := 8.5
 MAJOR_VER := 8.2
-LDFLAGS+= -Wl,--as-needed
-CFLAGS+= -fPIC
+
+# this must also work for old releases with multiarch, so don't fail if the
+# variable doesn't exist
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH || true)
+
+# support both hardening-wrapper (for backports) and dpkg-buildflags
+export DEB_BUILD_HARDENING = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
+DPKG_EXPORT_BUILDFLAGS = 1
+-include /usr/share/dpkg/buildflags.mk
+LDFLAGS+= -Wl,--as-needed -L/usr/lib/mit-krb5 -L/usr/lib/$(DEB_HOST_MULTIARCH)/mit-krb5
+CFLAGS+= -fPIC -pie -I/usr/include/mit-krb5
+
+# When protecting the postmaster with oom_adj=-17, allow the OOM killer to slay
+# the backends (http://archives.postgresql.org/pgsql-hackers/2010-01/msg00170.php)
+#ifeq ($(shell uname -s),Linux)
+#CFLAGS+= -DLINUX_OOM_ADJ=0
+#endif
 
 ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
 # sparc and alpha's gcc currently miscompiles; see
@@ -10,8 +26,6 @@ ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
     CFLAGS+=-O1
 endif
 
-export DEB_BUILD_HARDENING=1
-export DEB_BUILD_HARDENING_FORMAT=0
 export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 
 # build should fail on test suite failures on all arches
@@ -149,3 +163,6 @@ contrib-installcheck:
 	/usr/lib/postgresql/$(MAJOR_VER)/bin/pg_ctl -D tmp_data stop
 	# find and print the regression diffs
 	find contrib/ -name regression.diffs -exec cat '{}' \;
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz

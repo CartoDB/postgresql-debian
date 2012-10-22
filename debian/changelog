@@ -1,3 +1,11 @@
+postgresql-8.2 (8.2.23-1.pgdg+1) sid-pgdg; urgency=low
+
+  * Append .pgdg+1 to version.
+  * Port CFLAGS/LDFLAGS/hardening handling from 9.2.
+  * Use dh_builddeb -- -Zxz.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 22 Oct 2012 12:53:55 +0200
+
 postgresql-8.2 (8.2.23-1) unstable; urgency=low
 
   * New upstream version.
