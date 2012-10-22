@@ -1,7 +1,6 @@
-diff -Nur postgresql-8.2/build-tree/postgresql-8.2.4/configure postgresql-8.2.new/build-tree/postgresql-8.2.4/configure
---- postgresql-8.2.4/configure	2007-04-20 05:20:41.000000000 +0200
-+++ postgresql-8.2.4/configure	2007-06-20 18:22:04.000000000 +0200
-@@ -7537,7 +7537,7 @@
+--- a/configure
++++ b/configure
+@@ -7604,7 +7604,7 @@ done
  
  
  
@@ -10,10 +9,9 @@ diff -Nur postgresql-8.2/build-tree/postgresql-8.2.4/configure postgresql-8.2.ne
  do
  as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
  if eval "test \"\${$as_ac_Header+set}\" = set"; then
-diff -Nur postgresql-8.2/build-tree/postgresql-8.2.4/src/include/pg_config.h.in postgresql-8.2.new/build-tree/postgresql-8.2.4/src/include/pg_config.h.in
---- postgresql-8.2.4/src/include/pg_config.h.in	2006-11-06 04:44:38.000000000 +0100
-+++ postgresql-8.2.4/src/include/pg_config.h.in	2007-06-20 18:22:30.000000000 +0200
-@@ -484,6 +484,9 @@
+--- a/src/include/pg_config.h.in
++++ b/src/include/pg_config.h.in
+@@ -490,6 +490,9 @@
  /* Define to 1 if you have the <sys/stat.h> header file. */
  #undef HAVE_SYS_STAT_H
  
@@ -23,10 +21,9 @@ diff -Nur postgresql-8.2/build-tree/postgresql-8.2.4/src/include/pg_config.h.in 
  /* Define to 1 if you have the <sys/time.h> header file. */
  #undef HAVE_SYS_TIME_H
  
-diff -Nur postgresql-8.2/build-tree/postgresql-8.2.4/src/include/storage/s_lock.h postgresql-8.2.new/build-tree/postgresql-8.2.4/src/include/storage/s_lock.h
---- postgresql-8.2.4/src/include/storage/s_lock.h	2006-06-08 00:24:45.000000000 +0200
-+++ postgresql-8.2.4/src/include/storage/s_lock.h	2007-06-20 18:23:04.000000000 +0200
-@@ -556,6 +556,18 @@
+--- a/src/include/storage/s_lock.h
++++ b/src/include/storage/s_lock.h
+@@ -549,6 +549,18 @@ do \
  #endif /* __mips__ && !__sgi */
  
  
