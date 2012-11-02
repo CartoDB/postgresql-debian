@@ -2,6 +2,8 @@ postgresql-9.1 (9.1.6-2) UNRELEASED; urgency=low
 
   * Add debian/patches/00git_ecpg_array_bounds.patch: Fix test for array
     boundary in ecpg. Patch backported from upstream git. (LP: #1063613)
+  * Add 03-python-includedirs.patch: Detect both python3.3 include locations.
+    Thanks Dmitrijs Ledkovs!
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 18 Oct 2012 17:25:03 +0200
 
