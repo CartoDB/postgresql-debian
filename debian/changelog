@@ -1,3 +1,10 @@
+postgresql-9.0 (9.0.11-1.pgdg+1) sid-pgdg; urgency=low
+
+  * New upstream bug fix release. See
+    /usr/share/doc/postgresql-9.0/changelog.gz for details.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 04 Dec 2012 17:00:54 +0100
+
 postgresql-9.0 (9.0.10-1.pgdgl+1) sid-pgdg; urgency=low
 
   * New upstream bug fix release.
