@@ -1,6 +1,7 @@
 postgresql-8.3 (8.3.22-1.pgdg+1) sid-pgdg; urgency=low
 
   * New upstream bug fix release.
+  * Refreshed debian/patches/03-gettext-domains.patch.
 
  -- Christoph Berg <myon@debian.org>  Tue, 04 Dec 2012 17:44:57 +0100
 
