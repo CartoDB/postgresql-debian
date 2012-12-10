@@ -1,17 +1,18 @@
-postgresql-8.4 (8.4.14-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.15-0squeeze1) UNRELEASED; urgency=low
 
   * New upstream bug fix release:
-    - Fix handling of SIGFPE when PL/Perl is in use.
-      Perl resets the process's SIGFPE handler to SIG_IGN, which could
-      result in crashes later on. Restore the normal Postgres signal
-      handler after initializing PL/Perl.
-    - Prevent PL/Perl from crashing if a recursive PL/Perl function is
-      redefined while being executed.
-    - Work around possible misoptimization in PL/Perl.
-      Some Linux distributions contain an incorrect version of
-      "pthread.h" that results in incorrect compiled code in PL/Perl,
-      leading to crashes if a PL/Perl function calls another one that
-      throws an error.
+    - Fix multiple bugs associated with "CREATE INDEX CONCURRENTLY"
+      Fix "CREATE INDEX CONCURRENTLY" to use in-place updates when
+      changing the state of an index's pg_index row. This prevents race
+      conditions that could cause concurrent sessions to miss updating
+      the target index, thus resulting in corrupt concurrently-created
+      indexes.
+      Also, fix various other operations to ensure that they ignore
+      invalid indexes resulting from a failed "CREATE INDEX CONCURRENTLY"
+      command. The most important of these is "VACUUM", because an
+      auto-vacuum could easily be launched on the table before corrective
+      action can be taken to fix or remove the invalid index.
+    - See HISTORY/changelog.gz for details about other bug fixes.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 25 Sep 2012 16:05:20 +0200
 
