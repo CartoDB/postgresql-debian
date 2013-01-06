@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.7-2) UNRELEASED; urgency=low
+
+  * Add autopkgtest, moved from postgresql-common.
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 06 Jan 2013 12:26:36 +0100
+
 postgresql-9.1 (9.1.7-1) unstable; urgency=low
 
   * New upstream bug fix release. See HISTORY/changelog.gz for details.
