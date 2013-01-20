@@ -1,6 +1,11 @@
 postgresql-9.2 (9.2.2-3) UNRELEASED; urgency=low
 
+  [ Martin Pitt ]
   * Add missing docbook build dependency. (Closes: #697618)
+
+  [ Christoph Berg ]
+  * debian/rules: Remove the temporary patches from pg_regress, and teach
+    pg_regress to support unix socket dirs in --host.
 
  -- Martin Pitt <mpitt@debian.org>  Sun, 13 Jan 2013 11:57:52 +0100
 
