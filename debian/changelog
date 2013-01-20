@@ -1,5 +1,8 @@
 postgresql-8.3 (8.3.22-2.pgdg+1) UNRELEASED; urgency=low
 
+  [ Martin Pitt ]
+  * Add missing docbook build dependency. (Closes: #697618)
+
   [ Christoph Berg ]
   * debian/tests: Moved autopkgtest integration here from postgresql-common.
 
