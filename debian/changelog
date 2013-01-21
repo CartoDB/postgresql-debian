@@ -7,6 +7,7 @@ postgresql-8.3 (8.3.22-2.pgdg+1) UNRELEASED; urgency=low
   * debian/tests: Moved autopkgtest integration here from postgresql-common.
   * debian/rules: Remove the temporary patches from pg_regress, and teach
     pg_regress to support unix socket dirs in --host.
+  * debian/rules: Call pg_regress with a random port number.
 
  -- Martin Pitt <mpitt@debian.org>  Sat, 08 Dec 2012 15:40:46 +0100
 
