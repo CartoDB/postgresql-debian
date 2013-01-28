@@ -11,3 +11,4 @@
 14-pg_config-paths.patch
 15-bool-altivec.patch
 60-pg_regress_socketdir.patch
+61-pt_regress_extra_args
