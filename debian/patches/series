@@ -10,5 +10,4 @@
 13-pg_service.conf_directory_doc.patch
 14-pg_config-paths.patch
 15-bool-altivec.patch
-#disable-root-check.patch
-#pg_regress-in-tmp.patch
+60-pg_regress_socketdir.patch
