@@ -2,6 +2,7 @@ postgresql-8.4 (8.4.15-2.pgdg+1) sid-pgdg; urgency=low
 
   * debian/rules: Remove the temporary patches from pg_regress, and teach
     pg_regress to support unix socket dirs in --host.
+  * debian/tests: Moved autopkgtest integration here from postgresql-common.
 
  -- Christoph Berg <myon@debian.org>  Thu, 06 Dec 2012 15:40:54 +0100
 
