@@ -5,3 +5,4 @@
 53-pg_service.conf_directory_doc.patch
 54-debian-alternatives-for-external-tools.patch
 60-pg_regress_socketdir.patch
+61-pg_regress_extra_args
