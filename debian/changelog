@@ -1,3 +1,14 @@
+postgresql-9.0 (9.0.12-1.pgdg+1) sid-pgdg; urgency=medium
+
+  * New upstream version.
+    + Prevent execution of enum_recv from SQL
+      The function was misdeclared, allowing a simple SQL command to crash the
+      server.  In principle an attacker might be able to use it to examine the
+      contents of server memory.  Our thanks to Sumit Soni (via Secunia SVCRP)
+      for reporting this issue. (CVE-2013-0255)
+
+ -- Christoph Berg <myon@debian.org>  Tue, 05 Feb 2013 10:11:43 +0100
+
 postgresql-9.0 (9.0.11-2.pgdg+1) sid-pgdg; urgency=low
 
   * debian/tests: Moved autopkgtest integration here from postgresql-common.
