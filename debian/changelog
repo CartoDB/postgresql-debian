@@ -10,6 +10,7 @@ postgresql-8.3 (8.3.23-1.pgdg+1) sid-pgdg; urgency=medium
       server.  In principle an attacker might be able to use it to examine the
       contents of server memory.  Our thanks to Sumit Soni (via Secunia SVCRP)
       for reporting this issue. (CVE-2013-0255)
+  * debian/patches/03-gettext-domains.patch: Refresh.
   * debian/tests: Moved autopkgtest integration here from postgresql-common.
   * debian/rules: Remove the temporary patches from pg_regress, and teach
     pg_regress to support unix socket dirs in --host.

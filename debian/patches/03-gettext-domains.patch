@@ -1,6 +1,6 @@
 --- a/src/backend/main/main.c
 +++ b/src/backend/main/main.c
-@@ -87,7 +87,7 @@ main(int argc, char *argv[])
+@@ -87,7 +87,7 @@
  	 * error messages to be localized.
  	 */
  
@@ -20,7 +20,7 @@
  GETTEXT_TRIGGERS:= _ errmsg errdetail errhint errcontext write_stderr yyerror
 --- a/src/bin/initdb/initdb.c
 +++ b/src/bin/initdb/initdb.c
-@@ -2466,7 +2466,7 @@ main(int argc, char *argv[])
+@@ -2466,7 +2466,7 @@
  	};
  
  	progname = get_progname(argv[0]);
@@ -44,12 +44,12 @@
  # $PostgreSQL: pgsql/src/bin/pg_config/nls.mk,v 1.17 2007/11/15 20:38:15 petere Exp $
 -CATALOG_NAME	:= pg_config
 +CATALOG_NAME	:= pg_config-8.3
- AVAIL_LANGUAGES	:= cs de es fr ko nb pl pt_BR ro ru sl sv ta tr zh_CN zh_TW
+ AVAIL_LANGUAGES	:= cs de es fr it ko nb pl pt_BR ro ru sl sv ta tr zh_CN zh_TW
  GETTEXT_FILES	:= pg_config.c ../../port/exec.c
  GETTEXT_TRIGGERS:= _
 --- a/src/bin/pg_config/pg_config.c
 +++ b/src/bin/pg_config/pg_config.c
-@@ -451,7 +451,7 @@ main(int argc, char **argv)
+@@ -451,7 +451,7 @@
  	int			j;
  	int			ret;
  
@@ -69,7 +69,7 @@
  GETTEXT_TRIGGERS:= _
 --- a/src/bin/pg_controldata/pg_controldata.c
 +++ b/src/bin/pg_controldata/pg_controldata.c
-@@ -75,7 +75,7 @@ main(int argc, char *argv[])
+@@ -75,7 +75,7 @@
  	const char *strftime_fmt = "%c";
  	const char *progname;
  
@@ -84,12 +84,12 @@
  # $PostgreSQL: pgsql/src/bin/pg_ctl/nls.mk,v 1.16 2007/11/15 20:38:15 petere Exp $
 -CATALOG_NAME	:= pg_ctl
 +CATALOG_NAME	:= pg_ctl-8.3
- AVAIL_LANGUAGES	:= cs de es fr ko pt_BR ro ru sk sl sv ta tr zh_CN zh_TW
+ AVAIL_LANGUAGES	:= cs de es fr it ko pt_BR ro ru sk sl sv ta tr zh_CN zh_TW
  GETTEXT_FILES	:= pg_ctl.c ../../port/exec.c
  GETTEXT_TRIGGERS:= _ simple_prompt
 --- a/src/bin/pg_ctl/pg_ctl.c
 +++ b/src/bin/pg_ctl/pg_ctl.c
-@@ -1708,7 +1708,7 @@ main(int argc, char **argv)
+@@ -1708,7 +1708,7 @@
  #endif
  
  	progname = get_progname(argv[0]);
@@ -109,7 +109,7 @@
                     pg_backup_db.c pg_backup_files.c pg_backup_null.c \
 --- a/src/bin/pg_dump/pg_dumpall.c
 +++ b/src/bin/pg_dump/pg_dumpall.c
-@@ -125,7 +125,7 @@ main(int argc, char *argv[])
+@@ -125,7 +125,7 @@
  
  	int			optindex;
  
@@ -120,7 +120,7 @@
  
 --- a/src/bin/pg_dump/pg_dump.c
 +++ b/src/bin/pg_dump/pg_dump.c
-@@ -268,7 +268,7 @@ main(int argc, char **argv)
+@@ -268,7 +268,7 @@
  	};
  	int			optindex;
  
@@ -131,7 +131,7 @@
  
 --- a/src/bin/pg_dump/pg_restore.c
 +++ b/src/bin/pg_dump/pg_restore.c
-@@ -117,7 +117,7 @@ main(int argc, char **argv)
+@@ -117,7 +117,7 @@
  		{NULL, 0, NULL, 0}
  	};
  
@@ -151,7 +151,7 @@
  GETTEXT_TRIGGERS:= _
 --- a/src/bin/pg_resetxlog/pg_resetxlog.c
 +++ b/src/bin/pg_resetxlog/pg_resetxlog.c
-@@ -88,7 +88,7 @@ main(int argc, char *argv[])
+@@ -88,7 +88,7 @@
  	char	   *DataDir;
  	int			fd;
  
@@ -171,7 +171,7 @@
                     mainloop.c print.c startup.c describe.c sql_help.h \
 --- a/src/bin/psql/startup.c
 +++ b/src/bin/psql/startup.c
-@@ -108,7 +108,7 @@ main(int argc, char *argv[])
+@@ -108,7 +108,7 @@
  	char	   *password_prompt = NULL;
  	bool		new_pass;
  
@@ -182,7 +182,7 @@
  	{
 --- a/src/bin/scripts/clusterdb.c
 +++ b/src/bin/scripts/clusterdb.c
-@@ -56,7 +56,7 @@ main(int argc, char *argv[])
+@@ -56,7 +56,7 @@
  	char	   *table = NULL;
  
  	progname = get_progname(argv[0]);
@@ -193,7 +193,7 @@
  
 --- a/src/bin/scripts/createdb.c
 +++ b/src/bin/scripts/createdb.c
-@@ -57,7 +57,7 @@ main(int argc, char *argv[])
+@@ -57,7 +57,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -204,7 +204,7 @@
  
 --- a/src/bin/scripts/createlang.c
 +++ b/src/bin/scripts/createlang.c
-@@ -52,7 +52,7 @@ main(int argc, char *argv[])
+@@ -52,7 +52,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -215,7 +215,7 @@
  
 --- a/src/bin/scripts/createuser.c
 +++ b/src/bin/scripts/createuser.c
-@@ -81,7 +81,7 @@ main(int argc, char *argv[])
+@@ -81,7 +81,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -226,7 +226,7 @@
  
 --- a/src/bin/scripts/dropdb.c
 +++ b/src/bin/scripts/dropdb.c
-@@ -50,7 +50,7 @@ main(int argc, char *argv[])
+@@ -50,7 +50,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -237,7 +237,7 @@
  
 --- a/src/bin/scripts/droplang.c
 +++ b/src/bin/scripts/droplang.c
-@@ -63,7 +63,7 @@ main(int argc, char *argv[])
+@@ -63,7 +63,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -248,7 +248,7 @@
  
 --- a/src/bin/scripts/dropuser.c
 +++ b/src/bin/scripts/dropuser.c
-@@ -50,7 +50,7 @@ main(int argc, char *argv[])
+@@ -50,7 +50,7 @@
  	PGresult   *result;
  
  	progname = get_progname(argv[0]);
@@ -268,7 +268,7 @@
                     dropdb.c droplang.c dropuser.c \
 --- a/src/bin/scripts/reindexdb.c
 +++ b/src/bin/scripts/reindexdb.c
-@@ -64,7 +64,7 @@ main(int argc, char *argv[])
+@@ -64,7 +64,7 @@
  	const char *index = NULL;
  
  	progname = get_progname(argv[0]);
@@ -279,7 +279,7 @@
  
 --- a/src/bin/scripts/vacuumdb.c
 +++ b/src/bin/scripts/vacuumdb.c
-@@ -64,7 +64,7 @@ main(int argc, char *argv[])
+@@ -64,7 +64,7 @@
  	bool		verbose = false;
  
  	progname = get_progname(argv[0]);
@@ -290,7 +290,7 @@
  
 --- a/src/interfaces/libpq/fe-misc.c
 +++ b/src/interfaces/libpq/fe-misc.c
-@@ -1149,7 +1149,7 @@ libpq_gettext(const char *msgid)
+@@ -1149,7 +1149,7 @@
  		ldir = getenv("PGLOCALEDIR");
  		if (!ldir)
  			ldir = LOCALEDIR;
