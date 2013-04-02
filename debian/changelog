@@ -1,11 +1,11 @@
-postgresql-8.4 (8.4.17-1) UNRELEASED; urgency=high
+postgresql-8.4 (8.4.17-1) unstable; urgency=high
 
   * New upstream release:
     - Eliminate memory leaks in PL/Perl's spi_prepare() function
   * Urgency high to fix squeeze-security → wheezy upgrades as quickly as
     possible (as the version in wheezy must be higher).
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 10:35:20 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 11:39:30 +0200
 
 postgresql-8.4 (8.4.16-1) unstable; urgency=low
 
