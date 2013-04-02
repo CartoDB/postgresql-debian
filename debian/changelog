@@ -1,4 +1,4 @@
-postgresql-9.1 (9.1.9-1) UNRELEASED; urgency=high
+postgresql-9.1 (9.1.9-1) unstable; urgency=high
 
   * Urgency high because of critical remote data destruction vulnerability.
   * New upstream security/bug fix release:
@@ -41,7 +41,7 @@ postgresql-9.1 (9.1.9-1) UNRELEASED; urgency=high
     - See HISTORY/changelog.gz for details about the other bug fixes.
   * Bump Standards-Version to 3.9.4 (no changes necessary).
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 10:17:09 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 10:26:14 +0200
 
 postgresql-9.1 (9.1.8-1) unstable; urgency=medium
 
