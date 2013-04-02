@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.16-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.16-0squeeze1) stable-security; urgency=high
 
   * New upstream security/bug fix release:
     - Prevent execution of enum_recv from SQL
@@ -8,7 +8,7 @@ postgresql-8.4 (8.4.16-0squeeze1) UNRELEASED; urgency=low
       for reporting this issue. (CVE-2013-0255)
     - See HISTORY/changelog.gz for the other bug fixes.
 
- -- Martin Pitt <mpitt@debian.org>  Sat, 16 Feb 2013 21:53:47 +0100
+ -- Martin Pitt <mpitt@debian.org>  Sat, 16 Feb 2013 21:55:37 +0100
 
 postgresql-8.4 (8.4.15-0squeeze1) stable; urgency=low
 
