@@ -39,6 +39,7 @@ postgresql-9.1 (9.1.9-1) UNRELEASED; urgency=high
       advised to "REINDEX" multi-column GiST indexes after installing
       this update.
     - See HISTORY/changelog.gz for details about the other bug fixes.
+  * Bump Standards-Version to 3.9.4 (no changes necessary).
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 10:17:09 +0200
 
