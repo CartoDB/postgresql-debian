@@ -1,4 +1,4 @@
-postgresql-8.4 (8.4.17-0squeeze1) UNRELEASED; urgency=high
+postgresql-8.4 (8.4.17-0squeeze1) stable-security; urgency=high
 
   * New upstream security/bug fix release:
     - Reset OpenSSL randomness state in each postmaster child process.
@@ -29,7 +29,7 @@ postgresql-8.4 (8.4.17-0squeeze1) UNRELEASED; urgency=high
       this update.
     - See HISTORY/changelog.gz for the other bug fixes.
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 11:00:07 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 11:27:17 +0200
 
 postgresql-8.4 (8.4.16-0squeeze1) stable-security; urgency=high
 
