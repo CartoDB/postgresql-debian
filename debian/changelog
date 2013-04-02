@@ -38,6 +38,7 @@ postgresql-9.2 (9.2.4-1) UNRELEASED; urgency=low
       advised to "REINDEX" multi-column GiST indexes after installing
       this update.
     - See HISTORY/changelog.gz for details about other bug fixes.
+  * Bump Standards-Version to 3.9.4 (no changes necessary).
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 02 Apr 2013 09:56:11 +0200
 
