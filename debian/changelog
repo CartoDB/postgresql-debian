@@ -1,3 +1,9 @@
+postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
+
+  * debian/tests/control: Add missing net-tools test dependency.
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 26 Apr 2013 10:46:15 +0200
+
 postgresql-9.2 (9.2.4-1) experimental; urgency=low
 
   * New upstream security/bug fix release:
