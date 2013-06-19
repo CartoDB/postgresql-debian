@@ -1,6 +1,10 @@
 postgresql-9.1 (9.1.9-2) UNRELEASED; urgency=low
 
   * debian/copyright: Fix syntax errors.
+  * debian/rules: Build with -fno-aggressive-loop-optimizations with gcc 4.8
+    to avoid generating bad code due to the broken usage of variable-length
+    arrays. This is fixed properly in 9.2, but the patch does not backport
+    well. (Closes: #701340)
 
  -- Martin Pitt <mpitt@debian.org>  Wed, 19 Jun 2013 07:39:12 +0200
 
