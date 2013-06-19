@@ -1,4 +1,4 @@
-postgresql-9.1 (9.1.9-2) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.9-2) unstable; urgency=low
 
   * debian/copyright: Fix syntax errors.
   * debian/rules: Build with -fno-aggressive-loop-optimizations with gcc 4.8
@@ -6,7 +6,7 @@ postgresql-9.1 (9.1.9-2) UNRELEASED; urgency=low
     arrays. This is fixed properly in 9.2, but the patch does not backport
     well. (Closes: #701340)
 
- -- Martin Pitt <mpitt@debian.org>  Wed, 19 Jun 2013 07:39:12 +0200
+ -- Martin Pitt <mpitt@debian.org>  Wed, 19 Jun 2013 08:12:14 +0200
 
 postgresql-9.1 (9.1.9-1) unstable; urgency=high
 
