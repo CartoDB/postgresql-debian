@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.9-2) UNRELEASED; urgency=low
+
+  * debian/copyright: Fix syntax errors.
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 19 Jun 2013 07:39:12 +0200
+
 postgresql-9.1 (9.1.9-1) unstable; urgency=high
 
   * Urgency high because of critical remote data destruction vulnerability.
