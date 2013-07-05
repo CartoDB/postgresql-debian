@@ -2,6 +2,13 @@
 TCL_VER := 8.5
 MAJOR_VER := 9.1
 
+# support multi-arch location
+ifneq ($(wildcard /usr/lib/$(DEB_HOST_MULTIARCH)/tcl$(TCL_VER)),)
+TCL_CONFIG_DIR := /usr/lib/$(DEB_HOST_MULTIARCH)
+else
+TCL_CONFIG_DIR := /usr/lib
+endif
+
 # support both hardening-wrapper (for backports) and dpkg-buildflags
 export DEB_BUILD_HARDENING = 1
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie
@@ -76,8 +83,8 @@ stamp/configure-build:
            --with-libxml \
            --with-libxslt \
            --with-ldap \
-           --with-tclconfig=/usr/lib/tcl$(TCL_VER) \
-           --with-tkconfig=/usr/lib/tk$(TCL_VER) \
+           --with-tclconfig=$(TCL_CONFIG_DIR)/tcl$(TCL_VER) \
+           --with-tkconfig=$(TCL_CONFIG_DIR)/tk$(TCL_VER) \
            --with-includes=/usr/include/tcl$(TCL_VER) \
            PYTHON=/usr/bin/python \
            $(COMMON_CONFIGURE_FLAGS)

@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
+
+  * debian/rules: Support multi-arch locations of {tcl,tk}-config.
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 05 Jul 2013 12:45:27 +0200
+
 postgresql-9.1 (9.1.9-2) unstable; urgency=low
 
   * debian/copyright: Fix syntax errors.
