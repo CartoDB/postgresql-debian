@@ -4,6 +4,8 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   * debian/rules: Don't build with kerberos and LDAP support for
     DEB_STAGE=stage1 to aid with bootstrapping.
   * debian/tests/control: Add missing net-tools dependency (for ifconfig).
+  * Add 00git-aarch64.patch: Add ARM64 (aarch64) support to s_lock.h.
+    Backported from upstream git.
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Jul 2013 12:45:27 +0200
 

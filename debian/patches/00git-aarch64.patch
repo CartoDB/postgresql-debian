@@ -1,0 +1,55 @@
+From 5c7603c318872a42e1665b228f68fdf58714d945 Mon Sep 17 00:00:00 2001
+From: Tom Lane <tgl@sss.pgh.pa.us>
+Date: Tue, 4 Jun 2013 15:42:02 -0400
+Subject: [PATCH] Add ARM64 (aarch64) support to s_lock.h.
+
+Use the same gcc atomic functions as we do on newer ARM chips.
+(Basically this is a copy and paste of the __arm__ code block,
+but omitting the SWPB option since that definitely won't work.)
+
+Back-patch to 9.2.  The patch would work further back, but we'd also
+need to update config.guess/config.sub in older branches to make them
+build out-of-the-box, and there hasn't been demand for it.
+
+Mark Salter
+---
+ src/include/storage/s_lock.h |   23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/src/include/storage/s_lock.h b/src/include/storage/s_lock.h
+index ce45ffe..180c013 100644
+--- a/src/include/storage/s_lock.h
++++ b/src/include/storage/s_lock.h
+@@ -336,6 +336,29 @@ tas(volatile slock_t *lock)
+ #endif	 /* __arm__ */
+ 
+ 
++/*
++ * On ARM64, we use __sync_lock_test_and_set(int *, int) if available.
++ */
++#if defined(__aarch64__) || defined(__aarch64)
++#ifdef HAVE_GCC_INT_ATOMICS
++#define HAS_TEST_AND_SET
++
++#define TAS(lock) tas(lock)
++
++typedef int slock_t;
++
++static __inline__ int
++tas(volatile slock_t *lock)
++{
++	return __sync_lock_test_and_set(lock, 1);
++}
++
++#define S_UNLOCK(lock) __sync_lock_release(lock)
++
++#endif	 /* HAVE_GCC_INT_ATOMICS */
++#endif	 /* __aarch64__ */
++
++
+ /* S/390 and S/390x Linux (32- and 64-bit zSeries) */
+ #if defined(__s390__) || defined(__s390x__)
+ #define HAS_TEST_AND_SET
+-- 
+1.7.10.4
+
