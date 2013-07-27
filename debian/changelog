@@ -1,7 +1,12 @@
 postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
 
+  [ Martin Pitt ]
   * debian/tests/control: Add missing net-tools test dependency.
   * debian/rules: Support multi-arch locations of {tcl,tk}-config.
+
+  [ Christoph Berg ]
+  * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
+    better support VPATH builds of PGXS modules.
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 26 Apr 2013 10:46:15 +0200
 
