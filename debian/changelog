@@ -11,6 +11,11 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   [ Christoph Berg ]
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
     better support VPATH builds of PGXS modules.
+  * debian/rules, 60-pg_regress_socketdir: Remove the temporary patches from
+    pg_regress, and teach pg_regress to support unix socket dirs in --host.
+  * debian/rules: Use "make check-world" to run the regression tests. Thanks
+    to Peter Eisentraut for the suggestion.
+  * 61-extra_regress_opts: Add EXTRA_REGRESS_OPTS in Makefile.global(.in).
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Jul 2013 12:45:27 +0200
 
