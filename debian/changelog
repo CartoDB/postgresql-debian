@@ -10,6 +10,9 @@ postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
   * 61-extra_regress_opts: Add EXTRA_REGRESS_OPTS in Makefile.global(.in).
   * 62-pg_upgrade-test-in-tmp: Hardcode /tmp in pg_upgrade's test.sh.
   * 63-pg_upgrade-test-bindir: Pass PSQLDIR to the pg_regress call.
+  * 64-pg_upgrade-sockdir: If cwd is too long to use as socketdir in
+    pg_upgrade, fall back to /tmp. (A Unix socket path must not be longer than
+    107 chars.)
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
     better support VPATH builds of PGXS modules.
 
