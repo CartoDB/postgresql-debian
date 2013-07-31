@@ -5,7 +5,8 @@ postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
   * debian/rules: Support multi-arch locations of {tcl,tk}-config.
 
   [ Christoph Berg ]
-  * debian/rules: Use a random port number for pg_regress.
+  * debian/rules: Use "make check-world" to run the regression tests. Thanks
+    to Peter Eisentraut for the suggestion. Also, use a random port number.
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
     better support VPATH builds of PGXS modules.
 

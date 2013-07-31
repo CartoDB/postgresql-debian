@@ -142,12 +142,10 @@ override_dh_install:
 
 override_dh_auto_test:
 ifeq (, $(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-	if ! make -C build/src/test/regress bigcheck EXTRA_REGRESS_OPTS='--host=/tmp --port=$(shell perl -le 'print 1024 + int(rand(64000))')'; then \
-	    for l in regression.diffs log/initdb.log log/postmaster.log; do \
-	    	if [ -e build/src/test/regress/$$l ]; then \
-		    echo "********* $$l *******"; \
-		    cat build/src/test/regress/$$l; \
-		fi; \
+	if ! make -C build check-world EXTRA_REGRESS_OPTS='--host=/tmp --port=$(shell perl -le 'print 1024 + int(rand(64000))')'; then \
+	    for l in `find build -name regression.diffs -o -name initdb.log -o -name postmaster.log`; do \
+		echo "******** $$l ********"; \
+		tail -n100 $$l; \
 	    done; \
 	    $(TESTSUITE_FAIL_CMD); \
 	fi
