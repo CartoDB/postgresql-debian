@@ -1,15 +1,15 @@
 --- a/contrib/pg_upgrade/test.sh
 +++ b/contrib/pg_upgrade/test.sh
-@@ -22,7 +22,7 @@ case $testhost in
+@@ -22,7 +22,7 @@
  	*)		LISTEN_ADDRESSES="" ;;
  esac
  
 -POSTMASTER_OPTS="-F -c listen_addresses=$LISTEN_ADDRESSES"
-+POSTMASTER_OPTS="-F -c listen_addresses=$LISTEN_ADDRESSES -c unix_socket_directories=/tmp"
++POSTMASTER_OPTS="-F -c listen_addresses=$LISTEN_ADDRESSES -c unix_socket_directory=/tmp"
  
  temp_root=$PWD/tmp_check
  
-@@ -73,7 +73,7 @@ unset PGSERVICE
+@@ -73,7 +73,7 @@
  unset PGSSLMODE
  unset PGREQUIRESSL
  unset PGCONNECT_TIMEOUT
