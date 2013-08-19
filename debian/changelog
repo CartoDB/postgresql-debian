@@ -3,6 +3,7 @@ postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
   [ Martin Pitt ]
   * debian/tests/control: Add missing net-tools test dependency.
   * debian/rules: Support multi-arch locations of {tcl,tk}-config.
+  * debian/rules: Call dh with --parallel.
 
   [ Christoph Berg ]
   * debian/rules: Use "make check-world" to run the regression tests. Thanks
