@@ -7,6 +7,7 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   * debian/tests/control: Add missing net-tools dependency (for ifconfig).
   * Add 00git-aarch64.patch: Add ARM64 (aarch64) support to s_lock.h.
     Backported from upstream git.
+  * debian/rules: Call dh with --parallel.
 
   [ Christoph Berg ]
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
