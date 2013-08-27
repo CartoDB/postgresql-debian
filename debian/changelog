@@ -1,4 +1,4 @@
-postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
+postgresql-9.1 (9.1.9-3) unstable; urgency=low
 
   [ Martin Pitt ]
   * debian/rules: Support multi-arch locations of {tcl,tk}-config.
@@ -24,7 +24,7 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   * 61-extra_regress_opts: Add EXTRA_REGRESS_OPTS in Makefile.global(.in) and
     in src/interfaces/ecpg/test/Makefile.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 05 Jul 2013 12:45:27 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 27 Aug 2013 18:08:50 +0200
 
 postgresql-9.1 (9.1.9-2) unstable; urgency=low
 
