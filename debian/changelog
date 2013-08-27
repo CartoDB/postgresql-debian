@@ -8,6 +8,8 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   * Add 00git-aarch64.patch: Add ARM64 (aarch64) support to s_lock.h.
     Backported from upstream git.
   * debian/rules: Call dh with --parallel.
+  * Add 00git-perl5.18.patch: Adjust PL/Perl test cases to also work for Perl
+    5.18. Backported from upstream 9.1 stable branch.
 
   [ Christoph Berg ]
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to

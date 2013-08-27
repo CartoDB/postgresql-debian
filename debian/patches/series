@@ -1,4 +1,5 @@
 00git-aarch64.patch
+00git-perl5.18.patch
 02-relax-sslkey-permscheck.patch
 03-python-includedirs.patch
 50-per-version-dirs.patch
