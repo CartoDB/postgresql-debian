@@ -10,6 +10,8 @@ postgresql-9.1 (9.1.9-3) UNRELEASED; urgency=low
   * debian/rules: Call dh with --parallel.
   * Add 00git-perl5.18.patch: Adjust PL/Perl test cases to also work for Perl
     5.18. Backported from upstream 9.1 stable branch.
+  * debian/rules: Don't build client-side libraries unless we have a pgdg
+    version, as these are built by -9.3 now.
 
   [ Christoph Berg ]
   * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to

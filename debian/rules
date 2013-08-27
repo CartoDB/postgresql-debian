@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
+DEB_VERSION = $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/.*: //p')
+MAJOR_VER := $(shell echo $(DEB_VERSION) | cut -f1,2 -d.)
 TCL_VER := 8.5
-MAJOR_VER := 9.1
 
 # support multi-arch location
 ifneq ($(wildcard /usr/lib/$(DEB_HOST_MULTIARCH)/tcl$(TCL_VER)),)
@@ -66,6 +67,11 @@ ifeq ($(DEB_STAGE),stage1)
 BOOTSTRAP_FLAGS=
 else
 BOOTSTRAP_FLAGS= --with-krb5 --with-gssapi --with-ldap
+endif
+
+# In Debian, -9.3 builds the library, but we still want them for apt.postgresql.org
+ifeq ($(shell echo $(DEB_VERSION) | grep pgdg),)
+BINARY_BLACKLIST = -Nlibpq-dev -Nlibpq5 -Nlibecpg6 -Nlibecpg-dev -Nlibecpg-compat3 -Nlibpgtypes3
 endif
 
 # build should fail on test suite failures on all arches
@@ -160,8 +166,11 @@ ifeq (, $(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 	fi
 endif
 
+override_dh_gencontrol:
+	dh_gencontrol $(BINARY_BLACKLIST)
+
 override_dh_strip:
-	dh_strip --dbg-package=postgresql-$(MAJOR_VER)-dbg
+	dh_strip --dbg-package=postgresql-$(MAJOR_VER)-dbg $(BINARY_BLACKLIST)
 
 override_dh_builddeb:
-	dh_builddeb -- -Zxz
+	dh_builddeb $(BINARY_BLACKLIST) -- -Zxz
