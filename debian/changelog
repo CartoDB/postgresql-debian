@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.9-4) UNRELEASED; urgency=low
+
+  * debian/rules: Ignore test suite failures on hurd (unimplemented
+    semaphores) and kfreebsd-* (PL tests known to fail).
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 28 Aug 2013 10:27:17 +0200
+
 postgresql-9.1 (9.1.9-3) unstable; urgency=low
 
   [ Martin Pitt ]
