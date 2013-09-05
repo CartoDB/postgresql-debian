@@ -17,6 +17,8 @@ postgresql-9.2 (9.2.4-2) sid-pgdg; urgency=low
     82b0102650cf85268145a46f0ab488bacf6599a1 from upstream head to better
     support VPATH builds of PGXS modules, and make the install targets depend
     on installdirs.
+  * Add 00git-perl5.18.patch: Adjust PL/Perl test cases to also work for Perl
+    5.18.
 
  -- Christoph Berg <myon@debian.org>  Thu, 05 Sep 2013 22:03:53 +0200
 
