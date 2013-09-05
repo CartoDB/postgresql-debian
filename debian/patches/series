@@ -1,3 +1,6 @@
+00git-vpath.patch
+00git-vpath2.patch
+01-vpath3.patch
 02-relax-sslkey-permscheck.patch
 03-python-includedirs.patch
 50-per-version-dirs.patch
@@ -9,4 +12,3 @@
 61-extra_regress_opts
 62-pg_upgrade-test-in-tmp
 64-pg_upgrade-sockdir
-vpath

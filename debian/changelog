@@ -13,8 +13,10 @@ postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
   * 64-pg_upgrade-sockdir: If cwd is too long to use as socketdir in
     pg_upgrade, fall back to /tmp. (A Unix socket path must not be longer than
     107 chars.)
-  * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 from upstream head to
-    better support VPATH builds of PGXS modules.
+  * Pull 6697aa2bc25c83b88d6165340348a31328c35de6 and
+    82b0102650cf85268145a46f0ab488bacf6599a1 from upstream head to better
+    support VPATH builds of PGXS modules, and make the install targets depend
+    on installdirs.
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 26 Apr 2013 10:46:15 +0200
 
