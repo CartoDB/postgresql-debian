@@ -1,4 +1,4 @@
-postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
+postgresql-9.2 (9.2.4-2) sid-pgdg; urgency=low
 
   [ Martin Pitt ]
   * debian/tests/control: Add missing net-tools test dependency.
@@ -18,7 +18,7 @@ postgresql-9.2 (9.2.4-2) UNRELEASED; urgency=low
     support VPATH builds of PGXS modules, and make the install targets depend
     on installdirs.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 26 Apr 2013 10:46:15 +0200
+ -- Christoph Berg <myon@debian.org>  Thu, 05 Sep 2013 22:03:53 +0200
 
 postgresql-9.2 (9.2.4-1) experimental; urgency=low
 
