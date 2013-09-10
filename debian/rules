@@ -73,6 +73,10 @@ endif
 ifeq ($(shell echo $(DEB_VERSION) | grep pgdg),)
 BINARY_BLACKLIST = -Nlibpq-dev -Nlibpq5 -Nlibecpg6 -Nlibecpg-dev -Nlibecpg-compat3 -Nlibpgtypes3
 endif
+# But we still want the libraries in Ubuntu
+ifeq ($(shell dpkg-vendor --query Vendor),Ubuntu)
+BINARY_BLACKLIST =
+endif
 
 # build should fail on test suite failures on all arches
 TESTSUITE_FAIL_CMD=exit 1

@@ -1,8 +1,12 @@
 postgresql-9.1 (9.1.9-5) UNRELEASED; urgency=low
 
+  [ Christoph Berg ]
   * Pull 82b0102650cf85268145a46f0ab488bacf6599a1 from upstream head to better
     support VPATH builds of PGXS modules, and make the install targets depend
     on installdirs.
+
+  [ Martin Pitt ]
+  * debian/rules: Still build the client-side libraries on Ubuntu.
 
  -- Christoph Berg <myon@debian.org>  Thu, 05 Sep 2013 22:11:45 +0200
 
