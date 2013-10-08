@@ -1,6 +1,7 @@
 postgresql-9.2 (9.2.5-1) sid-pgdg; urgency=low
 
   * New upstream version.
+  * Remove 00git-perl5.18.patch.
 
  -- Christoph Berg <myon@debian.org>  Tue, 08 Oct 2013 23:13:26 +0200
 
