@@ -28,8 +28,8 @@ Build-Depends: debhelper (>= 8~),
  xsltproc,
  gettext
 Homepage: http://www.postgresql.org/
-Vcs-Browser: http://anonscm.debian.org/loggerhead/pkg-postgresql/postgresql-8.4/sid-pgapt/
-Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-8.4/sid-pgapt/
+Vcs-Browser: http://anonscm.debian.org/loggerhead/pkg-postgresql/postgresql-8.4/pgdg/
+Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-8.4/pgdg/
 XS-Testsuite: autopkgtest
 
 Package: libpq-dev
