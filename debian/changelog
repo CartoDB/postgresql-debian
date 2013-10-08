@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.10-1) UNRELEASED; urgency=low
+
+  * New upstream bug fix release. See HISTORY for details.
+  * Drop 00git-perl5.18.patch, applied upstream.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 08 Oct 2013 10:57:26 +0200
+
 postgresql-9.1 (9.1.9-5) unstable; urgency=low
 
   [ Christoph Berg ]
