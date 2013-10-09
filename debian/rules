@@ -52,7 +52,7 @@ TESTSUITE_FAIL_CMD=exit 1
 %:
 	dh $@
 
-override_dh_auto_configure: stamp/configure-build #stamp/configure-build-py3
+override_dh_auto_configure: stamp/configure-build
 
 stamp/configure-build:
 	mkdir -p stamp build
@@ -74,15 +74,7 @@ stamp/configure-build:
            $(COMMON_CONFIGURE_FLAGS)
 	touch "$@"
 	
-stamp/configure-build-py3:
-	mkdir build-py3
-	cd build-py3 && ../configure \
-           --with-python \
-           PYTHON=/usr/bin/python3 \
-           $(COMMON_CONFIGURE_FLAGS)
-	touch "$@"
-
-override_dh_auto_build: stamp/build #stamp/build-py3
+override_dh_auto_build: stamp/build
 
 stamp/build: stamp/configure-build
 	cd build && $(MAKE) world
@@ -95,12 +87,7 @@ stamp/build: stamp/configure-build
 
 	touch "$@"
 
-stamp/build-py3: stamp/configure-build-py3
-	cd build-py3 && $(MAKE)
-	touch "$@"
-
 override_dh_auto_install:
-	#make -C build-py3 install DESTDIR=$(CURDIR)/debian/tmp
 	make -C build install-world DESTDIR=$(CURDIR)/debian/tmp
 	# compress manpages
 	gzip -9n $(CURDIR)/debian/tmp/usr/share/postgresql/*/man/man*/*.[137]
