@@ -2,6 +2,8 @@ postgresql-9.1 (9.1.10-1) UNRELEASED; urgency=low
 
   * New upstream bug fix release. See HISTORY for details.
   * Drop 00git-perl5.18.patch, applied upstream.
+  * Add 04-config-update.patch: Refresh config.{guess,sub} to latest version
+    for enabling ports, in particular arm64 and the upcoming ppc64el.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 08 Oct 2013 10:57:26 +0200
 
