@@ -1,9 +1,9 @@
-postgresql-8.4 (8.4.18-0squeeze1) UNRELEASED; urgency=low
+postgresql-8.4 (8.4.18-0squeeze1) oldstable; urgency=low
 
   * New upstream bug fix release. See HISTORY/changelog.gz for details.
     (No security or critical issues this time.)
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 15 Oct 2013 12:15:28 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 15 Oct 2013 12:16:35 +0200
 
 postgresql-8.4 (8.4.17-0squeeze1) stable-security; urgency=high
 
