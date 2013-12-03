@@ -1,6 +1,6 @@
 --- a/contrib/pg_upgrade/test.sh
 +++ b/contrib/pg_upgrade/test.sh
-@@ -22,7 +22,7 @@
+@@ -22,7 +22,7 @@ case $testhost in
  	*)		LISTEN_ADDRESSES="" ;;
  esac
  
@@ -9,12 +9,12 @@
  
  temp_root=$PWD/tmp_check
  
-@@ -73,7 +73,7 @@
- unset PGSSLMODE
- unset PGREQUIRESSL
- unset PGCONNECT_TIMEOUT
--unset PGHOST
+@@ -80,7 +80,7 @@ PGSERVICE="";         unset PGSERVICE
+ PGSSLMODE=""          unset PGSSLMODE
+ PGREQUIRESSL="";      unset PGREQUIRESSL
+ PGCONNECT_TIMEOUT=""; unset PGCONNECT_TIMEOUT
+-PGHOST=""             unset PGHOST
 +export PGHOST="/tmp"
- unset PGHOSTADDR
+ PGHOSTADDR="";        unset PGHOSTADDR
  
  logdir=$PWD/log

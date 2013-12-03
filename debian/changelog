@@ -41,6 +41,8 @@ postgresql-9.2 (9.2.6-1.pgdg+1) sid-pgdg; urgency=low
       that have ever run any of the buggy releases be re-cloned from the
       primary (e.g., with a new base backup) after upgrading.
 
+  * Refresh debian/patches/62-pg_upgrade-test-in-tmp.
+
  -- Christoph Berg <myon@debian.org>  Tue, 03 Dec 2013 09:10:47 +0100
 
 postgresql-9.2 (9.2.5-1) sid-pgdg; urgency=low
