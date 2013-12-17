@@ -1,14 +1,6 @@
 #!/usr/bin/make -f
 DEB_VERSION = $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/.*: //p')
 MAJOR_VER := $(shell echo $(DEB_VERSION) | cut -f1,2 -d.)
-TCL_VER := 8.5
-
-# support multi-arch location
-ifneq ($(wildcard /usr/lib/$(DEB_HOST_MULTIARCH)/tcl$(TCL_VER)),)
-TCL_CONFIG_DIR := /usr/lib/$(DEB_HOST_MULTIARCH)
-else
-TCL_CONFIG_DIR := /usr/lib
-endif
 
 # support both hardening-wrapper (for backports) and dpkg-buildflags
 export DEB_BUILD_HARDENING = 1
@@ -18,61 +10,13 @@ DPKG_EXPORT_BUILDFLAGS = 1
 LDFLAGS+= -Wl,--as-needed
 CFLAGS+= -fPIC -pie
 
-# gcc-4.8 with default options generates bad code due to our invalid usage of
-# variable-length arrays; the upstream fix doesn't backport well, see
-# http://www.postgresql.org/message-id/14242.1365200084@sss.pgh.pa.us
-ifneq ($(findstring 4.8,$(shell gcc --version)),)
-    CFLAGS+= -fno-aggressive-loop-optimizations
-endif
-
-# When protecting the postmaster with oom_adj=-17, allow the OOM killer to slay
-# the backends (http://archives.postgresql.org/pgsql-hackers/2010-01/msg00170.php)
-ifeq ($(shell uname -s),Linux)
-CPPFLAGS+= -DLINUX_OOM_ADJ=0
-endif
-
 ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
 # sparc and alpha's gcc currently miscompiles; see
 # http://lists.debian.org/debian-alpha/2007/11/msg00025.html
     CFLAGS+=-O1
 endif
 
-export DPKG_GENSYMBOLS_CHECK_LEVEL=4
-
 COMMON_CONFIGURE_FLAGS= \
-  --mandir=/usr/share/postgresql/$(MAJOR_VER)/man \
-  --docdir=/usr/share/doc/postgresql-doc-$(MAJOR_VER) \
-  --sysconfdir=/etc/postgresql-common \
-  --datarootdir=/usr/share/ \
-  --datadir=/usr/share/postgresql/$(MAJOR_VER) \
-  --bindir=/usr/lib/postgresql/$(MAJOR_VER)/bin \
-  --libdir=/usr/lib/ \
-  --libexecdir=/usr/lib/postgresql/ \
-  --includedir=/usr/include/postgresql/ \
-  --enable-nls \
-  --enable-integer-datetimes \
-  --enable-thread-safety \
-  --enable-debug \
-  --disable-rpath \
-  --with-ossp-uuid \
-  --with-gnu-ld \
-  --with-pgport=5432 \
-  --with-system-tzdata=/usr/share/zoneinfo \
-  CFLAGS='$(CFLAGS)' \
-  CPPFLAGS='$(CPPFLAGS)' \
-  LDFLAGS='$(LDFLAGS)'
-
-# allow missing krb5 and ldap during bootstrapping
-ifeq ($(DEB_STAGE),stage1)
-BOOTSTRAP_FLAGS=
-else
-BOOTSTRAP_FLAGS= --with-krb5 --with-gssapi --with-ldap
-endif
-
-# In Debian, -9.3 builds the library, but we still want them for apt.postgresql.org
-ifeq ($(shell echo $(DEB_VERSION) | grep pgdg),)
-BINARY_BLACKLIST = -Nlibpq-dev -Nlibpq5 -Nlibecpg6 -Nlibecpg-dev -Nlibecpg-compat3 -Nlibpgtypes3
-endif
 
 # build should fail on test suite failures on all arches
 TESTSUITE_FAIL_CMD=exit 1
@@ -86,83 +30,49 @@ endif
 %:
 	dh $@ --parallel
 
-override_dh_auto_configure: stamp/configure-build stamp/configure-build-py3
-
-stamp/configure-build:
-	mkdir -p stamp build
-	cd build && ../configure \
-           --with-tcl \
+override_dh_auto_configure:
+	./configure \
+           --mandir=/usr/share/postgresql/$(MAJOR_VER)/man \
+           --docdir=/usr/share/doc/postgresql-doc-$(MAJOR_VER) \
+           --sysconfdir=/etc/postgresql-common \
+           --datarootdir=/usr/share/ \
+           --datadir=/usr/share/postgresql/$(MAJOR_VER) \
+           --bindir=/usr/lib/postgresql/$(MAJOR_VER)/bin \
+           --libdir=/usr/lib/ \
+           --libexecdir=/usr/lib/postgresql/ \
+           --includedir=/usr/include/postgresql/ \
+           --enable-nls \
+           --enable-integer-datetimes \
+           --enable-thread-safety \
+           --enable-debug \
+           --disable-rpath \
            --with-perl \
-           --with-python \
-           --with-pam \
-           --with-openssl \
-           --with-libxml \
-           --with-libxslt \
-           --with-tclconfig=$(TCL_CONFIG_DIR)/tcl$(TCL_VER) \
-           --with-tkconfig=$(TCL_CONFIG_DIR)/tk$(TCL_VER) \
-           --with-includes=/usr/include/tcl$(TCL_VER) \
-           PYTHON=/usr/bin/python \
-           $(COMMON_CONFIGURE_FLAGS) \
-           $(BOOTSTRAP_FLAGS)
-	touch "$@"
+           --with-gnu-ld \
+           --with-pgport=5432 \
+           --with-system-tzdata=/usr/share/zoneinfo \
+           --without-ossp-uuid \
+           --without-krb5 \
+           --without-gssapi \
+           --without-ldap \
+           --without-tcl \
+           --without-python \
+           --without-pam \
+           --without-openssl \
+           --without-libxml \
+           --without-libxslt \
+           CFLAGS='$(CFLAGS)' \
+           CPPFLAGS='$(CPPFLAGS)' \
+           LDFLAGS='$(LDFLAGS)'
 	
-stamp/configure-build-py3:
-	mkdir build-py3
-	cd build-py3 && ../configure \
-           --with-python \
-           PYTHON=/usr/bin/python3 \
-           $(COMMON_CONFIGURE_FLAGS)
-	touch "$@"
-
-override_dh_auto_build: stamp/build stamp/build-py3
-
-stamp/build: stamp/configure-build
-	cd build && $(MAKE) world
-
-	# generate POT files for translators
-	find -name nls.mk -exec sh -c "make -C \$$(dirname {}) init-po" \;
-
-	# build tutorial stuff
-	make -C build/src/tutorial NO_PGXS=1
-
-	touch "$@"
-
-stamp/build-py3: stamp/configure-build-py3
-	cd build-py3 && $(MAKE) -C src/backend/ submake-errcodes && $(MAKE) -C src/pl/plpython
-	touch "$@"
-
 override_dh_auto_install:
-	make -C build-py3/src/pl/plpython install DESTDIR=$(CURDIR)/debian/tmp
-	make -C build install-world DESTDIR=$(CURDIR)/debian/tmp
-	# compress manpages
-	gzip -9n $(CURDIR)/debian/tmp/usr/share/postgresql/*/man/man*/*.[137]
-
-override_dh_makeshlibs:
-	dh_makeshlibs -Xusr/lib/postgresql/$(MAJOR_VER)
+	make install DESTDIR=$(CURDIR)/debian/tmp
 
 override_dh_auto_clean:
-	rm -rf build* stamp
-
-override_dh_installchangelogs:
-	dh_installchangelogs HISTORY
-
-override_dh_compress:
-	dh_compress -X.source -X.c
-
-override_dh_install:
-	dh_install --fail-missing
-
-	# these get installed into the individual -/l* packages; -f because it
-	# does not exist for an -A build
-	rm -f debian/postgresql-contrib-$(MAJOR_VER)/usr/share/postgresql/$(MAJOR_VER)/extension/pl*
-
-	if [ -d debian/postgresql-doc-$(MAJOR_VER) ]; then \
-		install src/tutorial/*.c src/tutorial/*.source src/tutorial/Makefile src/tutorial/README debian/postgresql-doc-$(MAJOR_VER)/usr/share/doc/postgresql-doc-$(MAJOR_VER)/tutorial; \
-	fi
+	[ ! -e GNUmakefile ] || $(MAKE) distclean
 
 override_dh_auto_test:
 ifeq (, $(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-	if ! make -C build -k check-world EXTRA_REGRESS_OPTS='--host=/tmp --port=$(shell perl -le 'print 1024 + int(rand(64000))')'; then \
+	if ! make -C src/pl/plperl -k check EXTRA_REGRESS_OPTS='--host=/tmp --port=$(shell perl -le 'print 1024 + int(rand(64000))')'; then \
 	    for l in `find build -name regression.diffs -o -name initdb.log -o -name postmaster.log`; do \
 		echo "******** $$l ********"; \
 		tail -n100 $$l; \
@@ -170,12 +80,6 @@ ifeq (, $(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 	    $(TESTSUITE_FAIL_CMD); \
 	fi
 endif
-
-override_dh_gencontrol:
-	dh_gencontrol $(BINARY_BLACKLIST)
-
-override_dh_strip:
-	dh_strip --dbg-package=postgresql-$(MAJOR_VER)-dbg $(BINARY_BLACKLIST)
 
 override_dh_builddeb:
 	dh_builddeb $(BINARY_BLACKLIST) -- -Zxz

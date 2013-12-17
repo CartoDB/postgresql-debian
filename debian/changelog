@@ -2,6 +2,13 @@ postgresql-9.1 (9.1.11-2) UNRELEASED; urgency=medium
 
   * Branch off "jessie" for the reduction to PL/Perl, keep "trunk" for the
     full builds on apt.postgresql.org. Update Vcs-*.
+  * Drop all binary packages except for postgresql-plperl-9.1.  Version 9.1 is
+    obsolete and not supported in Jessie any more. However,
+    postgresql-plperl-9.1 from Wheezy is not installable in Jessie any more
+    due to the different Perl version, so we need a postgresql-plperl-9.1
+    built against libperl5.18 so that you can upgrade your existing 9.1
+    clusters to 9.3. Drop unnecessary build dependencies and disable the
+    optional features to speed up the build.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 17 Dec 2013 10:25:36 +0100
 
