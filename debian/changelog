@@ -9,6 +9,7 @@ postgresql-9.1 (9.1.11-2) UNRELEASED; urgency=medium
     built against libperl5.18 so that you can upgrade your existing 9.1
     clusters to 9.3. Drop unnecessary build dependencies and disable the
     optional features to speed up the build.
+  * Drop autopkgtest, we can't test this package standalone within wheezy.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 17 Dec 2013 10:25:36 +0100
 
