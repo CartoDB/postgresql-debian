@@ -69,8 +69,8 @@ else
 BOOTSTRAP_FLAGS= --with-krb5 --with-gssapi --with-ldap
 endif
 
-# In Debian, -9.3 builds the library, but we still want them for apt.postgresql.org
-ifeq ($(shell echo $(DEB_VERSION) | grep pgdg),)
+# In Debian, -9.3 builds the library, but we still want them for apt.postgresql.org and bpo
+ifeq ($(shell echo $(DEB_VERSION) | egrep 'pgdg|bpo'),)
 BINARY_BLACKLIST = -Nlibpq-dev -Nlibpq5 -Nlibecpg6 -Nlibecpg-dev -Nlibecpg-compat3 -Nlibpgtypes3
 endif
 
