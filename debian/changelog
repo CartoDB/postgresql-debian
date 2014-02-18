@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.12-1) UNRELEASED; urgency=medium
+
+  * New upstream release: No effective changes for PL/Perl, the version must
+    just be higher than the one in wheezy.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 17 Feb 2014 20:03:05 -0800
+
 postgresql-9.1 (9.1.11-2) unstable; urgency=low
 
   * Branch off "jessie" for the reduction to PL/Perl, keep "trunk" for the
