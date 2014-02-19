@@ -12,3 +12,4 @@
 15-bool-altivec.patch
 60-pg_regress_socketdir.patch
 61-pt_regress_extra_args
+70-history
