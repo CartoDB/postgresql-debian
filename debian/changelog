@@ -2,6 +2,8 @@ postgresql-9.2 (9.2.8-1.pgdg+1) sid-pgdg; urgency=medium
 
   * New upstream bugfix release.
   * Build with tcl8.6 where available (>= Jessie, >= trusty).
+  * Compile with -fno-omit-frame-pointer on amd64 to facilitate hierarchical
+    profile generation. (Closes: #730134)
 
  -- Christoph Berg <myon@debian.org>  Tue, 18 Mar 2014 07:33:00 +0100
 
