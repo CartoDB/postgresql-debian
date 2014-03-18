@@ -1,5 +1,9 @@
 #!/usr/bin/make	-f 
+ifneq ($(shell which tclsh8.6),)
+TCL_VER := 8.6
+else
 TCL_VER := 8.5
+endif
 MAJOR_VER := 9.0
 
 # support both hardening-wrapper (for backports) and dpkg-buildflags
