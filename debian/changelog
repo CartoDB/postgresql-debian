@@ -3,6 +3,7 @@ postgresql-9.1 (9.1.13-1) UNRELEASED; urgency=medium
   * New upstream release:
     - Fix memory leak in PL/Perl when returning a composite result, including
       multiple-OUT-parameter cases.
+  * Bump Standards-Version to 3.9.5. No changes necessary.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 18 Mar 2014 10:13:16 +0100
 
