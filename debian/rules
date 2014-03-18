@@ -1,7 +1,11 @@
 #!/usr/bin/make -f
 DEB_VERSION = $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/.*: //p')
 MAJOR_VER := $(shell echo $(DEB_VERSION) | cut -f1,2 -d.)
+ifneq ($(shell which tclsh8.6),)
+TCL_VER := 8.6
+else
 TCL_VER := 8.5
+endif
 
 # support multi-arch location
 ifneq ($(wildcard /usr/lib/$(DEB_HOST_MULTIARCH)/tcl$(TCL_VER)),)
