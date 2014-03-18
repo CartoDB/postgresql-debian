@@ -1,3 +1,11 @@
+postgresql-9.1 (9.1.13-1) UNRELEASED; urgency=medium
+
+  * New upstream release:
+    - Fix memory leak in PL/Perl when returning a composite result, including
+      multiple-OUT-parameter cases.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 18 Mar 2014 10:13:16 +0100
+
 postgresql-9.1 (9.1.12-1) unstable; urgency=medium
 
   * New upstream release: No effective changes for PL/Perl, the version must
