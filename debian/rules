@@ -77,7 +77,6 @@ stamp/configure-build:
            --with-libxslt \
            --with-ldap \
            --with-tclconfig=/usr/lib/tcl$(TCL_VER) \
-           --with-tkconfig=/usr/lib/tk$(TCL_VER) \
            --with-includes=/usr/include/tcl$(TCL_VER) \
            PYTHON=/usr/bin/python \
            $(COMMON_CONFIGURE_FLAGS)
