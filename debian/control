@@ -23,6 +23,7 @@ Architecture: any
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  perl
+Breaks: postgresql-9.1 (<< 9.1.12)
 Description: PL/Perl procedural language for PostgreSQL 9.1
  PL/Perl enables an SQL developer to write procedural language functions
  for PostgreSQL 9.1 in Perl.  You need this package if you have any
