@@ -5,6 +5,9 @@ postgresql-9.3 (9.3.4-2) UNRELEASED; urgency=medium
     Support is automatically disabled when the distribution does not support
     it.
   * Stop providing/replacing/conflicting with postgresql*-dbg.
+  * Skip -pie on 32bit archs for performance and stability reasons.
+    Closes: #749686; details at
+    http://www.postgresql.org/message-id/20140519115318.GB7296@msgid.df7cb.de
 
  -- Christoph Berg <myon@debian.org>  Thu, 29 May 2014 19:53:12 +0200
 
