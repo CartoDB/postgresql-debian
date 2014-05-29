@@ -1,6 +1,9 @@
 postgresql-9.3 (9.3.4-2) UNRELEASED; urgency=medium
 
   * Bump to debhelper 9 to get debug symbol files based on build-ids.
+  * Enable multiarch support in libpq and friends. (Closes: #706849)
+    Support is automatically disabled when the distribution does not support
+    it.
 
  -- Christoph Berg <myon@debian.org>  Thu, 29 May 2014 19:53:12 +0200
 
