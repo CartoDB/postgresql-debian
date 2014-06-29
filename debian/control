@@ -15,8 +15,8 @@ Build-Depends: debhelper (>= 8~),
  flex,
  gettext
 Homepage: http://www.postgresql.org/
-Vcs-Browser: http://anonscm.debian.org/loggerhead/pkg-postgresql/postgresql-9.1/jessie
-Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-9.1/jessie/
+Vcs-Browser: https://alioth.debian.org/scm/loggerhead/pkg-postgresql/postgresql-9.1/jessie/changes
+Vcs-Bzr: http://anonscm.debian.org/bzr/pkg-postgresql/postgresql-9.1/jessie/
 
 Package: postgresql-plperl-9.1
 Architecture: any

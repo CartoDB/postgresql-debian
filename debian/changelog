@@ -2,6 +2,7 @@ postgresql-9.1 (9.1.13-1jessie1) UNRELEASED; urgency=medium
 
   * Add Breaks: postgresql-9.1 (<< 9.1.12) to ensure the server package has
     supports CheckFunctionValidatorAccess.
+  * Update Vcs URLs.
 
  -- Christoph Berg <myon@debian.org>  Mon, 31 Mar 2014 23:05:01 +0200
 
