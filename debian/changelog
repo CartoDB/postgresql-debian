@@ -1,3 +1,9 @@
+postgresql-9.3 (9.3.4-3) UNRELEASED; urgency=medium
+
+  * Update Vcs URLs.
+
+ -- Christoph Berg <myon@debian.org>  Sun, 29 Jun 2014 23:32:34 +0200
+
 postgresql-9.3 (9.3.4-2) unstable; urgency=medium
 
   * Bump to debhelper 9 to get debug symbol files based on build-ids.

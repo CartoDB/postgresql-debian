@@ -30,8 +30,8 @@ Build-Depends: debhelper (>= 9~),
  xsltproc,
  gettext
 Homepage: http://www.postgresql.org/
-Vcs-Browser: http://anonscm.debian.org/loggerhead/pkg-postgresql/postgresql-9.3/trunk
-Vcs-Bzr: http://bzr.debian.org/bzr/pkg-postgresql/postgresql-9.3/trunk/
+Vcs-Browser: https://alioth.debian.org/scm/loggerhead/pkg-postgresql/postgresql-9.3/trunk/changes
+Vcs-Bzr: http://anonscm.debian.org/bzr/pkg-postgresql/postgresql-9.3/trunk/
 XS-Testsuite: autopkgtest
 
 Package: libpq-dev
