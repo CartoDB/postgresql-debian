@@ -1,8 +1,19 @@
-postgresql-9.3 (9.3.4-3) UNRELEASED; urgency=medium
+postgresql-9.3 (9.3.5-1) unstable; urgency=medium
 
+  * New upstream release.
+    + Secure Unix-domain sockets of temporary postmasters started during make
+      check (Noah Misch)
+
+      Any local user able to access the socket file could connect as the
+      server's bootstrap superuser, then proceed to execute arbitrary code as
+      the operating-system user running the test, as we previously noted in
+      CVE-2014-0067. This change defends against that risk by placing the
+      server's socket in a temporary, mode 0700 subdirectory of /tmp.
+
+  * Remove our pg_regress patches to support --host=/path.
   * Update Vcs URLs.
 
- -- Christoph Berg <myon@debian.org>  Sun, 29 Jun 2014 23:32:34 +0200
+ -- Christoph Berg <myon@debian.org>  Mon, 21 Jul 2014 23:18:40 +0200
 
 postgresql-9.3 (9.3.4-2) unstable; urgency=medium
 
