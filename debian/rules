@@ -66,7 +66,6 @@ COMMON_CONFIGURE_FLAGS= \
   --enable-thread-safety \
   --enable-debug \
   --disable-rpath \
-  --with-selinux \
   --with-uuid=e2fs \
   --with-gnu-ld \
   --with-pgport=5432 \
