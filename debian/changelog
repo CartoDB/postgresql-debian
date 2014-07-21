@@ -1,5 +1,8 @@
 postgresql-9.4 (9.4~beta2-1) UNRELEASED; urgency=medium
 
+  * postgresql-9.4.preinst: Fail upgrade when upgrading from beta1, the
+    catalog version changed. People should dump/remove their old clusters
+    first.
   * Use util-linux' uuid lib as backend for the uuid-ossp extension
     (--with-uuid=e2fs).
   * Enable sepgsql (--with-selinux). On systems with libselinux1-dev < 2.1.10,
