@@ -11,6 +11,7 @@ postgresql-9.3 (9.3.5-1) unstable; urgency=medium
       server's socket in a temporary, mode 0700 subdirectory of /tmp.
 
   * Remove our pg_regress patches to support --host=/path.
+  * Remove the tcl8.6 patch, went upstream.
   * Update Vcs URLs.
 
  -- Christoph Berg <myon@debian.org>  Mon, 21 Jul 2014 23:18:40 +0200
