@@ -1,4 +1,14 @@
-postgresql-9.4 (9.4~beta2-1) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4~beta2-1) unstable; urgency=low
+
+  * New upstream beta version.
+    + Secure Unix-domain sockets of temporary postmasters started during make
+      check (Noah Misch)
+
+      Any local user able to access the socket file could connect as the
+      server's bootstrap superuser, then proceed to execute arbitrary code as
+      the operating-system user running the test, as we previously noted in
+      CVE-2014-0067. This change defends against that risk by placing the
+      server's socket in a temporary, mode 0700 subdirectory of /tmp.
 
   * postgresql-9.4.preinst: Fail upgrade when upgrading from beta1, the
     catalog version changed. People should dump/remove their old clusters
@@ -14,7 +24,7 @@ postgresql-9.4 (9.4~beta2-1) UNRELEASED; urgency=medium
     contrib modules. (Hello Lintian!)
   * Update Vcs URLs.
 
- -- Christoph Berg <myon@debian.org>  Sun, 01 Jun 2014 16:04:56 +0200
+ -- Christoph Berg <myon@debian.org>  Mon, 21 Jul 2014 22:26:24 +0200
 
 postgresql-9.4 (9.4~beta1-2) experimental; urgency=medium
 
