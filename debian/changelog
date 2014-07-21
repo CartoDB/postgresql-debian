@@ -10,6 +10,8 @@ postgresql-9.4 (9.4~beta2-1) UNRELEASED; urgency=medium
   * Revert multiarch for libpq-dev and libecpg-dev. (Closes: #750111, #750112)
   * Remove our pg_regress patches to support --host=/path. Implemented
     upstream as fix for CVE-2014-0067.
+  * debian/copyright: Say that there are various copyright holders for the
+    contrib modules. (Hello Lintian!)
   * Update Vcs URLs.
 
  -- Christoph Berg <myon@debian.org>  Sun, 01 Jun 2014 16:04:56 +0200
