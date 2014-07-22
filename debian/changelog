@@ -11,6 +11,7 @@ postgresql-9.2 (9.2.9-1.pgdg+1) sid-pgdg; urgency=medium
       server's socket in a temporary, mode 0700 subdirectory of /tmp.
 
   * Remove our pg_regress patches to support --host=/path.
+  * Add 63-pg_upgrade-test-bindir (which we just removed from 9.3 and 9.4).
   * Remove the tcl8.6 patch, went upstream.
 
  -- Christoph Berg <myon@debian.org>  Tue, 22 Jul 2014 00:22:34 +0200
