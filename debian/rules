@@ -84,9 +84,8 @@ endif
 SEVERSION = $(shell dpkg-query -f '$${Version}' --show libselinux1-dev)
 ifeq ($(shell dpkg --compare-versions "$(SEVERSION)" ge 2.1.10 && echo yes),yes)
 SELINUX_FLAGS= --with-selinux
-FAIL_MISSING= --fail-missing
 else
-FAIL_MISSING= --list-missing
+SELINUX_EXCLUDE= -Xsepgsql
 endif
 
 # build should fail on test suite failures on all arches
@@ -171,7 +170,7 @@ else
 	# disabling multiarch support in debian/lib*.install
 	sed -i -e 's!usr/lib/\*/\(lib\|pkgconfig\)!usr/lib/\1!' debian/lib*.install
 endif
-	dh_install $(FAIL_MISSING)
+	dh_install --fail-missing $(SELINUX_EXCLUDE)
 
 	# these go into the -pl* packages; -f because they don't exist for an -A build
 	rm -f debian/postgresql-contrib-$(MAJOR_VER)/usr/share/postgresql/$(MAJOR_VER)/extension/pl*
