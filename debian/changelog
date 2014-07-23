@@ -1,3 +1,20 @@
+postgresql-9.0 (9.0.18-1.pgdg+1) sid-pgdg; urgency=medium
+
+  * New upstream release.
+    + Secure Unix-domain sockets of temporary postmasters started during make
+      check (Noah Misch)
+
+      Any local user able to access the socket file could connect as the
+      server's bootstrap superuser, then proceed to execute arbitrary code as
+      the operating-system user running the test, as we previously noted in
+      CVE-2014-0067. This change defends against that risk by placing the
+      server's socket in a temporary, mode 0700 subdirectory of /tmp.
+
+  * Remove our pg_regress patches to support --host=/path.
+  * Remove the tcl8.6 patch, went upstream.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 23 Jul 2014 13:19:24 +0200
+
 postgresql-9.0 (9.0.17-1.pgdg+1) sid-pgdg; urgency=medium
 
   * New upstream bugfix release.
