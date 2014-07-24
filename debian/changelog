@@ -13,6 +13,9 @@ postgresql-9.2 (9.2.9-1.pgdg+1) sid-pgdg; urgency=medium
   * Remove our pg_regress patches to support --host=/path.
   * Add 63-pg_upgrade-test-bindir (which we just removed from 9.3 and 9.4).
   * Remove the tcl8.6 patch, went upstream.
+  * Skip -pie on 32bit archs for performance and stability reasons.
+    Closes: #749686; details at
+    http://www.postgresql.org/message-id/20140519115318.GB7296@msgid.df7cb.de
 
  -- Christoph Berg <myon@debian.org>  Tue, 22 Jul 2014 00:22:34 +0200
 
