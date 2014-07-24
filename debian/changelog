@@ -12,6 +12,7 @@ postgresql-9.0 (9.0.18-1.pgdg+1) sid-pgdg; urgency=medium
 
   * Remove our pg_regress patches to support --host=/path.
   * Remove the tcl8.6 patch, went upstream.
+  * New patch 90-make4.0 to fix 9.0 build with make 4.0.
 
  -- Christoph Berg <christoph.berg@credativ.de>  Wed, 23 Jul 2014 13:19:24 +0200
 

@@ -1,0 +1,15 @@
+Make 4.0 breaks the 9.0 build
+
+Patch by Tom Lane
+
+--- a/src/backend/Makefile
++++ b/src/backend/Makefile
+@@ -122,7 +122,7 @@ submake-schemapg:
+ 
+ .PHONY: submake-schemapg
+ 
+-catalog/schemapg.h: submake-schemapg
++catalog/schemapg.h: | submake-schemapg
+ 
+ 
+ # The postgres.o target is needed by the rule in Makefile.global that
