@@ -4,7 +4,7 @@ Source: ftp://ftp.postgresql.org/mirror/postgresql/src/
 
 Files: *
 Copyright: Portions Copyright (c) 1996-2003, The PostgreSQL Global Development Group
-Copyright: Portions Copyright (c) 1994, The Regents of the University of California
+           Portions Copyright (c) 1994, The Regents of the University of California
 License: BSD
  Permission to use, copy, modify, and distribute this software and its
  documentation for any purpose, without fee, and without a written agreement
