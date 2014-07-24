@@ -1,4 +1,3 @@
-70-history
 00git-vpath.patch
 00git-vpath2.patch
 01-vpath3.patch
@@ -11,3 +10,4 @@
 54-debian-alternatives-for-external-tools.patch
 63-pg_upgrade-test-bindir
 64-pg_upgrade-sockdir
+70-history

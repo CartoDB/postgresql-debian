@@ -9,3 +9,14 @@
  	pg_dumpall -f "$temp_root"/dump1.sql || pg_dumpall1_status=$?
  	if [ "$newsrc" != "$oldsrc" ]; then
  		oldpgversion=`psql -A -t -d regression -c "SHOW server_version_num"`
+--- a/contrib/pg_upgrade/Makefile
++++ b/contrib/pg_upgrade/Makefile
+@@ -1,5 +1,8 @@
+ # contrib/pg_upgrade/Makefile
+ 
++MAKEOVERRIDES := $(filter-out EXTRA_REGRESS_OPTS=%,$(MAKEOVERRIDES))
++unexport EXTRA_REGRESS_OPTS
++
+ PGFILEDESC = "pg_upgrade - an in-place binary upgrade utility"
+ PGAPPICON = win32
+ 
