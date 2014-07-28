@@ -1,10 +1,14 @@
-postgresql-9.1 (9.1.13-1jessie1) UNRELEASED; urgency=medium
+postgresql-9.1 (9.1.14-0jessie1) unstable; urgency=medium
 
-  * Add Breaks: postgresql-9.1 (<< 9.1.12) to ensure the server package has
+  * New upstream release: No effective changes for PL/Perl, the version must
+    just be higher than the one in wheezy.
+  * Add Breaks: postgresql-9.1 (<< 9.1.12) to ensure the server package
     supports CheckFunctionValidatorAccess.
   * Update Vcs URLs.
+  * Remove 60-pg_regress_socketdir.patch, 61-extra_regress_opts: Went
+    upstream (and aren't relevant for plperl anyway).
 
- -- Christoph Berg <myon@debian.org>  Mon, 31 Mar 2014 23:05:01 +0200
+ -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 13:23:51 +0200
 
 postgresql-9.1 (9.1.13-1) unstable; urgency=medium
 
