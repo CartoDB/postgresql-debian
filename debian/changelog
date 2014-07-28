@@ -1,5 +1,8 @@
 postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
 
+  8.4.22 is the last release in the PostgreSQL 8.4 branch. See NEWS.Debian for
+  upgrade options.
+
   * New upstream release.
     + Secure Unix-domain sockets of temporary postmasters started during make
       check (Noah Misch)
@@ -11,6 +14,8 @@ postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
       server's socket in a temporary, mode 0700 subdirectory of /tmp.
 
   * Remove 11-pg_regress-socketpath.patch.
+  * Remove 15-revert-typmod-check.patch. It conflicts with updates in 8.4.22,
+    and the test case from #632028 does not fail without it.
 
  -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 19:00:32 +0200
 
