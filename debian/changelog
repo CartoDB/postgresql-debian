@@ -10,6 +10,8 @@ postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
       CVE-2014-0067. This change defends against that risk by placing the
       server's socket in a temporary, mode 0700 subdirectory of /tmp.
 
+  * Remove 11-pg_regress-socketpath.patch.
+
  -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 19:00:32 +0200
 
 postgresql-8.4 (8.4.21-0squeeze1) oldstable; urgency=medium
