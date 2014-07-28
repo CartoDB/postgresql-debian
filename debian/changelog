@@ -7,6 +7,7 @@ postgresql-9.1 (9.1.14-0jessie1) unstable; urgency=medium
   * Update Vcs URLs.
   * Remove 60-pg_regress_socketdir.patch, 61-extra_regress_opts: Went
     upstream (and aren't relevant for plperl anyway).
+  * Add perl license to debian/copyright.
 
  -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 13:23:51 +0200
 
