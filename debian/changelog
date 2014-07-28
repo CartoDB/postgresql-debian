@@ -1,4 +1,4 @@
-postgresql-9.1 (9.1.14-0jessie1) unstable; urgency=medium
+postgresql-9.1 (9.1.14-0+deb8u1) unstable; urgency=medium
 
   * New upstream release: No effective changes for PL/Perl, the version must
     just be higher than the one in wheezy.
