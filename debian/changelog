@@ -1,3 +1,17 @@
+postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
+
+  * New upstream release.
+    + Secure Unix-domain sockets of temporary postmasters started during make
+      check (Noah Misch)
+
+      Any local user able to access the socket file could connect as the
+      server's bootstrap superuser, then proceed to execute arbitrary code as
+      the operating-system user running the test, as we previously noted in
+      CVE-2014-0067. This change defends against that risk by placing the
+      server's socket in a temporary, mode 0700 subdirectory of /tmp.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 19:00:32 +0200
+
 postgresql-8.4 (8.4.21-0squeeze1) oldstable; urgency=medium
 
   * New upstream bug fix release. No security issues or major data loss fixes
