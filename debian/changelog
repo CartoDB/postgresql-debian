@@ -1,7 +1,7 @@
 postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
 
-  8.4.22 is the last release in the PostgreSQL 8.4 branch. See NEWS.Debian for
-  upgrade options.
+  8.4.22 is the last release in the PostgreSQL 8.4 branch. See
+  /usr/share/doc/postgresql-8.4/NEWS.Debian.gz for upgrade options.
 
   * New upstream release.
     + Secure Unix-domain sockets of temporary postmasters started during make
@@ -17,7 +17,7 @@ postgresql-8.4 (8.4.22-0+deb6u1) squeeze-lts; urgency=low
   * Remove 15-revert-typmod-check.patch. It conflicts with updates in 8.4.22,
     and the test case from #632028 does not fail without it.
 
- -- Christoph Berg <myon@debian.org>  Mon, 28 Jul 2014 19:00:32 +0200
+ -- Christoph Berg <myon@debian.org>  Tue, 29 Jul 2014 10:35:47 +0200
 
 postgresql-8.4 (8.4.21-0squeeze1) oldstable; urgency=medium
 
