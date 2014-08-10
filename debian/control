@@ -167,6 +167,7 @@ Description: debug symbols for postgresql-9.4
 
 Package: postgresql-client-9.4
 Architecture: any
+Multi-Arch: foreign
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  libpq5 (>= ${source:Upstream-Version}),
@@ -205,6 +206,7 @@ Description: development files for PostgreSQL 9.4 server-side programming
 
 Package: postgresql-doc-9.4
 Architecture: all
+Multi-Arch: foreign
 Section: doc
 Depends: ${misc:Depends}
 Description: documentation for the PostgreSQL database management system
