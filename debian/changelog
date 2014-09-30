@@ -1,4 +1,9 @@
-postgresql-9.4 (9.4~beta2-2) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4~beta3-1) UNRELEASED; urgency=medium
+
+  * New upstream beta version.
+    + Catalog version number changed, older 9.4 clusters need to be dumped and
+      reloaded.
+    + Regexp regression fixed. (Closes: #760564)
 
   [ Martin Pitt ]
   * Add missing logrotate test dependency.
