@@ -4,6 +4,8 @@ postgresql-9.4 (9.4~beta3-1) UNRELEASED; urgency=medium
     + Catalog version number changed, older 9.4 clusters need to be dumped and
       reloaded.
     + Regexp regression fixed. (Closes: #760564)
+    + CACHE_LINE_SIZE definition renamed to mitigate conflict on *BSD.
+      (Closes: #763098)
 
   [ Martin Pitt ]
   * Add missing logrotate test dependency.
