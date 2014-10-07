@@ -1,4 +1,4 @@
-postgresql-9.4 (9.4~beta3-1) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4~beta3-1) unstable; urgency=medium
 
   * New upstream beta version.
     + Catalog version number changed, older 9.4 clusters need to be dumped and
@@ -16,7 +16,7 @@ postgresql-9.4 (9.4~beta3-1) UNRELEASED; urgency=medium
   * Fix postgresql_fdw in description, spotted by Andrei Popescu, thanks!
     (Closes: #762389)
 
- -- Martin Pitt <mpitt@debian.org>  Thu, 24 Jul 2014 16:05:01 +0200
+ -- Christoph Berg <myon@debian.org>  Tue, 07 Oct 2014 20:39:57 +0200
 
 postgresql-9.4 (9.4~beta2-1) unstable; urgency=low
 
