@@ -1,3 +1,9 @@
+postgresql-9.4 (9.4~beta3-2) UNRELEASED; urgency=medium
+
+  * Update Standards-Version.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 09 Oct 2014 16:28:36 +0200
+
 postgresql-9.4 (9.4~beta3-1) unstable; urgency=medium
 
   * New upstream beta version.
@@ -13,7 +19,7 @@ postgresql-9.4 (9.4~beta3-1) unstable; urgency=medium
   [ Christoph Berg ]
   * Set Multi-Arch: foreign in postgresql-client-9.4 and postgresql-doc-9.4.
     (Closes: #757520; do it even on non-multiarch dists, it doesn't hurt.)
-  * Fix postgresql_fdw in description, spotted by Andrei Popescu, thanks!
+  * Fix postgresql_fdw in description, spotted by Zack Weinberg, thanks!
     (Closes: #762389)
 
  -- Christoph Berg <myon@debian.org>  Tue, 07 Oct 2014 20:39:57 +0200
