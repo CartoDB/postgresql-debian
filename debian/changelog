@@ -1,5 +1,8 @@
 postgresql-9.4 (9.4~beta3-2) UNRELEASED; urgency=medium
 
+  * postgresql-9.4.preinst: Output detailed dump-reload instructions when
+    refusing the package upgrade, and also add a NEWS item about it.
+    (Closes: #764705)
   * Add libipc-run-perl for the regression tests which otherwise skip large
     parts.
   * Update Standards-Version.
