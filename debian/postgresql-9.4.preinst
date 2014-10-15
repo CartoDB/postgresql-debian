@@ -15,6 +15,9 @@ package version, and reloaded after upgrading the packages.
 The postgresql-9.4 package will now refuse to upgrade because version 9.4
 clusters exist on the system.
 
+Per default, a "main" cluster is created. Run "pg_lsclusters" to check if
+other clusters exists, and repeat the steps below appropriately.
+
 To resolve the situation, before upgrading, execute:
 # su - postgres
 $ pg_lsclusters
@@ -30,9 +33,6 @@ $ cp 9.4-main.config/* /etc/postgresql/9.4/main
 $ pg_ctlcluster 9.4 main start
 $ zcat 9.4-main.dump.gz | psql -q
 $ rm -rf 9.4-main.config 9.4-main.dump.gz
-
-If you have other clusters besides the default "main", repeat the above
-steps appropriately.
 
 EOF
         exit 1

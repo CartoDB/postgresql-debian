@@ -1,4 +1,4 @@
-postgresql-9.4 (9.4~beta3-2) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4~beta3-2) unstable; urgency=medium
 
   * postgresql-9.4.preinst: Output detailed dump-reload instructions when
     refusing the package upgrade, and also add a NEWS item about it.
@@ -7,7 +7,7 @@ postgresql-9.4 (9.4~beta3-2) UNRELEASED; urgency=medium
     parts.
   * Update Standards-Version.
 
- -- Christoph Berg <myon@debian.org>  Thu, 09 Oct 2014 16:28:36 +0200
+ -- Christoph Berg <myon@debian.org>  Wed, 15 Oct 2014 19:44:43 +0200
 
 postgresql-9.4 (9.4~beta3-1) unstable; urgency=medium
 
