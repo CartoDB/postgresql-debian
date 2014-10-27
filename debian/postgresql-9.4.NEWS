@@ -24,8 +24,7 @@ postgresql-9.4 (9.4~beta3-1) unstable; urgency=medium
   $ pg_createcluster 9.4 main
   $ cp 9.4-main.config/* /etc/postgresql/9.4/main
   $ pg_ctlcluster 9.4 main start
-  $ zcat 9.4-main.dump.gz | psql -q
+  $ zcat 9.4-main.dump.gz | psql -q --cluster 9.4/main
   $ rm -rf 9.4-main.config 9.4-main.dump.gz
-
 
  -- Christoph Berg <christoph.berg@credativ.de>  Tue, 14 Oct 2014 16:33:09 +0200
