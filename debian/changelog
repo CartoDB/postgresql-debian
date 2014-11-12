@@ -1,8 +1,10 @@
-postgresql-9.4 (9.4~beta3-4) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4~rc1-1) UNRELEASED; urgency=medium
 
+  * First 9.4 RC release.
   * Update psql call in dump-reload instructions.
+  * Reenable 010_pg_basebackup.t tests, fixed upstream.
 
- -- Christoph Berg <christoph.berg@credativ.de>  Mon, 27 Oct 2014 12:39:32 +0100
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 12 Nov 2014 12:09:44 +0100
 
 postgresql-9.4 (9.4~beta3-3) unstable; urgency=medium
 
