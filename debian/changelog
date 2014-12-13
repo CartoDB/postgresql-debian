@@ -1,3 +1,9 @@
+postgresql-9.4 (9.4.0-1) UNRELEASED; urgency=medium
+
+  * 9.4 released.
+
+ -- Christoph Berg <myon@debian.org>  Sat, 13 Dec 2014 20:29:24 +0100
+
 postgresql-9.4 (9.4~rc1-1) unstable; urgency=medium
 
   * First 9.4 RC release.
