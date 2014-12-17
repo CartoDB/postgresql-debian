@@ -1,9 +1,9 @@
-postgresql-9.4 (9.4.0-1) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4.0-1) unstable; urgency=medium
 
   * 9.4 released.
   * libpq5.symbols: PQhostaddr removed; it was new in 9.4.
 
- -- Christoph Berg <myon@debian.org>  Sat, 13 Dec 2014 20:29:24 +0100
+ -- Christoph Berg <myon@debian.org>  Wed, 17 Dec 2014 22:21:22 +0100
 
 postgresql-9.4 (9.4~rc1-1) unstable; urgency=medium
 
