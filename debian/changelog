@@ -1,3 +1,15 @@
+postgresql-9.3 (9.3.6-1) unstable; urgency=medium
+
+  * New upstream release.
+    + Fix buffer overruns in to_char() (CVE-2015-0241)
+    + Fix buffer overruns in contrib/pgcrypto (CVE-2015-0243)
+    + Fix possible loss of frontend/backend protocol synchronization after an
+      error (CVE-2015-0244)
+    + Fix information leak via constraint-violation error messages
+      (CVE-2014-8161)
+
+ -- Christoph Berg <myon@debian.org>  Wed, 04 Feb 2015 22:54:09 +0100
+
 postgresql-9.3 (9.3.5-2) unstable; urgency=medium
 
   [ Martin Pitt ]
