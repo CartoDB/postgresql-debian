@@ -1,3 +1,16 @@
+postgresql-9.4 (9.4.1-1) unstable; urgency=medium
+
+  * New upstream version.
+    + libpq5: Name lookups fixed in minimal chroots (Closes: #756627)
+    + Fix buffer overruns in to_char() (CVE-2015-0241)
+    + Fix buffer overruns in contrib/pgcrypto (CVE-2015-0243)
+    + Fix possible loss of frontend/backend protocol synchronization after an
+      error (CVE-2015-0244)
+    + Fix information leak via constraint-violation error messages
+      (CVE-2014-8161)
+
+ -- Christoph Berg <myon@debian.org>  Wed, 04 Feb 2015 17:55:28 +0100
+
 postgresql-9.4 (9.4.0-1) unstable; urgency=medium
 
   * 9.4 released.
