@@ -1,8 +1,8 @@
 --- a/contrib/pg_upgrade/test.sh
 +++ b/contrib/pg_upgrade/test.sh
-@@ -119,7 +119,7 @@ set -x
+@@ -126,7 +126,7 @@ set -x
  
- $oldbindir/initdb
+ standard_initdb "$oldbindir"/initdb
  $oldbindir/pg_ctl start -l "$logdir/postmaster1.log" -o "$POSTMASTER_OPTS" -w
 -if "$MAKE" -C "$oldsrc" installcheck; then
 +if "$MAKE" -C "$oldsrc" installcheck PSQLDIR=$bindir; then
