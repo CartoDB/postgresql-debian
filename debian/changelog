@@ -11,6 +11,7 @@ postgresql-9.1 (9.1.15-1) sid-pgdg; urgency=medium
       error (CVE-2015-0244)
     + Fix information leak via constraint-violation error messages
       (CVE-2014-8161)
+  * Change dependencies on libkrb5-dev to krb5-multidev.
 
  -- Christoph Berg <myon@debian.org>  Wed, 04 Feb 2015 23:16:52 +0100
 

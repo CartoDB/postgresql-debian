@@ -14,7 +14,7 @@ Build-Depends: debhelper (>= 8~),
  zlib1g-dev | libz-dev,
  libpam0g-dev | libpam-dev,
  libxml2-dev,
- libkrb5-dev,
+ krb5-multidev,
  libldap2-dev,
  libxslt1-dev,
  libossp-uuid-dev,
@@ -41,7 +41,7 @@ Depends: ${misc:Depends},
  ${shlibs:Depends},
  libpq5 (= ${binary:Version}),
  libssl-dev,
- libkrb5-dev,
+ krb5-multidev,
  comerr-dev
 Conflicts: postgresql-dev (<< 7.5)
 Replaces: postgresql-dev
