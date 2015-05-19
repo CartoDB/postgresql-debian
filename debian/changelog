@@ -2,6 +2,7 @@ postgresql-9.4 (9.4.2-1) unstable; urgency=medium
 
   * New upstream version.
     + pg_dump -Fd -Z compression level fixed. (Closes: #781361)
+  * Repository moved to git, update Vcs headers.
 
  -- Christoph Berg <myon@debian.org>  Mon, 18 May 2015 23:28:48 +0200
 
