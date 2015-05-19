@@ -1,3 +1,9 @@
+postgresql-8.4 (8.4.22lts1-0+deb6u2) UNRELEASED; urgency=medium
+
+  * Repository moved to git, update Vcs headers.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 19 May 2015 21:39:55 +0200
+
 postgresql-8.4 (8.4.22lts1-0+deb6u1) squeeze-lts; urgency=medium
 
   * New LTS version created by backporting changes to the upstream 9.0 branch
