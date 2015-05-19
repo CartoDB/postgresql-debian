@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.15-2) UNRELEASED; urgency=medium
+
+  * Repository moved to git, update Vcs headers.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 19 May 2015 21:41:08 +0200
+
 postgresql-9.1 (9.1.15-1) sid-pgdg; urgency=medium
 
   [ Martin Pitt ]
