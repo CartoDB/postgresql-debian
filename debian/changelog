@@ -2,6 +2,7 @@ postgresql-9.4 (9.4.2-1) unstable; urgency=medium
 
   * New upstream version.
     + pg_dump -Fd -Z compression level fixed. (Closes: #781361)
+  * Make postgresql-9.4 Recommends: postgresql-contrib-9.4.
   * Enable TAP tests.
   * Repository moved to git, update Vcs headers.
 
