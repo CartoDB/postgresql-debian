@@ -1,3 +1,9 @@
+postgresql-8.4 (8.4.22lts2-0+deb6u2) squeeze-lts; urgency=medium
+
+  * Add patch to catch slight variation in test results on i386.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 22 May 2015 20:01:21 +0200
+
 postgresql-8.4 (8.4.22lts2-0+deb6u1) squeeze-lts; urgency=medium
 
   * New LTS version.
