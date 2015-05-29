@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.16-0+deb7u2) wheezy-security; urgency=medium
+
+  * Fix fsync-at-startup code to not treat errors as fatal.
+    (Abhijit Menon-Sen and Tom Lane, Closes: #786874)
+
+ -- Christoph Berg <myon@debian.org>  Fri, 29 May 2015 21:14:33 +0200
+
 postgresql-9.1 (9.1.16-0+deb7u1) wheezy-security; urgency=medium
 
   * New upstream version.
