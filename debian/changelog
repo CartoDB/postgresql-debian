@@ -1,3 +1,10 @@
+postgresql-9.0 (9.0.20-2.pgdg+1) sid-pgdg; urgency=medium
+
+  * Fix fsync-at-startup code to not treat errors as fatal.
+    (Abhijit Menon-Sen and Tom Lane, Closes: #786874)
+
+ -- Christoph Berg <myon@debian.org>  Fri, 29 May 2015 21:52:25 +0200
+
 postgresql-9.0 (9.0.20-1.pgdg+1) sid-pgdg; urgency=medium
 
   * New upstream version.
