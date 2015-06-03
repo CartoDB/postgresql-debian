@@ -1,3 +1,10 @@
+postgresql-9.4 (9.4.3-1) unstable; urgency=medium
+
+  * Avoid failures while fsync'ing data directory during crash restart
+    (Abhijit Menon-Sen, Tom Lane)
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 03 Jun 2015 11:53:43 +0200
+
 postgresql-9.4 (9.4.2-1) unstable; urgency=medium
 
   * New upstream version.
