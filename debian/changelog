@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.17-1) sid-pgdg; urgency=medium
+
+  * New upstream version including the fsync fix.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 03 Jun 2015 12:20:34 +0200
+
 postgresql-9.1 (9.1.16-2) sid-pgdg; urgency=medium
 
   * Fix fsync-at-startup code to not treat errors as fatal.
