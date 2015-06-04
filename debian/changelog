@@ -1,3 +1,9 @@
+postgresql-9.1 (9.1.17-0+deb7u2) UNRELEASED; urgency=medium
+
+  * Remove obsolete .bzr-builddeb/.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 04 Jun 2015 12:04:20 +0200
+
 postgresql-9.1 (9.1.17-0+deb7u1) wheezy; urgency=medium
 
   * New upstream version including the fsync fix.
