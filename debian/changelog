@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.18-1) sid-pgdg; urgency=medium
+
+  * New upstream version.
+    + Fix rare failure to invalidate relation cache init file
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 10 Jun 2015 13:55:18 +0200
+
 postgresql-9.1 (9.1.17-1) sid-pgdg; urgency=medium
 
   * New upstream version including the fsync fix.
