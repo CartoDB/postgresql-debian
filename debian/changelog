@@ -1,3 +1,11 @@
+postgresql-9.4 (9.4.4-1) unstable; urgency=medium
+
+  * New upstream version.
+    + Fix possible failure to recover from an inconsistent database state
+    + Fix rare failure to invalidate relation cache init file
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 10 Jun 2015 13:48:09 +0200
+
 postgresql-9.4 (9.4.3-1) unstable; urgency=medium
 
   * New upstream version:
