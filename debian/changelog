@@ -1,3 +1,10 @@
+postgresql-9.2 (9.2.13-1.pgdg+1) unstable; urgency=medium
+
+  * New upstream version.
+    + Fix rare failure to invalidate relation cache init file
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 10 Jun 2015 13:54:02 +0200
+
 postgresql-9.2 (9.2.12-1.pgdg+1) unstable; urgency=medium
 
   * New upstream version:
