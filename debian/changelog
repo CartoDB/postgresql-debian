@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.18-0+deb8u1) jessie; urgency=medium
+
+  * New upstream release: No effective changes for PL/Perl, the version must
+    just be higher than the one in wheezy.
+
+ -- Christoph Berg <myon@debian.org>  Fri, 12 Jun 2015 18:57:57 +0200
+
 postgresql-9.1 (9.1.17-0+deb8u1) jessie; urgency=medium
 
   * New upstream release: No effective changes for PL/Perl, the version must
