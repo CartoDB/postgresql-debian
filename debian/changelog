@@ -1,3 +1,18 @@
+postgresql-8.4 (8.4.22lts4-0+deb6u1) squeeze-lts; urgency=medium
+
+  * New 8.4 LTS version based on changes in 9.0.22.
+
+    + Fix rare failure to invalidate relation cache init file (Tom Lane)
+
+      With just the wrong timing of concurrent activity, a VACUUM FULL on a
+      system catalog might fail to update the init file that's used to avoid
+      cache-loading work for new sessions. This would result in later sessions
+      being unable to access that catalog at all. This is a very ancient bug,
+      but it's so hard to trigger that no reproducible case had been seen
+      until recently.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Tue, 23 Jun 2015 14:30:05 +0200
+
 postgresql-8.4 (8.4.22lts2-0+deb6u2) squeeze-lts; urgency=medium
 
   * Add patch to catch slight variation in test results on i386.
