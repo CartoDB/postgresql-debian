@@ -78,7 +78,7 @@ endif
 # --with-selinux needs libselinux 2.1.10
 # (we don't put that in debian/control so we can use the same source also on older dists)
 SEVERSION = $(shell dpkg-query -f '$${Version}' --show libselinux1-dev)
-ifeq ($(shell dpkg --compare-versions "$(SEVERSION)" ge 3.1.10 && echo yes),yes)
+ifeq ($(shell dpkg --compare-versions "$(SEVERSION)" ge 2.1.10 && echo yes),yes)
 SELINUX_FLAGS= --with-selinux
 else
 SELINUX_EXCLUDE= -Xsepgsql
