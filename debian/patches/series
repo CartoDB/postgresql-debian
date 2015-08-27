@@ -7,3 +7,4 @@
 64-pg_upgrade-sockdir
 70-history
 90-787468-plperl-5.22
+90-756368-alpha-fix-read-memory-barrier
