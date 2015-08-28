@@ -1,3 +1,10 @@
+postgresql-8.4 (8.4.22lts4-0+deb6u2) UNRELEASED-squeeze-lts; urgency=medium
+
+  * postgresql postrm: Don't clean {/etc,/var/lib,/var/log}/postgresql on 
+    purge.  (Closes: #793861)
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Fri, 28 Aug 2015 16:05:02 +0200
+
 postgresql-8.4 (8.4.22lts4-0+deb6u1) squeeze-lts; urgency=medium
 
   * New 8.4 LTS version based on changes in 9.0.22.
