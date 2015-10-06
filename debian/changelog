@@ -18,6 +18,7 @@ postgresql-9.3 (9.3.10-1) unstable; urgency=medium
 
   * Add docbook-xml to build-depends.
   * debian/rules: Remove broken "generate POT files for translators" code.
+  * debian/rules: Call dh without --parallel, it's not supported upstream.
   * postgresql postrm: Don't clean {/etc,/var/lib,/var/log}/postgresql on
     purge.  (Closes: #793861)
 
