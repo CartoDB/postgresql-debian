@@ -9,6 +9,7 @@ postgresql-9.5 (9.5~beta1-1) experimental; urgency=medium
     with previous releases.  See the release notes for details.
 
   * debian/rules: Remove broken "generate POT files for translators" code.
+  * debian/rules: Call dh without --parallel, it's not supported upstream.
   * postgresql postrm: Don't clean {/etc,/var/lib,/var/log}/postgresql on 
     purge.  (Closes: #793861)
 
