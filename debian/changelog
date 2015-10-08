@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.19-0+deb8u1) jessie; urgency=medium
+
+  * New upstream version, relevant PL/Perl change:
+    + Fix plperl to handle non-ASCII error message texts correctly.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Thu, 08 Oct 2015 15:17:23 +0200
+
 postgresql-9.1 (9.1.18-0+deb8u1) jessie; urgency=medium
 
   * New upstream release: No effective changes for PL/Perl, the version must
