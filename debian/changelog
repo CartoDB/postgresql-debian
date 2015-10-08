@@ -1,3 +1,17 @@
+postgresql-9.1 (9.1.19-0+deb7u1) wheezy; urgency=medium
+
+  * New upstream version.
+
+    + Fix contrib/pgcrypto to detect and report too-short crypt() salts
+      (Josh Kupershmidt)
+
+      Certain invalid salt arguments crashed the server or disclosed a few
+      bytes of server memory.  We have not ruled out the viability of attacks
+      that arrange for presence of confidential information in the disclosed
+      bytes, but they seem unlikely.  (CVE-2015-5288)
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Thu, 08 Oct 2015 14:30:41 +0200
+
 postgresql-9.1 (9.1.18-0+deb7u1) wheezy; urgency=medium
 
   * New upstream version.
