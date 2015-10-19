@@ -1,9 +1,22 @@
-postgresql-8.4 (8.4.22lts4-0+deb6u2) UNRELEASED-squeeze-lts; urgency=medium
+postgresql-8.4 (8.4.22lts5-0+deb6u1) squeeze-lts; urgency=medium
+
+  * New 8.4 LTS version based on changes in 9.0.23.
+
+    + Fix contrib/pgcrypto to detect and report too-short crypt salts (Josh
+      Kupershmidt)
+
+      Certain invalid salt arguments crashed the server or disclosed a few
+      bytes of server memory. We have not ruled out the viability of attacks
+      that arrange for presence of confidential information in the disclosed
+      bytes, but they seem unlikely. (CVE-2015-5288)
+
+    The 9.0 branch is now EOL as well, future 8.4 LTS releases will be based
+    on changes in the 9.1 branch.
 
   * postgresql postrm: Don't clean {/etc,/var/lib,/var/log}/postgresql on 
     purge.  (Closes: #793861)
 
- -- Christoph Berg <christoph.berg@credativ.de>  Fri, 28 Aug 2015 16:05:02 +0200
+ -- Christoph Berg <christoph.berg@credativ.de>  Mon, 19 Oct 2015 11:23:09 +0200
 
 postgresql-8.4 (8.4.22lts4-0+deb6u1) squeeze-lts; urgency=medium
 
