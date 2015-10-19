@@ -1,3 +1,9 @@
+postgresql-8.4 (8.4.22lts5-0+deb6u2) squeeze-lts; urgency=medium
+
+  * Update watchfile to look at github.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 19 Oct 2015 19:52:06 +0200
+
 postgresql-8.4 (8.4.22lts5-0+deb6u1) squeeze-lts; urgency=medium
 
   * New 8.4 LTS version based on changes in 9.0.23.
