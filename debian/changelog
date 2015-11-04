@@ -1,8 +1,9 @@
 postgresql-8.4 (8.4.22lts5-0+deb6u2) squeeze-lts; urgency=medium
 
+  * Fix regression test failure on i386.
   * Update watchfile to look at github.
 
- -- Christoph Berg <myon@debian.org>  Mon, 19 Oct 2015 19:52:06 +0200
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 04 Nov 2015 11:48:05 +0100
 
 postgresql-8.4 (8.4.22lts5-0+deb6u1) squeeze-lts; urgency=medium
 

@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/src/test/regress/expected/join_1.out
-@@ -0,0 +1,2703 @@
+@@ -0,0 +1,2769 @@
 +--
 +-- JOIN
 +-- Test JOIN clauses
@@ -2659,6 +2659,72 @@
 +---------+---------+-----------
 +       0 |       0 |       666
 +       1 |         |          
++(2 rows)
++
++--
++-- test successful handling of nested outer joins with degenerate join quals
++--
++select t1.* from
++  text_tbl t1
++  left join (select *, '***'::text as d1 from int8_tbl i8b1) b1
++    left join int8_tbl i8
++      left join (select *, null::int as d2 from int8_tbl i8b2) b2
++      on (i8.q1 = b2.q1)
++    on (b2.d2 = b1.q2)
++  on (t1.f1 = b1.d1)
++  left join int4_tbl i4
++  on (i8.q2 = i4.f1);
++        f1         
++-------------------
++ doh!
++ hi de ho neighbor
++(2 rows)
++
++select t1.* from
++  text_tbl t1
++  left join (select *, '***'::text as d1 from int8_tbl i8b1) b1
++    left join int8_tbl i8
++      left join (select *, null::int as d2 from int8_tbl i8b2, int4_tbl i4b2) b2
++      on (i8.q1 = b2.q1)
++    on (b2.d2 = b1.q2)
++  on (t1.f1 = b1.d1)
++  left join int4_tbl i4
++  on (i8.q2 = i4.f1);
++        f1         
++-------------------
++ doh!
++ hi de ho neighbor
++(2 rows)
++
++select t1.* from
++  text_tbl t1
++  left join (select *, '***'::text as d1 from int8_tbl i8b1) b1
++    left join int8_tbl i8
++      left join (select *, null::int as d2 from int8_tbl i8b2, int4_tbl i4b2
++                 where q1 = f1) b2
++      on (i8.q1 = b2.q1)
++    on (b2.d2 = b1.q2)
++  on (t1.f1 = b1.d1)
++  left join int4_tbl i4
++  on (i8.q2 = i4.f1);
++        f1         
++-------------------
++ doh!
++ hi de ho neighbor
++(2 rows)
++
++select * from
++  text_tbl t1
++  inner join int8_tbl i8
++  on i8.q2 = 456
++  right join text_tbl t2
++  on t1.f1 = 'doh!'
++  left join int4_tbl i4
++  on i8.q1 = i4.f1;
++  f1  | q1  | q2  |        f1         | f1 
++------+-----+-----+-------------------+----
++ doh! | 123 | 456 | doh!              |   
++ doh! | 123 | 456 | hi de ho neighbor |   
 +(2 rows)
 +
 +--
