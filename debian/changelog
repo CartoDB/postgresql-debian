@@ -1,4 +1,4 @@
-postgresql-9.5 (9.5~beta1-2) experimental; urgency=medium
+postgresql-9.5 (9.5~beta2-1) experimental; urgency=medium
 
   * Second 9.5 beta release.
   * 64-pg_upgrade-sockdir: Fix off-by-one error in max path length.
