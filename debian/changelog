@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5~beta2-2) experimental; urgency=medium
+
+  * debian/rules: Work around dh_install -X not working on globs.
+    (See also #350570)
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Mon, 16 Nov 2015 16:53:39 +0100
+
 postgresql-9.5 (9.5~beta2-1) experimental; urgency=medium
 
   * Second 9.5 beta release.

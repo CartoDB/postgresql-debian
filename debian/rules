@@ -171,6 +171,10 @@ else
 	# disabling multiarch support in debian/lib*.install
 	sed -i -e 's!usr/lib/\*/\(lib\|pkgconfig\)!usr/lib/\1!' debian/lib*.install
 endif
+ifneq ($(SELINUX_EXCLUDE),)
+	# work around dh_install -X not working on globs (see also #350570)
+	sed -i -e '/sepgsql/d' debian/postgresql-contrib-*.install
+endif
 	dh_install --fail-missing $(SELINUX_EXCLUDE)
 
 	mkdir -p debian/postgresql-$(MAJOR_VER)/usr/share/doc/postgresql-$(MAJOR_VER)
