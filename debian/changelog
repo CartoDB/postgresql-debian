@@ -1,8 +1,11 @@
-postgresql-9.4 (9.4.5-2) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4.5-2) unstable; urgency=medium
 
   * 64-pg_upgrade-sockdir: Fix off-by-one error in max path length.
+  * 90-libmxl-808325: Work around regression in libxml2 2.9.3+dfsg1-1 which
+    provides less context in error messages, breaking the xml regression
+    tests.  Analysis by Niko Tyni, thanks!  (Closes: #808325)
 
- -- Christoph Berg <myon@debian.org>  Fri, 30 Oct 2015 01:00:30 +0100
+ -- Christoph Berg <myon@debian.org>  Sat, 19 Dec 2015 10:08:51 +0100
 
 postgresql-9.4 (9.4.5-1) unstable; urgency=medium
 
