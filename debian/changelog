@@ -1,3 +1,10 @@
+postgresql-9.4 (9.4.5-3) UNRELEASED; urgency=medium
+
+  * src/bin/pg_xlogdump/Makefile: Sort list of objects to make build
+    reproducible.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Mon, 04 Jan 2016 13:45:37 +0100
+
 postgresql-9.4 (9.4.5-2) unstable; urgency=medium
 
   * 64-pg_upgrade-sockdir: Fix off-by-one error in max path length.
