@@ -32,12 +32,6 @@ ifneq ($(shell dpkg-architecture -qDEB_HOST_ARCH_BITS || :),32)
 CFLAGS+= -fPIC -pie
 endif
 
-# sparc and alpha's gcc used to miscompile; see
-# http://lists.debian.org/debian-alpha/2007/11/msg00025.html
-#ifneq ($(findstring $(DEB_BUILD_ARCH), sparc alpha),)
-#    CFLAGS+=-O1
-#endif
-
 # Facilitate hierarchical profile generation on amd64 (#730134)
 ifeq ($(shell dpkg-architecture -qDEB_BUILD_ARCH),amd64)
 CFLAGS+= -fno-omit-frame-pointer
@@ -73,6 +67,11 @@ ifeq ($(DEB_STAGE),stage1)
 BOOTSTRAP_FLAGS=
 else
 BOOTSTRAP_FLAGS= --with-krb5 --with-gssapi --with-ldap
+endif
+
+# PostgreSQL 9.5+ does not have native spinlock support on this platform
+ifneq ($(findstring $(DEB_BUILD_ARCH), alpha),)
+SPINLOCK_FLAGS = --disable-spinlocks
 endif
 
 # --with-selinux needs libselinux 2.1.10
@@ -112,6 +111,7 @@ stamp/configure-build:
            PYTHON=/usr/bin/python \
            $(COMMON_CONFIGURE_FLAGS) \
            $(BOOTSTRAP_FLAGS) \
+           $(SPINLOCK_FLAGS) \
            $(SELINUX_FLAGS)
 	touch "$@"
 	

@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5.0-2) UNRELEASED; urgency=medium
+
+  * Disable spinlocks on alpha. Performance will be poor, but at least they
+    will have a libpq package.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 07 Jan 2016 19:31:03 +0100
+
 postgresql-9.5 (9.5.0-1) unstable; urgency=medium
 
   * First 9.5 release.
