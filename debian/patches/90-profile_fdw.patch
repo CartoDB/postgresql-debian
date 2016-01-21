@@ -1,0 +1,60 @@
+From 021a3748ddbffdb42afca05c9ebde8c9862e4fba Mon Sep 17 00:00:00 2001
+From: Paul Ramsey <pramsey@cleverelephant.ca>
+Date: Fri, 8 Jan 2016 11:35:45 -0800
+Subject: [PATCH 1/2] Provide FDW query timing on DEBUG
+
+---
+ contrib/postgres_fdw/postgres_fdw.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+Index: postgresql-9.5.0/contrib/postgres_fdw/postgres_fdw.c
+===================================================================
+--- postgresql-9.5.0.orig/contrib/postgres_fdw/postgres_fdw.c	2016-01-20 14:40:31.683535083 +0000
++++ postgresql-9.5.0/contrib/postgres_fdw/postgres_fdw.c	2016-01-20 14:50:49.418538947 +0000
+@@ -39,6 +39,9 @@
+ #include "utils/rel.h"
+ #include "utils/sampling.h"
+ 
++#include <sys/time.h>
++#include <time.h>
++
+ PG_MODULE_MAGIC;
+ 
+ /* Default CPU cost to start up a foreign query. */
+@@ -154,6 +157,9 @@
+ 	int			fetch_ct_2;		/* Min(# of fetches done, 2) */
+ 	bool		eof_reached;	/* true if last fetch reached EOF */
+ 
++	/* Timing */
++	struct timeval start_time;
++
+ 	/* working memory contexts */
+ 	MemoryContext batch_cxt;	/* context holding current batch of tuples */
+ 	MemoryContext temp_cxt;		/* context for per-tuple temporary data */
+@@ -1019,7 +1025,10 @@
+ 	 * cursor on the remote side.
+ 	 */
+ 	if (!fsstate->cursor_exists)
++	{
++		gettimeofday(&(fsstate->start_time), NULL);
+ 		create_cursor(node);
++	}
+ 
+ 	/*
+ 	 * Get some more tuples, if we've run out.
+@@ -1116,7 +1125,15 @@
+ 
+ 	/* Close the cursor if open, to prevent accumulation of cursors */
+ 	if (fsstate->cursor_exists)
++	{
++		struct timeval end_time;
++		double secs;
++		gettimeofday(&end_time, NULL);
++		secs  = 1000 * end_time.tv_sec + end_time.tv_usec/1000.0;
++		secs -= 1000 * (fsstate->start_time).tv_sec + (fsstate->start_time).tv_usec/1000.0;
++		elog(DEBUG1, "FDW Query Duration: %.3lf ms", secs);
+ 		close_cursor(fsstate->conn, fsstate->cursor_number);
++	}
+ 
+ 	/* Release remote connection */
+ 	ReleaseConnection(fsstate->conn);

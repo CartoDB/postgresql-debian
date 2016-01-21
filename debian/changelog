@@ -1,3 +1,11 @@
+postgresql-9.5 (9.5.0-2cdb1) precise; urgency=low
+
+  * Backport FDW extension shipping
+  * Add FDW timing debug profiling
+  * Release for CartoDB
+
+ -- keybase.io/zenitram <zenitram@keybase.io>  Wed, 20 Jan 2016 11:23:06 +0000
+
 postgresql-9.5 (9.5.0-2) unstable; urgency=medium
 
   * Disable spinlocks on alpha. Performance will be poor, but at least they
