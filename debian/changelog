@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5.0-3) UNRELEASED; urgency=medium
+
+  * Move spinlock flag to common configure flags, the python3 build needs that
+    as well.
+
+ -- Christoph Berg <myon@debian.org>  Tue, 26 Jan 2016 12:04:06 +0100
+
 postgresql-9.5 (9.5.0-2) unstable; urgency=medium
 
   * Disable spinlocks on alpha. Performance will be poor, but at least they
