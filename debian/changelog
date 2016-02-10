@@ -1,9 +1,15 @@
-postgresql-9.4 (9.4.5-3) UNRELEASED; urgency=medium
+postgresql-9.4 (9.4.6-1) unstable; urgency=medium
+
+  * New upstream version.
+    + Fix infinite loops and buffer-overrun problems in regular expressions.
+      Very large character ranges in bracket expressions could cause infinite
+      loops in some cases, and memory overwrites in other cases.
+      (CVE-2016-0773)
 
   * src/bin/pg_xlogdump/Makefile: Sort list of objects to make build
     reproducible.
 
- -- Christoph Berg <christoph.berg@credativ.de>  Mon, 04 Jan 2016 13:45:37 +0100
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 10 Feb 2016 13:22:16 +0100
 
 postgresql-9.4 (9.4.5-2) unstable; urgency=medium
 
