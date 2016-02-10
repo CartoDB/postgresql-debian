@@ -1,8 +1,14 @@
-postgresql-9.3 (9.3.10-2) UNRELEASED; urgency=medium
+postgresql-9.3 (9.3.11-1) unstable; urgency=medium
+
+  * New upstream version.
+    + Fix infinite loops and buffer-overrun problems in regular expressions.
+      Very large character ranges in bracket expressions could cause infinite
+      loops in some cases, and memory overwrites in other cases.
+      (CVE-2016-0773)
 
   * 64-pg_upgrade-sockdir: Fix off-by-one error in max path length.
 
- -- Christoph Berg <myon@debian.org>  Fri, 30 Oct 2015 01:00:17 +0100
+ -- Christoph Berg <myon@debian.org>  Wed, 10 Feb 2016 18:31:53 +0100
 
 postgresql-9.3 (9.3.10-1) unstable; urgency=medium
 
