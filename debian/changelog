@@ -1,3 +1,15 @@
+postgresql-9.5 (9.5.1-1) unstable; urgency=medium
+
+  * New upstream version.
+    + Fix infinite loops and buffer-overrun problems in regular expressions.
+      Very large character ranges in bracket expressions could cause infinite
+      loops in some cases, and memory overwrites in other cases.
+      (CVE-2016-0773)
+
+  * Fix installation path of contrib examples.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Wed, 10 Feb 2016 13:04:39 +0100
+
 postgresql-9.5 (9.5.0-3) unstable; urgency=medium
 
   * Move spinlock flag to common configure flags, the python3 build needs that
