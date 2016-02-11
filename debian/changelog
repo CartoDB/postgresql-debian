@@ -2,6 +2,7 @@ postgresql-9.5 (9.5.1-2) UNRELEASED; urgency=medium
 
   * Stop suggesting the use of identd.
   * Modernize server package description.
+  * Recommend sysstat.
 
  -- Christoph Berg <myon@debian.org>  Thu, 11 Feb 2016 22:41:48 +0100
 
