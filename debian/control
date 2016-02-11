@@ -125,6 +125,7 @@ Depends: ${misc:Depends},
  tzdata,
  ssl-cert,
  locales
+Recommends: sysstat
 Suggests: locales-all
 Breaks: postgresql-plpython-9.2 (<< ${binary:Version})
 Description: object-relational SQL database, version 9.2 server
