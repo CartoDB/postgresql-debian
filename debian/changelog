@@ -1,3 +1,16 @@
+postgresql-9.1 (9.1.20-0+deb7u1) wheezy-security; urgency=medium
+
+  * New upstream version.
+    + Fix infinite loops and buffer-overrun problems in regular expressions.
+      Very large character ranges in bracket expressions could cause infinite
+      loops in some cases, and memory overwrites in other cases.
+      (CVE-2016-0773)
+    + Fix privilege escalation issue for users of PL/Java. Certain custom
+      configuration settings (GUCs) for PL/Java will now be modifiable only by
+      the database superuser. (CVE-2016-0766)
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Thu, 11 Feb 2016 15:35:41 +0100
+
 postgresql-9.1 (9.1.19-0+deb7u1) wheezy; urgency=medium
 
   * New upstream version.
