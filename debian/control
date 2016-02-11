@@ -137,7 +137,7 @@ Depends: ${misc:Depends},
  ssl-cert,
  locales
 Recommends: postgresql-contrib-9.5
-Suggests: oidentd | ident-server, locales-all
+Suggests: locales-all
 Description: object-relational SQL database, version 9.5 server
  PostgreSQL is a fully featured object-relational database management
  system.  It supports a large part of the SQL standard and is designed
@@ -149,9 +149,7 @@ Description: object-relational SQL database, version 9.5 server
  .
  This package provides the database server for PostgreSQL 9.5. Servers
  for other major release versions can be installed simultaneously and
- are coordinated by the postgresql-common package. A package providing
- ident-server is needed if you want to authenticate remote connections
- with identd.
+ are coordinated by the postgresql-common package.
 
 Package: postgresql-9.5-dbg
 Section: debug
