@@ -133,6 +133,7 @@ Depends: ${misc:Depends},
  tzdata,
  ssl-cert,
  locales
+Recommends: sysstat
 Suggests: locales-all
 Description: object-relational SQL database, version 9.3 server
  PostgreSQL is a powerful, open source object-relational database
