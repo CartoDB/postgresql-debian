@@ -1,3 +1,27 @@
+postgresql-8.4 (8.4.22lts6-0+deb6u1) squeeze-lts; urgency=medium
+
+  * New 8.4 LTS version based on changes in 9.1.20.
+
+    + Fix infinite loops and buffer-overrun problems in regular expressions
+      (Tom Lane)
+
+      Very large character ranges in bracket expressions could cause infinite
+      loops in some cases, and memory overwrites in other cases.
+      (CVE-2016-0773)
+
+    + Perform an immediate shutdown if the postmaster.pid file is removed
+      Tom Lane)
+
+      The postmaster now checks every minute or so that postmaster.pid is
+      still there and still contains its own PID.  If not, it performs an
+      immediate shutdown, as though it had received SIGQUIT.  The main
+      motivation for this change is to ensure that failed buildfarm runs will
+      get cleaned up without manual intervention; but it also serves to limit
+      the bad effects if a DBA forcibly removes postmaster.pid and then starts
+      a new postmaster.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Thu, 25 Feb 2016 13:30:27 +0100
+
 postgresql-8.4 (8.4.22lts5-0+deb6u2) squeeze-lts; urgency=medium
 
   * Fix regression test failure on i386.
