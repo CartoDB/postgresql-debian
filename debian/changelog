@@ -1,3 +1,9 @@
+postgresql-9.5 (9.5.1-1cdb1) precise; urgency=medium
+
+  * Release for CartoDB
+
+ -- Antonio Zamorano <azamorano@gmail.com>  Thu, 03 Mar 2016 15:56:13 +0100
+
 postgresql-9.5 (9.5.1-1) unstable; urgency=medium
 
   * New upstream version.
