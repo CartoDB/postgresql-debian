@@ -1,6 +1,7 @@
 postgresql-9.3 (9.3.12-1) unstable; urgency=medium
 
   * New upstream version.
+  * 02-relax-sslkey-permscheck.patch: Replace with what went upstream in 9.6.
   * Stop suggesting the use of identd.
   * Modernize server package description.
   * Recommend postgresql-contrib and sysstat.
