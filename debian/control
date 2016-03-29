@@ -128,7 +128,7 @@ Depends: ${misc:Depends},
  tzdata,
  ssl-cert,
  locales
-Recommends: sysstat
+Recommends: postgresql-contrib-9.1, sysstat
 Suggests: locales-all
 Conflicts: postgresql (<< 7.5)
 Replaces: postgresql-contrib-9.1 (<< 9.1~beta1-3~),
