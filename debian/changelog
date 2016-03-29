@@ -1,10 +1,51 @@
-postgresql-9.5 (9.5.1-2) UNRELEASED; urgency=medium
+postgresql-9.5 (9.5.2-1) unstable; urgency=medium
+
+  * New upstream version.
+
+    + Disable abbreviated keys for string sorting in non-C locales
+      (Robert Haas)
+
+      PostgreSQL 9.5 introduced logic for speeding up comparisons of string
+      data types by using the standard C library function strxfrm() as a
+      substitute for strcoll().  It now emerges that most versions of glibc
+      (Linux's implementation of the C library) have buggy implementations of
+      strxfrm() that, in some locales, can produce string comparison results
+      that do not match strcoll().  Until this problem can be better
+      characterized, disable the optimization in all non-C locales.  (C locale
+      is safe since it uses neither strcoll() nor strxfrm().)
+
+      Unfortunately, this problem affects not only sorting but also entry
+      ordering in B-tree indexes, which means that B-tree indexes on text,
+      varchar, or char columns may now be corrupt if they sort according to an
+      affected locale and were built or modified under PostgreSQL 9.5.0 or
+      9.5.1. Users should REINDEX indexes that might be affected.
+
+      It is not possible at this time to give an exhaustive list of
+      known-affected locales.  C locale is known safe, and there is no
+      evidence of trouble in English-based locales such as en_US, but some
+      other popular locales such as de_DE are affected in most glibc versions.
+
+    + Maintain row-security status properly in cached plans (Stephen Frost)
+
+      In a session that performs queries as more than one role, the plan cache
+      might incorrectly re-use a plan that was generated for another role ID,
+      thus possibly applying the wrong set of policies when row-level security
+      (RLS) is in use. (CVE-2016-2193)
+
+    + Add must-be-superuser checks to some new contrib/pageinspect functions
+      (Andreas Seltenreich)
+
+      Most functions in the pageinspect extension that inspect bytea values
+      disallow calls by non-superusers, but brin_page_type() and
+      brin_metapage_info() failed to do so.  Passing contrived bytea values to
+      them might crash the server or disclose a few bytes of server memory.
+      Add the missing permissions checks to prevent misuse. (CVE-2016-3065)
 
   * Stop suggesting the use of identd.
   * Modernize server package description.
   * Recommend sysstat.
 
- -- Christoph Berg <myon@debian.org>  Thu, 11 Feb 2016 22:41:48 +0100
+ -- Christoph Berg <myon@debian.org>  Tue, 29 Mar 2016 12:22:08 +0200
 
 postgresql-9.5 (9.5.1-1) unstable; urgency=medium
 
