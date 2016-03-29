@@ -41,6 +41,7 @@ postgresql-9.5 (9.5.2-1) unstable; urgency=medium
       them might crash the server or disclose a few bytes of server memory.
       Add the missing permissions checks to prevent misuse. (CVE-2016-3065)
 
+  * 02-relax-sslkey-permscheck.patch: Replace with what went upstream in 9.6.
   * Stop suggesting the use of identd.
   * Modernize server package description.
   * Recommend sysstat.
