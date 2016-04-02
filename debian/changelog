@@ -1,3 +1,10 @@
+postgresql-9.1 (9.1.21-0+deb8u1) jessie; urgency=medium
+
+  * New upstream version, relevant PL/Perl change:
+    + Correctly handle empty arrays in plperl_ref_from_pg_array.
+
+ -- Christoph Berg <myon@debian.org>  Sat, 02 Apr 2016 16:16:53 +0200
+
 postgresql-9.1 (9.1.20-0+deb8u1) jessie; urgency=medium
 
   * New upstream release: No effective changes for PL/Perl, the version must
