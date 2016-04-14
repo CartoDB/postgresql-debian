@@ -1,3 +1,10 @@
+postgresql-9.4 (9.4.7-0+deb8u1~bpo70+2) unstable; urgency=low
+
+  * Fix alignment issue in contrib/test_decoding only visible on sparc.
+    Thanks to Andres Freund for the patch.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 13 Apr 2016 23:12:12 +0200
+
 postgresql-9.4 (9.4.7-0+deb8u1~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
