@@ -132,7 +132,7 @@ Architecture: any
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  postgresql-client-9.5,
- postgresql-common (>= 142~),
+ postgresql-common (>= 158~),
  tzdata,
  ssl-cert,
  locales
