@@ -1,3 +1,9 @@
+postgresql-9.3 (9.3.13-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Tue, 10 May 2016 10:17:37 +0200
+
 postgresql-9.3 (9.3.12-1) unstable; urgency=medium
 
   * New upstream version.
