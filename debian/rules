@@ -166,4 +166,4 @@ override_dh_strip:
 	dh_strip --dbg-package=postgresql-$(MAJOR_VER)-dbg
 
 override_dh_builddeb:
-	dh_builddeb -- -Zxz
+	dh_builddeb -- -Zxz # explicit xz compression for wheezy and precise
