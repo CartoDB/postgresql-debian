@@ -1,3 +1,10 @@
+postgresql-9.3 (9.3.13-2) UNRELEASED; urgency=medium
+
+  * Remove conditional multi-arch compilation, all supported dists are
+    multi-arched now.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Fri, 03 Jun 2016 13:20:20 +0200
+
 postgresql-9.3 (9.3.13-1) unstable; urgency=medium
 
   * New upstream version.
