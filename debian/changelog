@@ -1,3 +1,10 @@
+postgresql-8.2 (8.2.23-1.pgdg+2) sid-pgdg; urgency=medium
+
+  * Add -fno-aggressive-loop-optimizations to CFLAGS, cf.
+    http://stackoverflow.com/a/34204352/3872653.
+
+ -- Christoph Berg <myon@debian.org>  Sat, 06 Aug 2016 23:00:33 +0200
+
 postgresql-8.2 (8.2.23-1.pgdg+1) sid-pgdg; urgency=low
 
   * Append .pgdg+1 to version.

@@ -13,7 +13,8 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all,-pie,-format
 DPKG_EXPORT_BUILDFLAGS = 1
 -include /usr/share/dpkg/buildflags.mk
 LDFLAGS+= -Wl,--as-needed -L/usr/lib/mit-krb5 -L/usr/lib/$(DEB_HOST_MULTIARCH)/mit-krb5
-CFLAGS+= -fPIC -pie -I/usr/include/mit-krb5
+CFLAGS+= -fPIC -pie -I/usr/include/mit-krb5 -fno-aggressive-loop-optimizations
+# cf. http://stackoverflow.com/a/34204352/3872653
 
 # When protecting the postmaster with oom_adj=-17, allow the OOM killer to slay
 # the backends (http://archives.postgresql.org/pgsql-hackers/2010-01/msg00170.php)
