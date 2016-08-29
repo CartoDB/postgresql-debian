@@ -1,3 +1,9 @@
+postgresql-9.6 (9.6~rc1-1) unstable; urgency=medium
+
+  * First 9.6 release candidate.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 29 Aug 2016 23:10:22 +0200
+
 postgresql-9.6 (9.6~beta4-1) experimental; urgency=medium
 
   * New upstream beta version.
