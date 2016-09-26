@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5.4-3) unstable; urgency=medium
+
+  * Team upload.
+  * Build-Depend on libpq-dev and libecpg-dev.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Mon, 26 Sep 2016 15:42:29 +0200
+
 postgresql-9.5 (9.5.4-2) unstable; urgency=medium
 
   * Team upload.
