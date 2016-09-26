@@ -1,3 +1,12 @@
+postgresql-9.5 (9.5.4-2) unstable; urgency=medium
+
+  * Team upload.
+  * Stop building the lib packages, they are provided by postgresql-9.6.
+    Closes: #838838
+  * Remove hardening-wrapper alternative build-dependency. Closes: #836647.
+
+ -- Christoph Berg <christoph.berg@credativ.de>  Mon, 26 Sep 2016 10:46:21 +0200
+
 postgresql-9.5 (9.5.4-1) unstable; urgency=medium
 
   * New upstream version.

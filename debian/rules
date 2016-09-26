@@ -165,7 +165,7 @@ ifneq ($(SELINUX_EXCLUDE),)
 	# work around dh_install -X not working on globs (see also #350570)
 	sed -i -e '/sepgsql/d' debian/postgresql-contrib-*.install
 endif
-	dh_install --fail-missing $(SELINUX_EXCLUDE)
+	dh_install $(SELINUX_EXCLUDE)
 
 	mkdir -p debian/postgresql-$(MAJOR_VER)/usr/share/doc/postgresql-$(MAJOR_VER)
 	ln -s ../postgresql-common/README.Debian.gz debian/postgresql-$(MAJOR_VER)/usr/share/doc/postgresql-$(MAJOR_VER)/README.Debian.gz
