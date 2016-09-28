@@ -3,6 +3,7 @@ postgresql-9.6 (9.6.0-1) unstable; urgency=medium
   * First 9.6 release.
   * Filter -fdebug-prefix-map from pg_config output. This makes the build
     reproducible; the flag would be useless anyway.
+  * Drop hardening-wrapper.
 
  -- Christoph Berg <christoph.berg@credativ.de>  Tue, 27 Sep 2016 17:09:32 +0200
 
