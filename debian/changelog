@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5.2-3cdb1) precise; urgency=low
+
+  * Release 9.5.2-3cdb1
+  * Patch to allow interruptible PLPython functions
+
+ -- keybase.io/zenitram <zenitram@keybase.io>  Fri, 21 Oct 2016 10:52:39 +0000
+
 postgresql-9.5 (9.5.2-2ubuntu1) precise; urgency=low
 
   * Release 9.5.2 for CartoDB
