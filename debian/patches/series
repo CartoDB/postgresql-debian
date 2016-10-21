@@ -8,3 +8,4 @@
 70-history
 90-profile_fdw.patch
 91-extension_shipping.patch
+hurd-sem_init
