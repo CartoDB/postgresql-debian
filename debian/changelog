@@ -1,3 +1,10 @@
+postgresql-9.5 (9.5.2-3cdb2) precise; urgency=low
+
+  * Release 9.5.2-3cdb2
+  * Patch to fix segfault in plpython's exception handling
+
+ -- Antonio Zamorano <azamorano@carto.com>  Wed, 23 Nov 2016 15:39:43 +0100
+
 postgresql-9.5 (9.5.2-3cdb1) precise; urgency=low
 
   * Release 9.5.2-3cdb1

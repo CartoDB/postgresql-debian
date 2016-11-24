@@ -1,0 +1,81 @@
+From e95649d8d173f483d67d9338a9089947a7667e5f Mon Sep 17 00:00:00 2001
+From: Rafa de la Torre <rtorre@cartodb.com>
+Date: Wed, 23 Nov 2016 10:50:40 +0100
+Subject: [PATCH] Fix segfault in plpython's exception handling
+
+When a subtransaction is aborted in plpython because of an SPI
+exception, it tries to find a matching python exception in a hash
+`PLy_spi_exceptions` and to make python vm raise it.
+
+That hash is generated during module initialization, but the exception
+objects are not marked to prevent the garbage collector from collecting
+them, which can lead to a segmentation fault when processing any SPI
+exception.
+
+PoC to reproduce the issue:
+
+```sql
+CREATE OR REPLACE FUNCTION server_crashes()
+RETURNS VOID
+AS $$
+    import gc
+    gc.collect()
+    plan = plpy.prepare('SELECT raises_an_spi_exception();', [])
+    plpy.execute(plan)
+$$ LANGUAGE plpythonu;
+
+CREATE OR REPLACE FUNCTION raises_an_spi_exception()
+RETURNS VOID
+AS $$
+DECLARE
+  sql TEXT;
+BEGIN
+  sql = format('%I', NULL); -- NullValueNotAllowed
+END
+$$ LANGUAGE plpgsql;
+
+SELECT server_crashes(); -- segfault here
+```
+
+Stacktrace of the problem (using PostgreSQL `REL9_5_STABLE` and python
+`2.7.3-0ubuntu3.8` on a Ubuntu 12.04):
+
+```
+ Program received signal SIGSEGV, Segmentation fault.
+ 0x00007f3155c7670b in PyObject_Call (func=0x7f31b7db2a30, arg=0x7f31b87d17d0, kw=0x0) at ../Objects/abstract.c:2525
+ 2525    ../Objects/abstract.c: No such file or directory.
+ (gdb) bt
+ #0  0x00007f3155c7670b in PyObject_Call (func=0x7f31b7db2a30, arg=0x7f31b87d17d0, kw=0x0) at ../Objects/abstract.c:2525
+ #1  0x00007f3155d81ab1 in PyEval_CallObjectWithKeywords (func=0x7f31b7db2a30, arg=0x7f31b87d17d0, kw=0x0) at ../Python/ceval.c:3890
+ #2  0x00007f3155c766ed in PyObject_CallObject (o=0x7f31b7db2a30, a=0x7f31b87d17d0) at ../Objects/abstract.c:2517
+ #3  0x00007f31561e112b in PLy_spi_exception_set (edata=0x7f31b8743d78, excclass=0x7f31b7db2a30) at plpy_spi.c:547
+ #4  PLy_spi_subtransaction_abort (oldcontext=<optimized out>, oldowner=<optimized out>) at plpy_spi.c:527
+ #5  0x00007f31561e2185 in PLy_spi_execute_plan (ob=0x7f31b87d0cd8, list=0x7f31b7c530d8, limit=0) at plpy_spi.c:307
+ #6  0x00007f31561e22d4 in PLy_spi_execute (self=<optimized out>, args=0x7f31b87a6d08) at plpy_spi.c:180
+ #7  0x00007f3155cda4d6 in PyCFunction_Call (func=0x7f31b7d29600, arg=0x7f31b87a6d08, kw=0x0) at ../Objects/methodobject.c:81
+ #8  0x00007f3155d82383 in call_function (pp_stack=0x7fff9207e710, oparg=2) at ../Python/ceval.c:4021
+ #9  0x00007f3155d7cda4 in PyEval_EvalFrameEx (f=0x7f31b8805be0, throwflag=0) at ../Python/ceval.c:2666
+ #10 0x00007f3155d82898 in fast_function (func=0x7f31b88b5ed0, pp_stack=0x7fff9207ea70, n=0, na=0, nk=0) at ../Python/ceval.c:4107
+ #11 0x00007f3155d82584 in call_function (pp_stack=0x7fff9207ea70, oparg=0) at ../Python/ceval.c:4042
+ #12 0x00007f3155d7cda4 in PyEval_EvalFrameEx (f=0x7f31b8805a00, throwflag=0) at ../Python/ceval.c:2666
+ #13 0x00007f3155d7f8a9 in PyEval_EvalCodeEx (co=0x7f31b88aa460, globals=0x7f31b8727ea0, locals=0x7f31b8727ea0, args=0x0, argcount=0, kws=0x0, kwcount=0, defs=0x0, defcount=0, closure=0x0) at ../Python/ceval.c:3253
+ #14 0x00007f3155d74ff4 in PyEval_EvalCode (co=0x7f31b88aa460, globals=0x7f31b8727ea0, locals=0x7f31b8727ea0) at ../Python/ceval.c:667
+ #15 0x00007f31561dc476 in PLy_procedure_call (kargs=kargs@entry=0x7f31561e5690 "args", vargs=<optimized out>, proc=0x7f31b873b2d0, proc=0x7f31b873b2d0) at plpy_exec.c:801
+ #16 0x00007f31561dd9c6 in PLy_exec_function (fcinfo=fcinfo@entry=0x7f31b7c1f870, proc=0x7f31b873b2d0) at plpy_exec.c:61#17 0x00007f31561de9f9 in plpython_call_handler (fcinfo=0x7f31b7c1f870) at plpy_main.c:291
+```
+---
+ src/pl/plpython/plpy_plpymodule.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/pl/plpython/plpy_plpymodule.c b/src/pl/plpython/plpy_plpymodule.c
+index a44b7fb..3334739 100644
+--- a/src/pl/plpython/plpy_plpymodule.c
++++ b/src/pl/plpython/plpy_plpymodule.c
+@@ -258,6 +258,7 @@ PLy_generate_spi_exceptions(PyObject *mod, PyObject *base)
+ 		PyDict_SetItemString(dict, "sqlstate", sqlstate);
+ 		Py_DECREF(sqlstate);
+ 		exc = PyErr_NewException(exception_map[i].name, base, dict);
++		Py_INCREF(exc);
+ 		PyModule_AddObject(mod, exception_map[i].classname, exc);
+ 		entry = hash_search(PLy_spi_exceptions, &exception_map[i].sqlstate,
+ 							HASH_ENTER, &found);
