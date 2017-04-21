@@ -57,7 +57,11 @@ index 5dd86c6..b2632cd 100644
 +PLy_handle_interrupt(int sig)
 +{
 +	// custom interruption
-+	Py_AddPendingCall(PLy_python_interruption_handler, NULL);
++	if (PLy_execution_contexts != NULL) {
++		// Insert python interruption only if a python function is being executed
++		// otherwise, future python execution would be affected
++	  Py_AddPendingCall(PLy_python_interruption_handler, NULL);
++	}
 +
 +	if (coreIntHandler) {
 +		(*coreIntHandler)(sig);
