@@ -41,9 +41,7 @@ index 5dd86c6..b2632cd 100644
 +void
 +_PG_fini(void)
 +{
-+	if (coreIntHandler) {
-+		pqsignal(SIGINT, coreIntHandler);
-+	}
++ pqsignal(SIGINT, coreIntHandler);
 +}
 +
 +static int
