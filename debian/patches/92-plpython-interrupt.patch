@@ -61,7 +61,8 @@ index 5dd86c6..b2632cd 100644
 +	  Py_AddPendingCall(PLy_python_interruption_handler, NULL);
 +	}
 +
-+	if (coreIntHandler) {
++	if (coreIntHandler != SIG_DFL && coreIntHandler != SIG_IGN) {
++   // Note that we're handling SIG_DFL (incorrectly) as SIG_IGN
 +		(*coreIntHandler)(sig);
 +	}
 +}
