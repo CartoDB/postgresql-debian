@@ -35,31 +35,20 @@ index 5dd86c6..b2632cd 100644
  	return PLy_execution_contexts;
  }
 
-+static int PLy_execution_context_level = 0;
++/* Indicate tha a python interruption is pending */
 +static int PLy_pending_interrupt = 0;
 +
  static PLyExecutionContext *
  PLy_push_execution_context(void)
  {
-@@ -438,6 +447,7 @@ PLy_push_execution_context(void)
- 												 ALLOCSET_DEFAULT_MAXSIZE);
- 	context->next = PLy_execution_contexts;
- 	PLy_execution_contexts = context;
-+	++PLy_execution_context_level;
- 	return context;
- }
+@@ -451,6 +460,47 @@ PLy_pop_execution_context(void)
+	PLy_execution_contexts = context->next;
 
-@@ -449,8 +459,48 @@ PLy_pop_execution_context(void)
- 	if (context == NULL)
- 		elog(ERROR, "no Python function is currently executing");
-
-+	if (--PLy_execution_context_level == 0) {
++	if (PLy_execution_contexts == NULL) {
 +		// Clear pending interrupts when top level context exits
 +		PLy_pending_interrupt = 0;
 +	}
 +
- 	PLy_execution_contexts = context->next;
-
  	MemoryContextDelete(context->scratch_ctx);
  	PLy_free(context);
  }
@@ -87,17 +76,15 @@ index 5dd86c6..b2632cd 100644
 +static void
 +PLy_handle_interrupt(int sig)
 +{
-+	if (PLy_execution_context_level > 0) {
-+		// Insert python interruption only if a python function is being executed
-+		// otherwise, future python execution would be affected
-+		if (!PLy_pending_interrupt) {
-+			PLy_pending_interrupt = 1;
-+			Py_AddPendingCall(PLy_python_interruption_handler, PLy_execution_contexts);
-+		}
++	if (PLy_execution_contexts != NULL && !PLy_pending_interrupt) {
++		PLy_pending_interrupt = 1;
++		Py_AddPendingCall(PLy_python_interruption_handler, NULL);
 +	}
-+	// Fallback to prior handlers
++	// Fallback to execute prior handlers
 +	if (coreIntHandler != SIG_DFL && coreIntHandler != SIG_IGN) {
-+		Note that we're handling SIG_DFL (incorrectly) as SIG_IGN
++		// There's a catch here: if the prior handler was SIG_DFL we have no easy way
++		// of invoking it here;
++		// As that's an unlikely situation we'll just treat SIG_DFL as SIG_IGN.
 +		(*coreIntHandler)(sig);
 +	}
 +}
