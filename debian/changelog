@@ -1,3 +1,9 @@
+postgresql-9.5 (9.5.2-3cdb3) precise; urgency=medium
+
+  * Improved patch for interruptible PLPython functions
+
+ -- Rafa de la Torre <rtorre@cartodb.com>  Tue, 23 May 2017 18:48:02 +0200
+
 postgresql-9.5 (9.5.2-3cdb2) precise; urgency=low
 
   * Release 9.5.2-3cdb2
