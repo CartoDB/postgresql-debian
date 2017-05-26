@@ -1,66 +1,89 @@
-From c7f7c818d90b8f94103b218732ba749db6812ea9 Mon Sep 17 00:00:00 2001
-From: Mario de Frutos <mario.defrutos@cartodb.com>
-Date: Fri, 14 Oct 2016 18:44:31 +0200
-Subject: [PATCH] Handler to manage interrupts for python code inside PLPython
+commit b319ceef00d3a9cfd5b7a4bd0bc9a892ca18149b
+Author: Javier Goizueta <jgoizueta@gmail.com>
+Date:   Fri May 5 12:27:15 2017 +0200
 
----
- src/pl/plpython/plpy_main.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+    Make execution of plpython interruptible
+    
+    The plpy module hooks into the signal handling mechanism to insert python exceptions when a SIGINT occurs.
 
 diff --git a/src/pl/plpython/plpy_main.c b/src/pl/plpython/plpy_main.c
-index 5dd86c6..b2632cd 100644
+index 5dd86c6..9f53453 100644
 --- a/src/pl/plpython/plpy_main.c
 +++ b/src/pl/plpython/plpy_main.c
-@@ -74,6 +74,10 @@ PyObject   *PLy_interp_globals = NULL;
+@@ -74,6 +74,9 @@ PyObject   *PLy_interp_globals = NULL;
  /* this doesn't need to be global; use PLy_current_execution_context() */
  static PLyExecutionContext *PLy_execution_contexts = NULL;
  
 +/* postgres backend handler for interruption */
 +static pqsigfunc coreIntHandler = 0;
 +static void PLy_handle_interrupt(int sig);
-+
  
  void
  _PG_init(void)
-@@ -81,6 +85,9 @@ _PG_init(void)
+@@ -81,6 +84,9 @@ _PG_init(void)
  	int		  **bitmask_ptr;
  	const int **version_ptr;
  
-+  	// Catch and process signals
-+  	coreIntHandler = pqsignal(SIGINT, PLy_handle_interrupt);
++	/* Catch and process SIGINT signals */
++	coreIntHandler = pqsignal(SIGINT, PLy_handle_interrupt);
 +
  	/*
  	 * Set up a shared bitmask variable telling which Python version(s) are
  	 * loaded into this process's address space.  If there's more than one, we
-@@ -454,3 +461,31 @@ PLy_pop_execution_context(void)
+@@ -425,6 +431,9 @@ PLy_current_execution_context(void)
+ 	return PLy_execution_contexts;
+ }
+ 
++/* Indicate tha a python interruption is pending */
++static int PLy_pending_interrupt = 0;
++
+ static PLyExecutionContext *
+ PLy_push_execution_context(void)
+ {
+@@ -451,6 +460,46 @@ PLy_pop_execution_context(void)
+ 
+ 	PLy_execution_contexts = context->next;
+ 
++	if (PLy_execution_contexts == NULL) {
++		// Clear pending interrupts when top level context exits
++		PLy_pending_interrupt = 0;
++	}
++
  	MemoryContextDelete(context->scratch_ctx);
  	PLy_free(context);
  }
 +
-+void _PG_fini(void);
 +void
 +_PG_fini(void)
 +{
-+	if (coreIntHandler) {
-+		pqsignal(SIGINT, coreIntHandler);
-+	}
++	// Restore previous SIGINT handler
++	pqsignal(SIGINT, coreIntHandler);
 +}
 +
 +static int
 +PLy_python_interruption_handler()
 +{
++	if (!PLy_pending_interrupt) {
++		return 0;
++	}
++
++	PLy_pending_interrupt = 0;
 +	PyErr_SetString(PyExc_RuntimeError, "Execution of function interrupted by signal");
-+	return 0;
++	return -1;
 +}
 +
 +static void
 +PLy_handle_interrupt(int sig)
 +{
-+	// custom interruption
-+	Py_AddPendingCall(PLy_python_interruption_handler, NULL);
-+
-+	if (coreIntHandler) {
++	if (PLy_execution_contexts != NULL && !PLy_pending_interrupt) {
++		PLy_pending_interrupt = 1;
++		Py_AddPendingCall(PLy_python_interruption_handler, NULL);
++	}
++	// Fallback to execute prior handlers
++	if (coreIntHandler != SIG_DFL && coreIntHandler != SIG_IGN) {
++		// There's a catch here: if the prior handler was SIG_DFL we have no easy way
++		// of invoking it here;
++		// As that's an unlikely situation we'll just treat SIG_DFL as SIG_IGN.
 +		(*coreIntHandler)(sig);
 +	}
 +}
-+
