@@ -1,30 +1,124 @@
-postgresql-9.5 (9.5.2-3cdb2) precise; urgency=low
+postgresql-9.5 (9.5.7-cdb1) xenial; urgency=medium
 
-  * Release 9.5.2-3cdb2
+  * Release 9.5.7-cdb1
   * Patch to fix segfault in plpython's exception handling
-
- -- Antonio Zamorano <azamorano@carto.com>  Wed, 23 Nov 2016 15:39:43 +0100
-
-postgresql-9.5 (9.5.2-3cdb1) precise; urgency=low
-
-  * Release 9.5.2-3cdb1
   * Patch to allow interruptible PLPython functions
+  * Extra patches from pramsey fdw related.
 
- -- keybase.io/zenitram <zenitram@keybase.io>  Fri, 21 Oct 2016 10:52:39 +0000
+ -- Antonio Zamorano <azamorano@carto.com>  Fri, 07 Jul 2017 15:02:25 +0200
 
-postgresql-9.5 (9.5.2-2ubuntu1) precise; urgency=low
+postgresql-9.5 (9.5.7-0ubuntu0.16.04) xenial; urgency=medium
 
-  * Release 9.5.2 for CartoDB
+  * New upstream release (LP: #1690730)
+    - Restrict visibility of pg_user_mappings.umoptions, to protect passwords
+      stored as user mapping options (CVE-2017-7486)
+    - Prevent exposure of statistical information via leaky operators
+      (CVE-2017-7484)
+    - Restore libpq's recognition of the PGREQUIRESSL environment variable
+      (CVE-2017-7485)
 
- -- keybase.io/zenitram <zenitram@keybase.io>  Thu, 14 Apr 2016 10:41:31 +0000
+    - A dump/restore is not required for those running 9.5.X.
+    - However, if you use foreign data servers that make use of user passwords
+      for authentication, see the first changelog entry.
+    - Also, if you are using third-party replication tools that depend on
+      "logical decoding", see the fourth changelog entry.
 
-postgresql-9.5 (9.5.2-2) UNRELEASED; urgency=medium
+    - Details about other changes at full changelog:
+      https://www.postgresql.org/docs/9.5/static/release-9-5-7.html
 
-  * rules: Use host architecture for all architecture checks.
-  * Use POSIX semaphores on hurd. They don't work yet, but have better chances
-    of eventually getting implemented.  Closes: #820743.
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Mon, 15 May 2017 08:46:07 +0200
 
- -- Christoph Berg <christoph.berg@credativ.de>  Tue, 12 Apr 2016 14:45:03 +0200
+postgresql-9.5 (9.5.6-0ubuntu0.16.04) xenial; urgency=medium
+
+  * New upstream release (LP: #1664478)
+    - Fix a race condition that could cause indexes built with CREATE INDEX
+      CONCURRENTLY to be corrupt (Pavan Deolasee, Tom Lane).
+      If CREATE INDEX CONCURRENTLY was used to build an index that depends on
+      a column not previously indexed, then rows inserted or updated by
+      transactions that ran concurrently with the CREATE INDEX command could
+      have received incorrect index entries.  If you suspect this may have
+      happened, the most reliable solution is to rebuild affected indexes
+      after installing this update
+
+    - Details about other changes:
+      http://www.postgresql.org/docs/9.5/static/release-9-5-6.html
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Tue, 14 Feb 2017 09:29:09 +0100
+
+postgresql-9.5 (9.5.5-0ubuntu0.16.04) xenial-proposed; urgency=medium
+
+  * New upstream bug fix release (LP: #1637236)
+    - Fix WAL-logging of truncation of relation free space maps and visibility
+      maps.
+      It was possible for these files to not be correctly restored during
+      crash recovery, or to be written incorrectly on a standby server. Bogus
+      entries in a free space map could lead to attempts to access pages that
+      have been truncated away from the relation itself, typically producing
+      errors like "could not read block XXX: read only 0 of 8192 bytes".
+      Checksum failures in the visibility map are also possible, if
+      checksumming is enabled.
+
+      Procedures for determining whether there is a problem and repairing it
+      if so are discussed at
+         https://wiki.postgresql.org/wiki/Free_Space_Map_Problems.
+
+    - Details about other changes:
+      http://www.postgresql.org/docs/9.5/static/release-9-5-5.html
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 27 Oct 2016 18:03:43 +0200
+
+postgresql-9.5 (9.5.4-0ubuntu0.16.04) xenial-security; urgency=medium
+
+  * New upstream security/bug fix release (LP: #1614113)
+    - Fix possible mis-evaluation of nested CASE-WHEN expressions
+      A CASE expression appearing within the test value subexpression of
+      another CASE could become confused about whether its own test value was
+      null or not.  Also, inlining of a SQL function implementing the equality
+      operator used by a CASE expression could result in passing the wrong
+      test value to functions called within a CASE expression in the SQL
+      function's body.  If the test values were of different data types, a
+      crash might result; moreover such situations could be abused to allow
+      disclosure of portions of server memory.  (CVE-2016-5423)
+
+    - Fix client programs' handling of special characters in database and role
+      names
+      Numerous places in vacuumdb and other client programs could become
+      confused by database and role names containing double quotes or
+      backslashes.  Tighten up quoting rules to make that safe. Also, ensure
+      that when a conninfo string is used as a database name parameter to
+      these programs, it is correctly treated as such throughout.
+
+      Fix handling of paired double quotes in psql's \connect and \password
+      commands to match the documentation.
+
+      Introduce a new -reuse-previous option in psql's \connect command to
+      allow explicit control of whether to re-use connection parameters from a
+      previous connection.  (Without this, the choice is based on whether the
+      database name looks like a conninfo string, as before.)  This allows
+      secure handling of database names containing special characters in
+      pg_dumpall scripts.
+
+      pg_dumpall now refuses to deal with database and role names containing
+      carriage returns or newlines, as it seems impractical to quote those
+      characters safely on Windows.  In future we may reject such names on the
+      server side, but that step has not been taken yet.
+
+      These are considered security fixes because crafted object names
+      containing special characters could have been used to execute commands
+      with superuser privileges the next time a superuser executes pg_dumpall
+      or other routine maintenance operations.  (CVE-2016-5424)
+
+    - Details about other fixes:
+      https://www.postgresql.org/docs/9.5/static/release-9-5-4.html
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Wed, 17 Aug 2016 16:12:33 +0200
+
+postgresql-9.5 (9.5.3-0ubuntu0.16.04) xenial-proposed; urgency=medium
+
+  * New upstream bug fix release (LP: #1581016)
+    - Details: http://www.postgresql.org/docs/9.5/static/release-9-5-3.html
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 12 May 2016 14:57:49 +0200
 
 postgresql-9.5 (9.5.2-1) unstable; urgency=medium
 
@@ -76,12 +170,6 @@ postgresql-9.5 (9.5.2-1) unstable; urgency=medium
 
  -- Christoph Berg <myon@debian.org>  Tue, 29 Mar 2016 12:22:08 +0200
 
-postgresql-9.5 (9.5.1-1cdb1) precise; urgency=medium
-
-  * Release for CartoDB
-
- -- Antonio Zamorano <azamorano@gmail.com>  Thu, 03 Mar 2016 15:56:13 +0100
-
 postgresql-9.5 (9.5.1-1) unstable; urgency=medium
 
   * New upstream version.
@@ -101,14 +189,6 @@ postgresql-9.5 (9.5.0-3) unstable; urgency=medium
   * Update debian/copyright to please DEP-5.
 
  -- Christoph Berg <christoph.berg@credativ.de>  Thu, 04 Feb 2016 13:08:13 +0100
-
-postgresql-9.5 (9.5.0-2cdb1) precise; urgency=low
-
-  * Backport FDW extension shipping
-  * Add FDW timing debug profiling
-  * Release for CartoDB
-
- -- keybase.io/zenitram <zenitram@keybase.io>  Wed, 20 Jan 2016 11:23:06 +0000
 
 postgresql-9.5 (9.5.0-2) unstable; urgency=medium
 

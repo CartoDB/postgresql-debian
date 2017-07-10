@@ -9,5 +9,3 @@
 90-profile_fdw.patch
 91-extension_shipping.patch
 92-plpython-interrupt.patch
-93-plpython-segfault-excetion-handling.patch
-hurd-sem_init
